@@ -169,7 +169,8 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 	if (value == "fin") {
 
 		if ($element.father == false) {
-
+			$element.father = true;
+			$element.fin = true;
 			GetAllKeys($element);
 			// $element.isFather = true;
 			// $element.final = '*FINAL*';
@@ -194,11 +195,11 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 			// });
 		}
 
-	$element.father = $element.father == false && true || false;
-	// $element.final = $element.final == '' && 'Checked' || '';
-	checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
-	$element.fin = $element.fin == false && true || false;
-	refreshTable($('#relsTable'));
+	// $element.father = $element.father == false && true || false;
+	// // $element.final = $element.final == '' && 'Checked' || '';
+	// checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
+	// $element.fin = $element.fin == false && true || false;
+	// refreshTable($('#relsTable'));
 
 	}
 
@@ -471,20 +472,18 @@ function GetAllKeys(relation) {
 		return;
 	}
 
-	var relation;
-
 	if(relation == undefined){
-		relation = {};
+		var relation = {};
 		relation.pktable_name = $('#tables').find("option:selected").text();
 		relation.pktable_alias = $('#alias').val();
 		relation.type = "Final";
 		relation.father = false;
 	}
 
-	console.log("table_name=" + relation.pktable_name);
-	console.log("table_alias=" + relation.pktable_alias);
-	console.log("type=" + relation.type);
-	console.log("father=" + relation.father);
+	// console.log("table_name=" + relation.pktable_name);
+	// console.log("table_alias=" + relation.pktable_alias);
+	// console.log("type=" + relation.type);
+	// console.log("father=" + relation.father);
 
   $.ajax({
     type: 'POST',
@@ -500,42 +499,6 @@ function GetAllKeys(relation) {
 			}
 
 			$('#relsTable').bootstrapTable('load', data);
-
-			// $.each(data, function(i, o){
-			//
-			// 	if(father != undefined){
-			// 		o.fktable_alias = father.pktable_alias;
-			// 	}
-			// 	else {
-			// 		o.fktable_alias = $('#alias').val();
-			// 	}
-			//
-			// 	nextIndex = alreadyExists(o);
-			// 	// console.log("nextIndex="+nextIndex);
-			//
-			// 	if (nextIndex > -1){
-			// 		o = $('#relsTable').bootstrapTable("getData")[nextIndex];
-			// 		if(father != undefined) {
-			// 			o.fatherIndexes.push(father.index);
-			// 			//Remove duplicate entry
-			// 			o.fatherIndexes = Array.from(new Set(o.fatherIndexes));
-			// 			//or
-			// 			// o.fatherIndexes = [...new Set(o.fatherIndexes)];
-			// 		}
-			// 		$('#relsTable').bootstrapTable('updateRow', {index: nextIndex, row: o});
-			// 		return;
-			// 	}
-			//
-			// 	if(father != undefined) {
-			// 		o.fatherIndexes.push(father.index);
-			// 		o.fatherIndexes = Array.from(new Set(o.fatherIndexes));
-			// 	}
-			// 	nextIndex = $('#relsTable').bootstrapTable("getData").length;
-			// 	console.log("nextIndex=" + nextIndex);
-			//
-			// 	$('#relsTable').bootstrapTable('insertRow', {index: nextIndex, row: o});
-			//
-			// });
 
   	},
       error: function(data) {

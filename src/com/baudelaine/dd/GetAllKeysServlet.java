@@ -43,12 +43,6 @@ public class GetAllKeysServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		String table = request.getParameter("table");
-//		String alias = request.getParameter("alias");
-//		String type = request.getParameter("type");
-//		System.out.println("table=" + table);
-//		System.out.println("alias=" + alias);
-//		System.out.println("type=" + type);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
@@ -70,6 +64,14 @@ public class GetAllKeysServlet extends HttpServlet {
         }
         
         Map<String, Relation> relations = (Map<String, Relation>) request.getSession().getAttribute("relations");
+        
+		// Update father _id if pktable_alias has changed
+        relations.remove(father.get_id());
+        father.set_id(father.getFktable_alias() + father.getType() + father.getPktable_alias() + father.key_type);
+        relations.put(father.get_id(), father);
+		
+		
+
         
 		Connection con = null;
 		ResultSet rst = null;
@@ -93,10 +95,7 @@ public class GetAllKeysServlet extends HttpServlet {
 		    	String pkcolumn_name = rst.getString("PKCOLUMN_NAME");
 		        String fktable_name = rst.getString("FKTABLE_NAME");
 		        String pktable_name = rst.getString("PKTABLE_NAME");
-		        String _id = father.getPktable_alias() + father.getType() + father.getFktable_alias() + "F";
-		        if(father.getFktable_alias().length() == 0){
-		        	_id = father.getPktable_alias() + father.getType() + pktable_name + "F";
-		        }
+		        String _id = father.getPktable_alias() + father.getType() + pktable_name + "F";
 		        System.out.println("_id=" + _id);
 		        Relation relation = null;
 
@@ -114,6 +113,7 @@ public class GetAllKeysServlet extends HttpServlet {
 		        	relation.setType(father.getType());
 		        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 		        	relation.setKey_type("F");
+		        	relation.addFather_id(father.get_id());
 		        	
 		        	Seq seq = new Seq();
 		        	seq.setFkcolumn_name(fkcolumn_name);
@@ -180,6 +180,7 @@ public class GetAllKeysServlet extends HttpServlet {
 		        	relation.setType(father.getType());
 		        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 		        	relation.setKey_type("P");
+		        	relation.addFather_id(father.get_id());
 		        	
 		        	Seq seq = new Seq();
 		        	seq.setFkcolumn_name(fkcolumn_name);

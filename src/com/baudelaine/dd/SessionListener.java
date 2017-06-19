@@ -27,6 +27,7 @@ public class SessionListener implements HttpSessionListener {
 	String schema = "";
 	String query = "";
 	Map<String, Relation> relations = new HashMap<String, Relation>();
+	Map<String, Object> table_aliases = new HashMap<String, Object>();
 	
     /**
      * Default constructor. 
@@ -66,6 +67,7 @@ public class SessionListener implements HttpSessionListener {
 			s.setAttribute("schema", schema);
 			s.setAttribute("query", query);
 			s.setAttribute("relations", relations);
+			s.setAttribute("table_aliases", table_aliases);
 			System.out.println("SessionId " + s.getId() + " is now connected to " + jndiName + " using shema " + schema);
 			
 		} catch (NamingException | SQLException e) {

@@ -8,7 +8,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -63,16 +62,17 @@ public class GetAllKeysServlet extends HttpServlet {
         	return;
         }
         
+        Map<String, Object> table_aliases = (Map<String, Object>) request.getSession().getAttribute("table_aliases");
+        table_aliases.put(father.getPktable_alias(), father.getFktable_name());
+        
         Map<String, Relation> relations = (Map<String, Relation>) request.getSession().getAttribute("relations");
         
 		// Update father _id if pktable_alias has changed
         relations.remove(father.get_id());
-        father.set_id(father.getFktable_alias() + father.getType() + father.getPktable_alias() + father.key_type);
+        father.set_id(father.getFktable_alias() + father.getType() + father.getPktable_alias() + father.getKey_type());
         relations.put(father.get_id(), father);
 		
 		
-
-        
 		Connection con = null;
 		ResultSet rst = null;
 		List<Object> result = new ArrayList<Object>();
@@ -96,6 +96,7 @@ public class GetAllKeysServlet extends HttpServlet {
 		        String fktable_name = rst.getString("FKTABLE_NAME");
 		        String pktable_name = rst.getString("PKTABLE_NAME");
 		        String _id = father.getPktable_alias() + father.getType() + pktable_name + "F";
+		        
 		        System.out.println("_id=" + _id);
 		        Relation relation = null;
 
@@ -104,6 +105,12 @@ public class GetAllKeysServlet extends HttpServlet {
 		        	System.out.println("+++ add relation +++");
 		        	
 		        	relation = new Relation();
+
+			        if(relations.get(_id) != null){
+			        	System.out.println("Relation _id: " + _id + " already exists. Adding existing father_ids...");
+			        	relation.setFather_ids(relations.get(_id).getFather_ids());
+			        }
+		        	
 		        	relation.set_id(_id);
 		        	relation.setKey_name(key_name);
 		        	relation.setFktable_name(fktable_name);
@@ -146,6 +153,7 @@ public class GetAllKeysServlet extends HttpServlet {
 	        	
 		        	
 		    }
+		    rst.close();
 		    
 	    	// get Primary Keys
 		    rst = metaData.getExportedKeys(con.getCatalog(), schema, father.getPktable_name());
@@ -162,15 +170,12 @@ public class GetAllKeysServlet extends HttpServlet {
 		        System.out.println("_id=" + _id);
 		        Relation relation = null;
 		        
-		        System.out.println("{key_name: \""+key_name+"\", key_seq: \"" + key_seq + "\", fkcolumn_name: \"" + fkcolumn_name +
-                        "\", pkcolumn_name: \"" + pkcolumn_name + "\", fktable_name: \"" + fktable_name + "\", pktable_name: " + 
-                        pktable_name + "\"}");
-
 		        if(!newRelations.containsKey(fktable_name)){
 		        	
 		        	System.out.println("+++ add relation +++");
 		        	
 		        	relation = new Relation();
+
 		        	relation.set_id(_id);
 		        	relation.setKey_name(key_name);
 		        	relation.setFktable_name(pktable_name);
@@ -213,7 +218,7 @@ public class GetAllKeysServlet extends HttpServlet {
 	        	
 		        	
 		    }
-
+		    rst.close();
 		    
 		    
 		    for(Entry<String, Relation> relation: relations.entrySet()){
@@ -227,7 +232,8 @@ public class GetAllKeysServlet extends HttpServlet {
 		}
 		catch (Exception e){
 			e.printStackTrace(System.err);
-		}			
+		}
+
 	}
 
 	/**

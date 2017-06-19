@@ -119,4 +119,5 @@ public class Relation {
 	public void addSeq(Seq seq){
 		this.seqs.add(seq);
 	}
+	
 }

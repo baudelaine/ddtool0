@@ -15,74 +15,27 @@
 <body>
 
 
-<div>
+	<div class="container-fluid" id="tabContent">
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-  </ul>
+		<!-- Toolbar -->
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">...</div>
+						<div class="btn-group" id="relsToolbar" role="group" aria-label="...">
 
-    <div role="tabpanel" class="tab-pane" id="profile">
+						<button type="button" onclick="GetAllKeys()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Get foreign key(s) from table selected above."><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></button>
+						<button type="button" onclick="DuplicateRow()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Duplicate selected row(s)"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>
+						<button type="button" onclick="RemoveRow()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove selected row(s)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+						<button type="button" data-toggle="modal" data-target="#newRowModal" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add a new row"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+						<button type="button" onclick="GetTableData()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Show table object in console"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>
+						<button type="button" onclick="ClearSelections()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove all."><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 
-			<div class="container-fluid" id="tabContent">
-
-				<div class="row">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-btn">
-								<select class="selectpicker" data-style="btn-default" id="modFKTables" data-live-search="true" title="Choose fktable_name..."></select>
-							</div>
-								<div class="input-group">
-								<span class="input-group-addon">@</span>
-								<input type="text" id="modFKTableAlias" class="form-control" placeholder="fktable_alias">
-								</div>
-						</div>
 					</div>
-				</div>
 
-				<div class="row">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-btn">
-								<select class="selectpicker" data-style="btn-default" id="modPKTables" data-live-search="true" title="Choose pktable_name..."></select>
-							</div>
-								<div class="input-group">
-								<span class="input-group-addon">@</span>
-								<input type="text" id="modPKTableAlias" class="form-control" placeholder="pktable_alias">
-								</div>
-						</div>
-					</div>
-				</div>
+		<!-- list -->
 
-				<div class="row">
-						<div class="form-group">
-							<input type="text" id="modFKName" class="form-control" placeholder="fk_name">
-						</div>
-				</div>
+		<table class="table table-striped fontsize" id="relsTable">
 
-				<div class="row">
-						<div class="form-group">
-							<textarea id="modRelashionship" class="form-control" placeholder="Paste relashionship..." rows="4"></textarea>
-						</div>
-				</div>
-
-			</div>
-
-
-		</div>
-
-    <div role="tabpanel" class="tab-pane" id="messages">...</div>
-    <div role="tabpanel" class="tab-pane" id="settings">...</div>
-  </div>
-
-</div>
+		</table>
+	</div>
 
 
 	<script src="js/jquery.min.js"></script>

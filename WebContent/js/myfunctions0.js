@@ -4,7 +4,6 @@ var curSelModPKTbl = "";
 
 var relation = {
 	_id: "",
-	// _ref: null,
 	fktable_name: "",
 	fktable_alias: "",
 	type: "",
@@ -16,10 +15,7 @@ var relation = {
 	fin: false,
 	ref: false,
 	father: false,
-	// seqs: [],
-	// checkbox: false,
 	father_ids: []
-
 };
 
 $(document).ready(function() {
@@ -94,20 +90,20 @@ $("a[href='#fields']").on('shown.bs.tab', function(e) {
 $("a[href='#reference']").on('shown.bs.tab', function(e) {
 			$("#relsTable").show();
 			$("div#relsToolbar").show();
-			$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F','P']});
+			// $('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F','P']});
  });
 
  // or even this one if we want the earlier event
  $("a[href='#final']").on('show.bs.tab', function(e) {
 			$("#relsTable").show();
 			$("div#relsToolbar").show();
-			$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
+			// $('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
  });
 
 function buildRelsTable(){
 
     var cols = [];
-    cols.push({field:"checkbox", checkbox: "true"});
+    cols.push({field:"checkBox", checkbox: "true"});
 		cols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
 		cols.push({field:"_id", title: "_id", sortable: false});
     cols.push({field:"fktable_name", title: "fktable_name", sortable: false });
@@ -134,8 +130,8 @@ function buildRelsTable(){
 				showToggle: true,
 				pagination: false,
 				showPaginationSwitch: true,
-				// uniqueId: "_id",
-				// idField: "index",
+				uniqueId: "_id",
+				idField: "index",
 				toolbar: "#relsToolbar"
     });
 
@@ -171,22 +167,9 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 	console.log("field: " + field);
 	console.log("value: " + value);
 
-	var checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
-
 	if (value == "fin") {
 
 		if ($element.father == false) {
-
-			/*
-				add control to prevent fktable_alias=pktable_alias
-				add control to prevent empty pktable_alias
-			*/
-
-			if ($element.fktable_alias == $element.pktable_alias || $element.pktable_alias == '') {
-				showalert("Change pktable_alias before proceeding.", "alert-warning");
-				return;
-			}
-
 			$element.father = true;
 			$element.fin = true;
 			GetAllKeys($element);
@@ -207,7 +190,7 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 			$element.father = false;
 			$element.fin = false;
 			SyncRelations();
-			$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
+			// $('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
 			$("a[href='#final']").tab('show');
 			return;
 
@@ -303,6 +286,7 @@ function refreshTable($table){
 
 function DuplicateRow(){
 
+	// $('#relsTable').bootstrapTable('filterBy', {});
 
 	selections = $('#relsTable').bootstrapTable('getSelections');
 	if (selections == "") {
@@ -310,25 +294,21 @@ function DuplicateRow(){
 		return;
 	}
 
-	$('#relsTable').bootstrapTable("filterBy", {});
-
 	$.each(selections, function(i, o){
 
 		nextIndex = o.index + 1;
 		console.log("nextIndex=" + nextIndex);
 		var newRow = $.extend({}, o);
-		newRow.checkbox = false;
+		newRow.checkBox = false;
 		newRow.pktable_alias = "";
-		// newRow.index = nextIndex;
-		console.log("newRow");
-		console.log(newRow);
+		newRow.index = nextIndex;
+		console.log("newRow.index");
+		console.log(newRow.index);
 
 		$('#relsTable').bootstrapTable('insertRow', {index: nextIndex, row: newRow});
 
 	});
 
-	$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
-	$("a[href='#final']").tab('show');
 	$('#relsTable').bootstrapTable('uncheckAll');
 
 
@@ -427,7 +407,7 @@ function AppendSelections(){
 
 function SyncRelations(){
 
-	$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F','P']});
+	// $('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F','P']});
 	var data = $('#relsTable').bootstrapTable('getData');
 
 	var objs = [];
@@ -601,7 +581,7 @@ function GetAllKeys(relation) {
 
   });
 
-	$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
+	// $('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
 	$("a[href='#final']").tab('show');
 
 }

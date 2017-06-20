@@ -121,9 +121,9 @@ function buildRelsTable(){
 			}
 		});
 		cols.push({field:"relashionship", title: "relashionship", editable: {type: "textarea"}});
-		cols.push({field:"fin", title: "fin", align: "center"});
-		cols.push({field:"ref", title: "ref", align: "center"});
-		cols.push({field:"father", title: "father"});
+		cols.push({field:"fin", title: "fin", formatter: "boolFormatter", align: "center"});
+		cols.push({field:"ref", title: "ref", formatter: "boolFormatter", align: "center"});
+		cols.push({field:"father", formatter: "boolFormatter", title: "father"});
 		cols.push({field:"father_ids", title: "father_ids"});
 
     $('#relsTable').bootstrapTable("destroy").bootstrapTable({
@@ -140,6 +140,11 @@ function buildRelsTable(){
     });
 
 		// $('#relsTable').bootstrapTable('hideColumn', 'ref');
+}
+
+function boolFormatter(value, row, index) {
+	var icon = value == true ? 'glyphicon-ok' : ''
+	return '<i class="glyphicon ' + icon + '"></i> ';
 }
 
 function indexFormatter(value, row, index) {
@@ -190,6 +195,7 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 			$element.father = true;
 			$element.fin = true;
 			GetAllKeys($element);
+			// finFormatter($element.fin);
 			return;
 			// $element.isFather = true;
 			// $element.final = '*FINAL*';
@@ -222,7 +228,7 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 	// // $element.final = $element.final == '' && 'Checked' || '';
 	// checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
 	// $element.fin = $element.fin == false && true || false;
-	// refreshTable($('#relsTable'));
+	//refreshTable($('#relsTable'));
 
 	}
 
@@ -319,6 +325,10 @@ function DuplicateRow(){
 		var newRow = $.extend({}, o);
 		newRow.checkbox = false;
 		newRow.pktable_alias = "";
+		newRow.fin = false;
+		newRow.ref = false;
+		newRow.father = false;
+		newRow.father_ids = [];
 		// newRow.index = nextIndex;
 		console.log("newRow");
 		console.log(newRow);

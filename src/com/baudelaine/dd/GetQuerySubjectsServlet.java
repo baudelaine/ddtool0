@@ -1,7 +1,10 @@
 package com.baudelaine.dd;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GetSelectionsServlet
  */
-@WebServlet(name = "GetSelections", urlPatterns = { "/GetSelections" })
-public class GetSelectionsServlet extends HttpServlet {
+@WebServlet(name = "GetQuerySubjects", urlPatterns = { "/GetQuerySubjects" })
+public class GetQuerySubjectsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetSelectionsServlet() {
+    public GetQuerySubjectsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +33,17 @@ public class GetSelectionsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
-		List<Relation> selections = (List<Relation>) request.getSession().getAttribute("selections");
+		Map<String, QuerySubject> query_subjects = (Map<String, QuerySubject>) request.getSession().getAttribute("query_subjects");
+		
+		List<Object> result = new ArrayList<Object>();
+		
+		for(Entry<String, QuerySubject> query_subject: query_subjects.entrySet()){
+	    	result.add(query_subject.getValue());
+	    }
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(Tools.toJSON(selections));
+		response.getWriter().write(Tools.toJSON(result));
 		
 	}
 

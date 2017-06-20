@@ -1,6 +1,3 @@
-var curSelTable = "";
-var curSelModFKTbl = "";
-var curSelModPKTbl = "";
 
 var relation = {
 	_id: "",
@@ -22,14 +19,19 @@ var relation = {
 
 };
 
+var activeTab = 'Final';
+var previousTab = '';
+
 $(document).ready(function() {
 	$(document).ready(function(){
 	    $("div.content").click(function(){
 	        $("div#divLoading").addClass('show');
 	    });
 	});
-	GetTables($('#tables'));
+	ChooseTable($('#tables'));
 	buildRelsTable();
+	builQuerySubjectsTable();
+	$('#QuerySubjectsTable').hide();
 
 });
 
@@ -43,28 +45,36 @@ $(document)
 		$("div#modDivLoading").removeClass('show');
 });
 
-$('#modFKTables').change(function () {
+$('.nav-tabs a').on('shown.bs.tab', function(event){
+
+		console.log($(this)[0].hash);
+
+    activeTab = $(event.target).text();         // active tab
+		console.log("activeTab=" + activeTab);
+    previousTab = $(event.relatedTarget).text();  // previous tab
+		console.log("previousTab=" + previousTab);
+
+});
+
+$('#modQuerySubject').change(function () {
     selectedText = $(this).find("option:selected").text();
 		$('#modFKTableAlias').val(selectedText);
-		curSelModFKTbl = selectedText;
 });
 
 $('#modPKTables').change(function () {
     selectedText = $(this).find("option:selected").text();
 		$('#modPKTableAlias').val(selectedText);
-		curSelModPKTbl = selectedText;
 });
 
 $('#tables').change(function () {
     var selectedText = $(this).find("option:selected").text();
 		$('#alias').val(selectedText);
-    curSelTable = selectedText;
 });
 
 $('#newRowModal').on('show.bs.modal', function (e) {
   // do something...
-	GetTables($('#modFKTables'));
-	GetTables($('#modPKTables'));
+	ChooseQuerySubject($('#modQuerySubject'));
+	ChooseTable($('#modPKTables'));
 
 })
 
@@ -80,28 +90,38 @@ function showalert(message, alerttype) {
     }, 2500);
 }
 
-$("a[href='#querySubject']").on('shown.bs.tab', function(e) {
+$("a[href='#QuerySubject']").on('shown.bs.tab', function(e) {
 			$("#relsTable").hide();
 			$("div#relsToolbar").hide();
+			LoadQuerySubjects();
+			$('#QuerySubjectsTable').show();
 
 });
 
-$("a[href='#fields']").on('shown.bs.tab', function(e) {
+$("a[href='#Fields']").on('shown.bs.tab', function(e) {
 			 $("#relsTable").hide();
  			$("div#relsToolbar").hide();
+			$('#QuerySubjectsTable').hide();
+
 });
 
-$("a[href='#reference']").on('shown.bs.tab', function(e) {
+$("a[href='#Reference']").on('shown.bs.tab', function(e) {
 			$("#relsTable").show();
 			$("div#relsToolbar").show();
-			$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F','P']});
+			$('#QuerySubjectsTable').hide();
+			$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F','P', 'C']});
+			$('#relsTable').bootstrapTable('hideColumn', 'fin');
+			$('#relsTable').bootstrapTable('showColumn', 'ref');
  });
 
  // or even this one if we want the earlier event
- $("a[href='#final']").on('show.bs.tab', function(e) {
+ $("a[href='#Final']").on('shown.bs.tab', function(e) {
 			$("#relsTable").show();
 			$("div#relsToolbar").show();
-			$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
+			$('#QuerySubjectsTable').hide();
+			$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: ['F', 'C']});
+			$('#relsTable').bootstrapTable('hideColumn', 'ref');
+			$('#relsTable').bootstrapTable('showColumn', 'fin');
  });
 
 function buildRelsTable(){
@@ -128,19 +148,51 @@ function buildRelsTable(){
 
     $('#relsTable').bootstrapTable("destroy").bootstrapTable({
         columns: cols,
-				search: true,
-				showRefresh: true,
-				showColumns: true,
-				showToggle: true,
+				search: false,
+				showRefresh: false,
+				showColumns: false,
+				showToggle: false,
 				pagination: false,
-				showPaginationSwitch: true,
 				// uniqueId: "_id",
 				// idField: "index",
-				toolbar: "#relsToolbar"
+				toolbar: "#relsToolbar",
+				showPaginationSwitch: false
     });
 
-		// $('#relsTable').bootstrapTable('hideColumn', 'ref');
+		$('#relsTable').bootstrapTable('hideColumn', 'ref');
+		$('#relsTable').bootstrapTable('hideColumn', 'father');
+		$('#relsTable').bootstrapTable('hideColumn', 'father_ids');
+
 }
+
+function builQuerySubjectsTable(){
+
+    var cols = [];
+    cols.push({field:"checkbox", checkbox: "true"});
+		cols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
+		cols.push({field:"_id", title: "_id", sortable: false});
+    cols.push({field:"table_name", title: "table_name", sortable: false });
+		cols.push({field:"table_alias", title: "table_alias", editable: false, sortable: false});
+		cols.push({field:"type", title: "type", sortable: false});
+		cols.push({field:"visible", title: "visible", formatter: "boolFormatter", sortable: false});
+    cols.push({field:"filter", title: "filter", editable: {type: "textarea"}, sortable: false});
+		cols.push({field:"label", title: "label", editable: {type: "textarea"}});
+
+    $('#QuerySubjectsTable').bootstrapTable("destroy").bootstrapTable({
+        columns: cols,
+				search: false,
+				showRefresh: false,
+				showColumns: false,
+				showToggle: false,
+				pagination: false,
+				// toolbar: "#relsToolbar",
+				// uniqueId: "_id",
+				// idField: "index",
+				showPaginationSwitch: false
+    });
+
+}
+
 
 function boolFormatter(value, row, index) {
 	var icon = value == true ? 'glyphicon-ok' : ''
@@ -176,16 +228,11 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 	console.log("field: " + field);
 	console.log("value: " + value);
 
-	var checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
+	// var checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
 
-	if (value == "fin") {
+	if (value == "fin" || value == "ref" ) {
 
 		if ($element.father == false) {
-
-			/*
-				add control to prevent fktable_alias=pktable_alias
-				add control to prevent empty pktable_alias
-			*/
 
 			if ($element.fktable_alias == $element.pktable_alias || $element.pktable_alias == '') {
 				showalert("Change pktable_alias before proceeding.", "alert-warning");
@@ -193,42 +240,31 @@ $('#relsTable').on('click-cell.bs.table', function(field, value, row, $element){
 			}
 
 			$element.father = true;
-			$element.fin = true;
+			if(value == "fin"){
+				$element.fin = true;
+			}
+			if(value == "ref"){
+				$element.ref = true;
+			}
 			GetAllKeys($element);
-			// finFormatter($element.fin);
 			return;
-			// $element.isFather = true;
-			// $element.final = '*FINAL*';
-
-			// $('#relsTable').bootstrapTable('updateCell', {
-			// 	row: $element.index,
-			// 	field: value,
-			// 	value: $element.final
-			// });
 		}
 
 		if ($element.father == true) {
 
 			RemoveImportedKeys($element);
 			$element.father = false;
-			$element.fin = false;
+			if(value == "fin"){$element.fin = false;}
+			if(value == "ref"){$element.ref = false;}
 			SyncRelations();
-			$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
-			$("a[href='#final']").tab('show');
+			if(activeTab == 'Final'){
+				$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
+			}
+			if(activeTab == 'Reference'){
+				$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F', 'P']});
+			}
 			return;
-
-			// $('#relsTable').bootstrapTable('updateCell', {
-			// 	row: $element.index,
-			// 	field: value,
-			// 	value: $element.final
-			// });
 		}
-
-	// $element.father = $element.father == false && true || false;
-	// // $element.final = $element.final == '' && 'Checked' || '';
-	// checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
-	// $element.fin = $element.fin == false && true || false;
-	//refreshTable($('#relsTable'));
 
 	}
 
@@ -329,7 +365,6 @@ function DuplicateRow(){
 		newRow.ref = false;
 		newRow.father = false;
 		newRow.father_ids = [];
-		// newRow.index = nextIndex;
 		console.log("newRow");
 		console.log(newRow);
 
@@ -337,8 +372,13 @@ function DuplicateRow(){
 
 	});
 
-	$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
-	$("a[href='#final']").tab('show');
+	if(activeTab == 'Final'){
+		$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: ['F', 'C']});
+	}
+	if(activeTab == 'Reference'){
+		$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F', 'P', 'C']});
+	}
+
 	$('#relsTable').bootstrapTable('uncheckAll');
 
 
@@ -346,21 +386,37 @@ function DuplicateRow(){
 
 function AddRow(){
 
-	var newRow = {};
-	newRow.checkBox = false;
-	newRow.fk_name = $('#modFKName').val();
-	newRow.fktable_alias = $('#modFKTableAlias').val();
-	newRow.fktable_name = curSelModFKTbl;
-	newRow.pktable_alias = $('#modPKTableAlias').val();
-	newRow.pktable_name = curSelModPKTbl;
-	newRow.relashionship = $('#modRelashionship').val();
-	newRow.type = "Final";
-	newRow.final = "Final";
-	newRow.seqs = [];
+	var qs = $('#modQuerySubject').find("option:selected").text().split(" ");
+
+	console.log(qs);
+
+	var relation = {};
+
+	relation.key_name = $('#modKeyName').val();
+	relation.fktable_alias = qs[1];
+	relation.fktable_name = qs[0];
+	relation.pktable_alias = $('#modPKTableAlias').val();
+	relation.pktable_name = $('#modPKTables').find("option:selected").text()
+	relation.relashionship = $('#modRelashionship').val();
+	relation.type = qs[2];
+	relation.key_type = 'C';
+	relation._id = relation.fktable_alias + relation.type + relation.pktable_alias + relation.key_type;
+
+	console.log("relation");
+	console.log(relation);
+
+	$('#relsTable').bootstrapTable("filterBy", {});
 
 	nextIndex = $('#relsTable').bootstrapTable("getData").length;
 	console.log("nextIndex=" + nextIndex);
-	$('#relsTable').bootstrapTable('insertRow', {index: nextIndex, row: newRow});
+	$('#relsTable').bootstrapTable('insertRow', {index: nextIndex, row: relation});
+
+	if(activeTab == 'Final'){
+		$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: ['F', 'C']});
+	}
+	if(activeTab == 'Reference'){
+		$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F', 'P', 'C']});
+	}
 
 	$('#newRowModal').modal('hide');
 
@@ -385,53 +441,6 @@ function RemoveRow(){
   });
 
 	$('#relsTable').bootstrapTable('uncheckAll');
-
-}
-
-function AppendSelections(){
-
-	selections = $('#relsTable').bootstrapTable('getSelections');
-	console.log("selections=" + selections);
-	var success = "OK";
-
-	console.log("selections=" + selections);
-	if (selections == "") {
-		showalert("AppendSelections(): no row selected.", "alert-warning");
-		return;
-	}
-
-	var objs = []
-
-	$.each(selections, function(k, v){
-
-		var obj = JSON.stringify(v);
-		objs += obj + "\r\n";
-
-	});
-
-	console.log("objs=" + objs);
-
-	$.ajax({
-		type: 'POST',
-		url: "AppendSelections",
-		dataType: 'json',
-		data: objs,
-
-		success: function(data) {
-			success = "OK";
-		},
-		error: function(data) {
-			console.log(data);
-			success = "KO";
-		}
-	});
-
-	if (success == "OK") {
-		showalert("AppendSelections(): selections was sent to server.", "alert-success");
-	}
-	else {
-		showalert("AppendSelections() failed.", "alert-danger");
-	}
 
 }
 
@@ -463,71 +472,24 @@ function SyncRelations(){
 
 }
 
-function LoadSelections(){
-
-	selections = $('#relsTable').bootstrapTable('getSelections');
-	console.log("selections=" + selections);
-	var success = "OK";
-
-	console.log("selections=" + selections);
-	if (selections == "") {
-		showalert("LoadSelections(): no row selected.", "alert-warning");
-		return;
-	}
-
-	var objs = []
-
-	$.each(selections, function(k, v){
-
-		var obj = JSON.stringify(v);
-		objs += obj + "\r\n";
-
-	});
-
-	console.log("objs=" + objs);
-
-	$.ajax({
-		type: 'POST',
-		url: "LoadSelections",
-		dataType: 'json',
-		data: objs,
-
-		success: function(data) {
-			success = "OK";
-		},
-		error: function(data) {
-			console.log(data);
-			success = "KO";
-		}
-	});
-
-	if (success == "OK") {
-		showalert("LoadSelections(): selections was sent to server.", "alert-success");
-	}
-	else {
-		showalert("LoadSelections() failed.", "alert-danger");
-	}
-
-}
-
-function GetSelections() {
+function LoadQuerySubjects() {
 
    $.ajax({
         type: 'POST',
-        url: "GetSelections",
+        url: "GetQuerySubjects",
         dataType: 'json',
 
         success: function(data) {
-			console.log("data=" + data);
-			if ( data == "") {
-				showalert("GetSelections(): no selections stored on server.", "alert-info");
-				return;
-			}
-			$('#relsTable').bootstrapTable("load", data);
+					if ( data == "") {
+						showalert("LoadQuerySubjects(): no query subject stored on server.", "alert-info");
+						return;
+					}
+					console.log(data);
+					$('#QuerySubjectsTable').bootstrapTable('load', data);
         },
         error: function(data) {
             console.log(data);
-            showalert("GetSelections() failed.", "alert-danger");
+            showalert("LoadQuerySubjects() failed.", "alert-danger");
         }
 
     });
@@ -580,13 +542,11 @@ function GetAllKeys(relation) {
 		relation.pktable_name = $('#tables').find("option:selected").text();
 		relation.pktable_alias = $('#alias').val();
 		relation.type = "Final";
-		relation.father = false;
+		relation.father = true;
+		relation.fin = true;
 	}
 
-	// console.log("table_name=" + relation.pktable_name);
-	// console.log("table_alias=" + relation.pktable_alias);
-	// console.log("type=" + relation.type);
-	// console.log("father=" + relation.father);
+	console.log(relation);
 
   $.ajax({
     type: 'POST',
@@ -595,7 +555,7 @@ function GetAllKeys(relation) {
     data: JSON.stringify(relation),
 
     success: function(data) {
-
+			console.log(data);
 			if (data == "") {
 				showalert("GetAllKeys(): " + table_name + " has no key.", "alert-info");
 				return;
@@ -611,8 +571,12 @@ function GetAllKeys(relation) {
 
   });
 
-	$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
-	$("a[href='#final']").tab('show');
+	if(activeTab == 'Final'){
+		$('#relsTable').bootstrapTable("filterBy", {type: 'Final', key_type: 'F'});
+	}
+	if(activeTab == 'Reference'){
+		$('#relsTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F', 'P']});
+	}
 
 }
 
@@ -732,7 +696,34 @@ function TestDBConnection() {
 
 }
 
-function GetTables(table) {
+function ChooseQuerySubject(table) {
+
+	table.empty();
+
+    $.ajax({
+        type: 'POST',
+        url: "GetQuerySubjects",
+        dataType: 'json',
+
+        success: function(data) {
+            console.log(data);
+            $.each(data, function(i, obj){
+							//console.log(obj.name);
+							table.append('<option class="fontsize">' + obj.table_name + ' ' + obj.table_alias + ' ' + obj.type + '</option>');
+			            });
+			            table.selectpicker('refresh');
+			        },
+        error: function(data) {
+            console.log(data);
+            showalert("ChooseTable() failed.", "alert-danger");
+        }
+		});
+
+}
+
+function ChooseTable(table) {
+
+	table.empty();
 
     $.ajax({
         type: 'POST',
@@ -749,7 +740,7 @@ function GetTables(table) {
 			        },
         error: function(data) {
             console.log(data);
-            showalert("GetTables() failed.", "alert-danger");
+            showalert("ChooseTable() failed.", "alert-danger");
         }
 		});
 

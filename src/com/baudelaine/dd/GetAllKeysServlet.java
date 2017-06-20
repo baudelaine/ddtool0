@@ -62,8 +62,13 @@ public class GetAllKeysServlet extends HttpServlet {
         	return;
         }
         
-        Map<String, Object> table_aliases = (Map<String, Object>) request.getSession().getAttribute("table_aliases");
-        table_aliases.put(father.getPktable_alias(), father.getFktable_name());
+        Map<String, QuerySubject> query_subjects = (Map<String, QuerySubject>) request.getSession().getAttribute("query_subjects");
+        QuerySubject query_subject = new QuerySubject();
+        query_subject.set_id(father.getPktable_alias() + father.getPktable_name() + father.getType());
+        query_subject.setTable_alias(father.getPktable_alias());
+        query_subject.setTable_name(father.getPktable_name());
+        query_subject.setType(father.getType());
+        query_subjects.put(father.getPktable_alias() + father.getPktable_name() + father.getType(), query_subject);
         
         Map<String, Relation> relations = (Map<String, Relation>) request.getSession().getAttribute("relations");
         
@@ -117,7 +122,8 @@ public class GetAllKeysServlet extends HttpServlet {
 		        	relation.setPktable_name(pktable_name);
 		        	relation.setFktable_alias(father.getPktable_alias());
 		        	relation.setPktable_alias(pktable_name);
-		        	relation.setType(father.getType());
+		        	if(father.isFin()) {relation.setType("Final");}
+		        	if(father.isRef()) {relation.setType("Ref");}
 		        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 		        	relation.setKey_type("F");
 		        	relation.addFather_id(father.get_id());
@@ -176,13 +182,21 @@ public class GetAllKeysServlet extends HttpServlet {
 		        	
 		        	relation = new Relation();
 
+		        	if(father.isRef()){
+				        if(relations.get(_id) != null){
+				        	System.out.println("Relation _id: " + _id + " already exists. Adding existing father_ids...");
+				        	relation.setFather_ids(relations.get(_id).getFather_ids());
+				        }
+		        	}
+		        	
 		        	relation.set_id(_id);
 		        	relation.setKey_name(key_name);
 		        	relation.setFktable_name(pktable_name);
 		        	relation.setPktable_name(fktable_name);
 		        	relation.setFktable_alias(father.getPktable_alias());
 		        	relation.setPktable_alias(fktable_name);
-		        	relation.setType(father.getType());
+		        	if(father.isFin()) {relation.setType("Final");}
+		        	if(father.isRef()) {relation.setType("Ref");}
 		        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 		        	relation.setKey_type("P");
 		        	relation.addFather_id(father.get_id());

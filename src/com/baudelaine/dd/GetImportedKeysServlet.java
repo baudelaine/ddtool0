@@ -40,8 +40,10 @@ public class GetImportedKeysServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String table = request.getParameter("table");
 		String alias = request.getParameter("alias");
+		String type = request.getParameter("type");
 		System.out.println("table=" + table);
 		System.out.println("alias=" + alias);
+		System.out.println("type=" + type);
 		Connection con = null;
 		ResultSet rst = null;
 		List<Object> result = new ArrayList<Object>();
@@ -56,54 +58,58 @@ public class GetImportedKeysServlet extends HttpServlet {
 	    	Map<String, Object> keys = new HashMap<>();
 		    while (rst.next()) {
 		    	
+		    	String key_name = rst.getString("FK_NAME");
 		    	String fk_name = rst.getString("FK_NAME");
+		    	String pk_name = rst.getString("PK_NAME");
 		    	String key_seq = rst.getString("KEY_SEQ");
 		    	String fkcolumn_name = rst.getString("FKCOLUMN_NAME");
 		    	String pkcolumn_name = rst.getString("PKCOLUMN_NAME");
 		        String fktable_name = rst.getString("FKTABLE_NAME");
 		        String pktable_name = rst.getString("PKTABLE_NAME");
 
-		        if(!keys.containsKey(fk_name)){
+		        if(!keys.containsKey(key_name)){
 		        	Map<String, Object> key = new HashMap<String, Object>();
-		        	key.put("index", "");
-		        	key.put("_id", alias + "Final" + pktable_name + "F");
+		        	key.put("_rev", null);
+		        	key.put("_id", key_name + "Final" + alias + "F");
+		        	key.put("key_name", key_name);
 		        	key.put("fk_name", fk_name);
-    		    	key.put("fktable_name", fktable_name);
+		        	key.put("pk_name", pk_name);
+    		    	key.put("table_name", fktable_name);
     		    	key.put("pktable_name", pktable_name);	
-    		    	key.put("fktable_alias", alias);
+    		    	key.put("table_alias", alias);
     		    	key.put("pktable_alias", pktable_name);
-    		    	key.put("type", "Final");
-    		    	key.put("final", "");
-    		    	key.put("ref", "");
-    		    	key.put("relashionship", "[" + fktable_name + "." + fkcolumn_name + "] = [" + pktable_name + "." + pkcolumn_name + "]");
-    		    	key.put("isFather", false);
-    		    	key.put("father_ids", new HashSet<String>());
+    		    	key.put("type", type);
+    		    	key.put("fin", false);
+    		    	key.put("ref", false);
+    		    	key.put("relashionship", "[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
+    		    	key.put("linker", false);
+    		    	key.put("linker_ids", new HashSet<String>());
     		    	key.put("key_type", "F");
 		        	
 		        	List<Object> seqs = new  ArrayList<Object>();
 		        	
 		        	Map<String, Object> seq = new HashMap<>();
-    		    	seq.put("fkcolumn_name", fkcolumn_name);
+    		    	seq.put("column_name", fkcolumn_name);
     		    	seq.put("pkcolumn_name", pkcolumn_name);
     		    	seq.put("key_seq", key_seq);	
 
     		    	seqs.add(seq);
     		    	
 		        	key.put("seqs", seqs);
-		        	keys.put(fk_name, key);
+		        	keys.put(key_name, key);
 		        }
 		        else{
 		        	
-		        	Map<String, Object> fk 	= (Map<String, Object>) keys.get(fk_name);
+		        	Map<String, Object> fk 	= (Map<String, Object>) keys.get(key_name);
 		        	List<Object> seqs = (List<Object>) fk.get("seqs");
 		        	if(seqs != null){
 			        	Map<String, Object> seq = new HashMap<>();
-	    		    	seq.put("fkcolumn_name", fkcolumn_name);
+	    		    	seq.put("column_name", fkcolumn_name);
 	    		    	seq.put("pkcolumn_name", pkcolumn_name);
 	    		    	seq.put("key_seq", key_seq);
 	    		    	seqs.add(seq);
 	    		    	StringBuffer sb = new StringBuffer((String) fk.get("relashionship"));
-	    		    	sb.append(" AND [" + fktable_name + "." + fkcolumn_name + "] = [" + pktable_name + "." + pkcolumn_name + "]");
+	    		    	sb.append(" AND [" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 	    		    	fk.put("relashionship", sb.toString());
 	
 		        	}

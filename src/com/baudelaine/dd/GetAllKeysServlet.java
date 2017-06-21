@@ -241,7 +241,8 @@ public class GetAllKeysServlet extends HttpServlet {
 		    
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(Tools.toJSON(result));			
+			response.getWriter().write(Tools.toJSON(result));
+			System.out.println(Tools.toJSON(result));
 		
 		}
 		catch (Exception e){

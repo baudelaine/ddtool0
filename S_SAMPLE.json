@@ -1,0 +1,769 @@
+[
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "REAGENTLOTID",
+    "column_name": "REAGENTLOTID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKREAGENTLOT_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKREAGENTLOT_SSAMPLE",
+  "pktable_alias": "REAGENTLOT",
+  "pk_name": "XPKREAGENTLOT",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[REAGENTLOTID] = [REAGENTLOT].[REAGENTLOTID]",
+  "linker_ids": [],
+  "pktable_name": "REAGENTLOT",
+  "_id": "FKREAGENTLOT_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "SYSUSERID",
+    "column_name": "SECURITYUSER"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSYSUSER_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSYSUSER_SSAMPLE",
+  "pktable_alias": "SYSUSER",
+  "pk_name": "XPKSYSUSER",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SECURITYUSER] = [SYSUSER].[SYSUSERID]",
+  "linker_ids": [],
+  "pktable_name": "SYSUSER",
+  "_id": "FKSYSUSER_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_SAMPLEID",
+    "column_name": "BASEDONSAMPLEID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSSAMPLE_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLE_SSAMPLE",
+  "pktable_alias": "S_SAMPLE",
+  "pk_name": "XPKS_SAMPLE",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[BASEDONSAMPLEID] = [S_SAMPLE].[S_SAMPLEID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLE",
+  "_id": "FKSSAMPLE_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "UNITSID",
+    "column_name": "CONCENTRATIONUNITS"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKUNITS_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKUNITS_SSAMPLE",
+  "pktable_alias": "UNITS",
+  "pk_name": "XPKUNITS",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[CONCENTRATIONUNITS] = [UNITS].[UNITSID]",
+  "linker_ids": [],
+  "pktable_name": "UNITS",
+  "_id": "FKUNITS_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_PRODUCTID",
+    "column_name": "PRODUCTID"
+   },
+   {
+    "key_seq": "2",
+    "pkcolumn_name": "S_PRODUCTVERSIONID",
+    "column_name": "PRODUCTVERSIONID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSPRODUCT_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSPRODUCT_SSAMPLE",
+  "pktable_alias": "S_PRODUCT",
+  "pk_name": "XPKS_PRODUCT",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[PRODUCTID] = [S_PRODUCT].[S_PRODUCTID] AND [S_SAMPLE].[PRODUCTVERSIONID] = [S_PRODUCT].[S_PRODUCTVERSIONID]",
+  "linker_ids": [],
+  "pktable_name": "S_PRODUCT",
+  "_id": "FKSPRODUCT_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_BATCHSTAGEID",
+    "column_name": "BATCHSTAGEID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSBATCHSTAGE_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSBATCHSTAGE_SSAMPLE",
+  "pktable_alias": "S_BATCHSTAGE",
+  "pk_name": "XPKS_BATCHSTAGE",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[BATCHSTAGEID] = [S_BATCHSTAGE].[S_BATCHSTAGEID]",
+  "linker_ids": [],
+  "pktable_name": "S_BATCHSTAGE",
+  "_id": "FKSBATCHSTAGE_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "DEPARTMENTID",
+    "column_name": "ALLOCATEDFORDEPARTMENTID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKDEPARTMENT_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKDEPARTMENT_SSAMPLE",
+  "pktable_alias": "DEPARTMENT",
+  "pk_name": "XPKDEPARTMENT",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[ALLOCATEDFORDEPARTMENTID] = [DEPARTMENT].[DEPARTMENTID]",
+  "linker_ids": [],
+  "pktable_name": "DEPARTMENT",
+  "_id": "FKDEPARTMENT_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "STUDYID",
+    "column_name": "STUDYID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSTUDY_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSTUDY_SSAMPLE",
+  "pktable_alias": "STUDY",
+  "pk_name": "XPKSTUDY",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[STUDYID] = [STUDY].[STUDYID]",
+  "linker_ids": [],
+  "pktable_name": "STUDY",
+  "_id": "FKSTUDY_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_BATCHID",
+    "column_name": "BATCHID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSBATCH_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSBATCH_SSAMPLE",
+  "pktable_alias": "S_BATCH",
+  "pk_name": "XPKS_BATCH",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[BATCHID] = [S_BATCH].[S_BATCHID]",
+  "linker_ids": [],
+  "pktable_name": "S_BATCH",
+  "_id": "FKSBATCH_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_LOCATIONID",
+    "column_name": "LOCATIONID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSLOCATION_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSLOCATION_SSAMPLE",
+  "pktable_alias": "S_LOCATION",
+  "pk_name": "XPKS_LOCATION",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[LOCATIONID] = [S_LOCATION].[S_LOCATIONID]",
+  "linker_ids": [],
+  "pktable_name": "S_LOCATION",
+  "_id": "FKSLOCATION_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_SAMPLEPOINTID",
+    "column_name": "SAMPLEPOINTID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSSAMPLEPOINT_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLEPOINT_SSAMPLE",
+  "pktable_alias": "S_SAMPLEPOINT",
+  "pk_name": "XPKS_SAMPLEPOINT",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SAMPLEPOINTID] = [S_SAMPLEPOINT].[S_SAMPLEPOINTID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLEPOINT",
+  "_id": "FKSSAMPLEPOINT_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_PREPTYPEID",
+    "column_name": "PREPTYPEID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "SPREPTYPE_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "SPREPTYPE_SSAMPLE",
+  "pktable_alias": "S_PREPTYPE",
+  "pk_name": "XPKS_PREPTYPE",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[PREPTYPEID] = [S_PREPTYPE].[S_PREPTYPEID]",
+  "linker_ids": [],
+  "pktable_name": "S_PREPTYPE",
+  "_id": "SPREPTYPE_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_SAMPLETYPEID",
+    "column_name": "SAMPLETYPEID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSSAMPLETYPE_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLETYPE_SSAMPLE",
+  "pktable_alias": "S_SAMPLETYPE",
+  "pk_name": "XPKS_SAMPLETYPE",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SAMPLETYPEID] = [S_SAMPLETYPE].[S_SAMPLETYPEID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLETYPE",
+  "_id": "FKSSAMPLETYPE_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "DEPARTMENTID",
+    "column_name": "SECURITYDEPARTMENT"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKDEPARTMENT_SSAMPLE01",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKDEPARTMENT_SSAMPLE01",
+  "pktable_alias": "DEPARTMENT",
+  "pk_name": "XPKDEPARTMENT",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SECURITYDEPARTMENT] = [DEPARTMENT].[DEPARTMENTID]",
+  "linker_ids": [],
+  "pktable_name": "DEPARTMENT",
+  "_id": "FKDEPARTMENT_SSAMPLE01FinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_REQUESTID",
+    "column_name": "REQUESTID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSREQUEST_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSREQUEST_SSAMPLE",
+  "pktable_alias": "S_REQUEST",
+  "pk_name": "XPKS_REQUEST",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[REQUESTID] = [S_REQUEST].[S_REQUESTID]",
+  "linker_ids": [],
+  "pktable_name": "S_REQUEST",
+  "_id": "FKSREQUEST_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_SAMPLEFAMILYID",
+    "column_name": "SAMPLEFAMILYID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSSAMPLEFAMILY_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLEFAMILY_SSAMPLE",
+  "pktable_alias": "S_SAMPLEFAMILY",
+  "pk_name": "XPKS_SAMPLEFAMILY",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SAMPLEFAMILYID] = [S_SAMPLEFAMILY].[S_SAMPLEFAMILYID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLEFAMILY",
+  "_id": "FKSSAMPLEFAMILY_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "INSTRUMENTID",
+    "column_name": "INSTRUMENTID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKINSTRUMENT_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKINSTRUMENT_SSAMPLE",
+  "pktable_alias": "INSTRUMENT",
+  "pk_name": "XPKINSTRUMENT",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[INSTRUMENTID] = [INSTRUMENT].[INSTRUMENTID]",
+  "linker_ids": [],
+  "pktable_name": "INSTRUMENT",
+  "_id": "FKINSTRUMENT_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "WORKORDERID",
+    "column_name": "WORKORDERID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKWORKORDER_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKWORKORDER_SSAMPLE",
+  "pktable_alias": "WORKORDER",
+  "pk_name": "XPKWORKORDER",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[WORKORDERID] = [WORKORDER].[WORKORDERID]",
+  "linker_ids": [],
+  "pktable_name": "WORKORDER",
+  "_id": "FKWORKORDER_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "SYSUSERID",
+    "column_name": "CONFIRMEDBY"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSYSUSER_SSAMPLE_CON",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSYSUSER_SSAMPLE_CON",
+  "pktable_alias": "SYSUSER",
+  "pk_name": "XPKSYSUSER",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[CONFIRMEDBY] = [SYSUSER].[SYSUSERID]",
+  "linker_ids": [],
+  "pktable_name": "SYSUSER",
+  "_id": "FKSYSUSER_SSAMPLE_CONFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_STUDYID",
+    "column_name": "SSTUDYID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSSTUDY_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSTUDY_SSAMPLE",
+  "pktable_alias": "S_STUDY",
+  "pk_name": "XPKS_STUDY",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SSTUDYID] = [S_STUDY].[S_STUDYID]",
+  "linker_ids": [],
+  "pktable_name": "S_STUDY",
+  "_id": "FKSSTUDY_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "ADDRESSID",
+    "column_name": "ALLOCATEDFORADDRESSID"
+   },
+   {
+    "key_seq": "2",
+    "pkcolumn_name": "ADDRESSTYPE",
+    "column_name": "ALLOCATEDFORADDRESSTYPE"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKADDRESS_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKADDRESS_SSAMPLE",
+  "pktable_alias": "ADDRESS",
+  "pk_name": "XPKADDRESS",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[ALLOCATEDFORADDRESSID] = [ADDRESS].[ADDRESSID] AND [S_SAMPLE].[ALLOCATEDFORADDRESSTYPE] = [ADDRESS].[ADDRESSTYPE]",
+  "linker_ids": [],
+  "pktable_name": "ADDRESS",
+  "_id": "FKADDRESS_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_SAMPLINGPLANID",
+    "column_name": "SOURCESPID"
+   },
+   {
+    "key_seq": "2",
+    "pkcolumn_name": "S_SAMPLINGPLANVERSIONID",
+    "column_name": "SOURCESPVERSIONID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSSAMPLINGPLAN_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLINGPLAN_SSAMPLE",
+  "pktable_alias": "S_SAMPLINGPLAN",
+  "pk_name": "XPKS_SAMPLINGPLAN",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SOURCESPID] = [S_SAMPLINGPLAN].[S_SAMPLINGPLANID] AND [S_SAMPLE].[SOURCESPVERSIONID] = [S_SAMPLINGPLAN].[S_SAMPLINGPLANVERSIONID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLINGPLAN",
+  "_id": "FKSSAMPLINGPLAN_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "SYSUSERID",
+    "column_name": "SUBMITTERID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSYSUSER_SSAMPLE_SUB",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSYSUSER_SSAMPLE_SUB",
+  "pktable_alias": "SYSUSER",
+  "pk_name": "XPKSYSUSER",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[SUBMITTERID] = [SYSUSER].[SYSUSERID]",
+  "linker_ids": [],
+  "pktable_name": "SYSUSER",
+  "_id": "FKSYSUSER_SSAMPLE_SUBFinalALIASF",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_PROJECTID",
+    "column_name": "PROJECTID"
+   }
+  ],
+  "key_type": "F",
+  "fk_name": "FKSPROJECT_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSPROJECT_SSAMPLE",
+  "pktable_alias": "S_PROJECT",
+  "pk_name": "XPKS_PROJECT",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[PROJECTID] = [S_PROJECT].[S_PROJECTID]",
+  "linker_ids": [],
+  "pktable_name": "S_PROJECT",
+  "_id": "FKSPROJECT_SSAMPLEFinalALIASF",
+  "table_alias": "ALIAS"
+ }
+]
+[
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "BATCHSAMPLETEMPLATEID",
+    "column_name": "S_SAMPLEID"
+   }
+  ],
+  "key_type": "P",
+  "fk_name": "FKSSAMPLE_SPRODUCT",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLE_SPRODUCT",
+  "pktable_alias": "S_PRODUCT",
+  "pk_name": "XPKS_SAMPLE",
+  "ref": false,
+  "relashionship": "[S_PRODUCT].[BATCHSAMPLETEMPLATEID] = [S_SAMPLE].[S_SAMPLEID]",
+  "linker_ids": [],
+  "pktable_name": "S_PRODUCT",
+  "_id": "FKSSAMPLE_SPRODUCTFinalALIASP",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "BASEDONSAMPLEID",
+    "column_name": "S_SAMPLEID"
+   }
+  ],
+  "key_type": "P",
+  "fk_name": "FKSSAMPLE_SSAMPLE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLE_SSAMPLE",
+  "pktable_alias": "S_SAMPLE",
+  "pk_name": "XPKS_SAMPLE",
+  "ref": false,
+  "relashionship": "[S_SAMPLE].[BASEDONSAMPLEID] = [S_SAMPLE].[S_SAMPLEID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLE",
+  "_id": "FKSSAMPLE_SSAMPLEFinalALIASP",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "QUALITYSAMPLEID",
+    "column_name": "S_SAMPLEID"
+   }
+  ],
+  "key_type": "P",
+  "fk_name": "FKSSAMPLE_REAGENTTYPE",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLE_REAGENTTYPE",
+  "pktable_alias": "REAGENTTYPE",
+  "pk_name": "XPKS_SAMPLE",
+  "ref": false,
+  "relashionship": "[REAGENTTYPE].[QUALITYSAMPLEID] = [S_SAMPLE].[S_SAMPLEID]",
+  "linker_ids": [],
+  "pktable_name": "REAGENTTYPE",
+  "_id": "FKSSAMPLE_REAGENTTYPEFinalALIASP",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "S_SAMPLEID",
+    "column_name": "S_SAMPLEID"
+   }
+  ],
+  "key_type": "P",
+  "fk_name": "FKSSAMPLE_SSAMPLEDETAIL",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLE_SSAMPLEDETAIL",
+  "pktable_alias": "S_SAMPLEDETAIL",
+  "pk_name": "XPKS_SAMPLE",
+  "ref": false,
+  "relashionship": "[S_SAMPLEDETAIL].[S_SAMPLEID] = [S_SAMPLE].[S_SAMPLEID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLEDETAIL",
+  "_id": "FKSSAMPLE_SSAMPLEDETAILFinalALIASP",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "SOURCESAMPLEID",
+    "column_name": "S_SAMPLEID"
+   }
+  ],
+  "key_type": "P",
+  "fk_name": "FKSSAMPLE_SSAMPLEMAP_S",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLE_SSAMPLEMAP_S",
+  "pktable_alias": "S_SAMPLEMAP",
+  "pk_name": "XPKS_SAMPLE",
+  "ref": false,
+  "relashionship": "[S_SAMPLEMAP].[SOURCESAMPLEID] = [S_SAMPLE].[S_SAMPLEID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLEMAP",
+  "_id": "FKSSAMPLE_SSAMPLEMAP_SFinalALIASP",
+  "table_alias": "ALIAS"
+ },
+ {
+  "linker": false,
+  "seqs": [
+   {
+    "key_seq": "1",
+    "pkcolumn_name": "DESTSAMPLEID",
+    "column_name": "S_SAMPLEID"
+   }
+  ],
+  "key_type": "P",
+  "fk_name": "FKSSAMPLE_SSAMPLEMAP_D",
+  "_rev": null,
+  "fin": false,
+  "type": "Final",
+  "table_name": "S_SAMPLE",
+  "key_name": "FKSSAMPLE_SSAMPLEMAP_D",
+  "pktable_alias": "S_SAMPLEMAP",
+  "pk_name": "XPKS_SAMPLE",
+  "ref": false,
+  "relashionship": "[S_SAMPLEMAP].[DESTSAMPLEID] = [S_SAMPLE].[S_SAMPLEID]",
+  "linker_ids": [],
+  "pktable_name": "S_SAMPLEMAP",
+  "_id": "FKSSAMPLE_SSAMPLEMAP_DFinalALIASP",
+  "table_alias": "ALIAS"
+ }
+]

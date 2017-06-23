@@ -2,15 +2,15 @@ package com.baudelaine.dd;
 
 public class Seq {
 
-        String fkcolumn_name = ""; 
+        String column_name = ""; 
         String pkcolumn_name = ""; 
         Short key_seq = null;
 
-        public String getFkcolumn_name() {
-                return fkcolumn_name;
+        public String getColumn_name() {
+                return column_name;
         }
-        public void setFkcolumn_name(String fkcolumn_name) {
-                this.fkcolumn_name = fkcolumn_name;
+        public void setColumn_name(String column_name) {
+                this.column_name = column_name;
         }
         public String getPkcolumn_name() {
                 return pkcolumn_name;

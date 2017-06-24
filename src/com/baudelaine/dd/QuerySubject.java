@@ -1,5 +1,8 @@
 package com.baudelaine.dd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuerySubject {
 	
 	String _id = "";
@@ -10,6 +13,7 @@ public class QuerySubject {
 	boolean visible = false;
 	String filter = "";
 	String Label = "";
+	List<Field> fields = new ArrayList<Field>();
 	
 	public String get_id() {
 		return _id;
@@ -59,5 +63,14 @@ public class QuerySubject {
 	public void setLabel(String label) {
 		Label = label;
 	}
-
+	public List<Field> getFields() {
+		return fields;
+	}
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
+	public void addField(Field field){
+		this.fields.add(field);
+	}
+	
 }

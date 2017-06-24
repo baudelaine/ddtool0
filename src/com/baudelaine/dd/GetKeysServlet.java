@@ -33,6 +33,7 @@ public class GetKeysServlet extends HttpServlet {
 	String linker_id = "";
 	Map<String, Relation> newRelations = null;
 	Map<String, Relation> relations = null;
+	Map<String, QuerySubject> query_subjects = null;
 
        
     /**
@@ -66,17 +67,13 @@ public class GetKeysServlet extends HttpServlet {
 			schema = (String) request.getSession().getAttribute("schema");
 			metaData = con.getMetaData();
 			
-			Map<String, QuerySubject> query_subjects = (Map<String, QuerySubject>) request.getSession().getAttribute("query_subjects");
-	        QuerySubject query_subject = new QuerySubject();
-	        query_subject.set_id(alias + type + table);
-	        query_subject.setTable_alias(alias);
-	        query_subject.setTable_name(table);
-	        query_subject.setType(type);
-	        query_subjects.put(alias + type + table, query_subject);
+			query_subjects = (Map<String, QuerySubject>) request.getSession().getAttribute("query_subjects");
+	        
 						
 			newRelations = new HashMap<String, Relation>();
 			relations = (Map<String, Relation>) request.getSession().getAttribute("relations");
 			
+			getQuerySubjects();
 			getForeignKeys();
 			getPrimaryKeys();
 			
@@ -127,6 +124,38 @@ public class GetKeysServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	protected void getQuerySubjects() throws SQLException{
+		
+		String _id = alias + type + table;
+		
+		if(query_subjects.containsKey(_id)){
+			return;
+		}
+		
+		QuerySubject query_subject = new QuerySubject();
+        query_subject.set_id(alias + type + table);
+        query_subject.setTable_alias(alias);
+        query_subject.setTable_name(table);
+        query_subject.setType(type);
+        
+        ResultSet rst = metaData.getColumns(con.getCatalog(), schema, table, "%");
+        
+        while (rst.next()) {
+        	String field_name = rst.getString("COLUMN_NAME");
+        	String field_type = rst.getString("TYPE_NAME");
+        	System.out.println(field_name + "," + field_type);
+        	Field field = new Field();
+        	field.setField_name(field_name);
+        	field.setField_type(field_type);
+        	query_subject.addField(field);
+        	
+        }
+        
+        query_subjects.put(alias + type + table, query_subject);
+
+        
 	}
 	
 	protected void getForeignKeys() throws SQLException{

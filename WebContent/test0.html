@@ -18,8 +18,6 @@
 	        <h1>Sub Table</h1>
 	        <p>Use <code>onExpandRow</code> event to handle your detail view.</p>
 	        <table id="table">
-						<table id="subtable">
-						</table>
 	        </table>
 	    </div>
 
@@ -315,7 +313,6 @@
 
 
 			var $table = $('#table');
-			var $subtable = $('#subtable');
 			var url = "js/QuerySubjects.json";
 
 			var cols = [];
@@ -354,7 +351,7 @@
 			}
 
 			function expandTable($detail, cols, data) {
-					$subtable = $detail.html('<table id="subtable"></table>').find('table');
+					$subtable = $detail.html('<table></table>').find('table');
 					buildSubTable($subtable, cols, data, false);
 			}
 
@@ -419,53 +416,6 @@
 				});
 
 			}
-
-
-			$table.on('click-cell.bs.table', function(field, value, row, $element){
-
-				// if(value == "visible"){
-				//
-				// 	console.log(JSON.stringify($(this).bootstrapTable("getData")));
-				// 	console.log($(this).bootstrapTable("getData"));
-				//
-				// 	var newValue = row == false ? true : false;
-				// 	// $element.visible = true;
-				// 	console.log("$element.index=" + $element.index);
-				// 	console.log("value=" + value);
-				// 	console.log("newValue=" + newValue);
-				//
-				// 	$table.bootstrapTable("updateCell", {
-				// 		index: $element.index,
-				// 		field: value,
-				// 		value: newValue
-				// 	});
-				// 	return;
-				// }
-
-			});
-
-			$subtable.on('click-cell.bs.table', function(field, value, row, $element){
-
-				// if(value.match("traduction|visibleField|timezone")){
-				//
-				// 	console.log(JSON.stringify($(this).bootstrapTable("getData")));
-				// 	console.log($(this).bootstrapTable("getData"));
-				//
-				// 	var newValue = row == false ? true : false;
-				// 	// $element.visible = true;
-				// 	console.log("$element.index=" + $element.index);
-				// 	console.log("value=" + value);
-				// 	console.log("newValue=" + newValue);
-				//
-				// 	$table.bootstrapTable("updateCell", {
-				// 		index: $element.index,
-				// 		field: value,
-				// 		value: newValue
-				// 	});
-				// 	return;
-				// }
-
-			});
 
 	</script>
 

@@ -217,8 +217,16 @@ function builFieldsTable(){
 		cols.push({field:"table_alias", title: "table_alias", editable: false, sortable: false});
 		cols.push({field:"type", title: "type", sortable: false});
 
+		var subcols = [];
+		subcols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
+		subcols.push({field:"field_name", title: "field_name", sortable: false });
+		subcols.push({field:"label", title: "label", editable: {type: "text"}, sortable: false});
+		subcols.push({field:"traduction", title: "traduction", formatter: "boolFormatter", sortable: false});
+		subcols.push({field:"visibleField", title: "visibleField", formatter: "boolFormatter", sortable: false});
+		subcols.push({field:"field_type", title: "field_type", editable: false, sortable: false});
+		subcols.push({field:"timezone", title: "timezone", formatter: "boolFormatter", sortable: false});
 
-    $('#DatasTable').bootstrapTable('destroy').bootstrapTable({
+    $('#DatasTable').bootstrapTable({
         columns: cols,
 				search: true,
 				showRefresh: false,
@@ -226,68 +234,56 @@ function builFieldsTable(){
 				showToggle: true,
 				pagination: false,
 				toolbar: "#DatasToolbar",
-				// uniqueId: "_id",
-				// idField: "index",
-				detailView: true,
-				detailFormatter: function(index, row, element) {
-					return "";
+				onClickCell: function (field, value, row, $element){
+					if(field == "visible"){
+						var newValue = value == false ? true : false;
+
+						console.log($(this).bootstrapTable("getData"));
+
+						console.log("row.index=" + row.index);
+						console.log("field=" + field);
+						console.log("newValue=" + newValue);
+
+						updateCell($(this), row.index, field, newValue);
+
+					}
 				},
+				detailView: true,
 				onExpandRow: function (index, row, $detail) {
-                // console.log(index);
-								// console.log(row.fields);
-								// console.log($detail);
-								builFieldsDetailTable($detail, row.fields);
+					$detail.html('<table></table>').find('table').bootstrapTable({
+						columns: subcols,
+						data: row.fields,
+					 	onClickCell: function (field, value, row, $element){
+							if(field.match("traduction|visibleField|timezone")){
+								var newValue = value == false ? true : false;
+
+								console.log($(this).bootstrapTable("getData"));
+
+								console.log("row.index=" + row.index);
+								console.log("field=" + field);
+								console.log("newValue=" + newValue);
+
+								updateCell($el, row.index, field, newValue);
+
+							}
+						}
+					});
         },
 				showPaginationSwitch: true
     });
 
 }
 
-function builFieldsDetailTable($detail, row){
+function updateCell($table, index, field, newValue){
 
-		var detailTable = $detail.html('<table></table>').find('table');
-
-    var cols = [];
-    // cols.push({field:"checkbox", checkbox: "true"});
-		cols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
-		// cols.push({field:"_id", title: "_id", sortable: false});
-    cols.push({field:"field_name", title: "field_name", sortable: false });
-		cols.push({field:"label", title: "label", editable: {type: "text"}, sortable: false});
-		cols.push({field:"traduction", title: "traduction", formatter: "boolFormatter", sortable: false});
-		cols.push({field:"visibleField", title: "visibleField", formatter: "boolFormatter", sortable: false});
-		cols.push({field:"field_type", title: "field_type", editable: false, sortable: false});
-		cols.push({field:"timezone", title: "timezone", formatter: "boolFormatter", sortable: false});
-
-		detailTable.bootstrapTable({
-			columns: cols,
-			data: row,
-			onClickCell: function (field, value, row, $element){
-				if(field.match("traduction|visibleField|timezone")){
-					console.log("field=" + field);
-					console.log("value=" + value);
-					console.log("row");
-					console.log(row);
-					console.log("$element");
-					console.log($element);
-					var newValue = value == false ? true : false;
-					var index = row.index;
-					console.log("row.index=" + row.index);
-					console.log("row.traduction=" + row.traduction);
-					console.log("row.visibleField=" + row.visibleField);
-					console.log("row.timezone=" + row.timezone);
-					console.log("newValue=" + newValue);
-
-					$(this).bootstrapTable("updateCell", {
-						index: row.index,
-						field: field,
-						value: newValue
-					});
-				}
-
-			}
-		});
+	$table.bootstrapTable("updateCell", {
+		index: index,
+		field: field,
+		value: newValue
+	});
 
 }
+
 
 function boolFormatter(value, row, index) {
 	var icon = value == true ? 'glyphicon-check' : 'glyphicon-unchecked'
@@ -323,36 +319,40 @@ $('#DatasTable').on('click-cell.bs.table', function(field, value, row, $element)
 
 	// var checkglyph = ['<a class="checked" href="javascript:void(0)" title="Checked">','<i class="glyphicon glyphicon-ok"></i>','</a>'].join('');
 
-	// if(value.match("traduction|timezone")){
-	// 	console.log("*************************");
-	// 	console.log(value);
-	// 	var newValue = row == false ? true : false;
-	// 	console.log(field);
-	// 	console.log(value);
-	// 	console.log(typeof(value));
-	// 	console.log(row);
-	// 	console.log($element);
-	// 	$('#DatasTable').bootstrapTable("updateCell", {
-	// 		index: $element.index,
-	// 		field: value,
-	// 		value: newValue
-	// 	});
-	// 	console.log("*************************");
-	// }
+	if(value.match("traduction|timezone")){
+
+		// console.log(JSON.stringify($(this).bootstrapTable("getData")));
+		// console.log($(this).bootstrapTable("getData"));
+		// console.log($element);
+		//
+		// data = 	$(this).bootstrapTable("getData");
+		//
+		// var newValue = row == false ? true : false;
+		// // $element.visible = true;
+		// console.log("$element.index=" + $element.index);
+		// console.log("value=" + value);
+		// console.log("newValue=" + newValue);
+		// console.log("data[0].fields[0].field_name=" + data[0].fields[0].field_name);
+		//
+		// $('#DatasTable').bootstrapTable("updateCell", {
+		// 	index: $element.index,
+		// 	field: data[0].fields[0].traduction,
+		// 	value: newValue
+		// });
+
+	}
 
 	if(value == "visible"){
 
-		console.log(field);
-		console.log(value);
-		console.log(typeof(value));
-		console.log(row);
-		console.log($element);
+		console.log(JSON.stringify($(this).bootstrapTable("getData")));
+		console.log($(this).bootstrapTable("getData"));
 
-		console.log("value: " + value);
-		console.log("$element.visible: " + $element.visible);
 		var newValue = row == false ? true : false;
 		// $element.visible = true;
-		console.log("$element.visible: " + $element.visible);
+		console.log("$element.index=" + $element.index);
+		console.log("value=" + value);
+		console.log("newValue=" + newValue);
+
 		$('#DatasTable').bootstrapTable("updateCell", {
 			index: $element.index,
 			field: value,
@@ -581,6 +581,7 @@ function LoadQuerySubjects() {
 						showalert("LoadQuerySubjects(): no query subject stored on server.", "alert-info");
 						return;
 					}
+					// console.log(JSON.stringify(data));
 					$('#DatasTable').bootstrapTable('load', data);
         },
         error: function(data) {

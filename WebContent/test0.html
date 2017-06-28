@@ -9,42 +9,470 @@
 	<link href="css/bootstrap-editable.css" type="text/css" rel="stylesheet" />
 	<link href="css/bootstrap-select.min.css" type="text/css" rel="stylesheet" />
 	<link href="css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
-	<link href="css/test0.css" type="text/css" rel="stylesheet" />
+	<!-- <link href="css/test0.css" type="text/css" rel="stylesheet" /> -->
 
 </head>
 <body>
 
+			<div class="container">
+	        <h1>Sub Table</h1>
+	        <p>Use <code>onExpandRow</code> event to handle your detail view.</p>
+	        <table id="table">
+						<table id="subtable">
+						</table>
+	        </table>
+	    </div>
 
-	<div class="container-fluid" id="tabContent">
-
-		<!-- Toolbar -->
-
-						<div class="btn-group" id="relsToolbar" role="group" aria-label="...">
-
-						<button type="button" onclick="GetAllKeys()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Get foreign key(s) from table selected above."><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></button>
-						<button type="button" onclick="DuplicateRow()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Duplicate selected row(s)"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>
-						<button type="button" onclick="RemoveRow()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove selected row(s)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-						<button type="button" data-toggle="modal" data-target="#newRowModal" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add a new row"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-						<button type="button" onclick="GetTableData()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Show table object in console"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>
-						<button type="button" onclick="ClearSelections()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove all."><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-
-					</div>
-
-		<!-- list -->
-
-		<table class="table table-striped fontsize" id="relsTable">
-
-		</table>
-	</div>
 
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-table.min.js"></script>
+
+	<script>
+
+			var data = [
+			 {
+			  "_id": "DEPTFinalDEPT",
+			  "_ref": null,
+			  "fields": [
+			   {
+			    "field_name": "DEPTNO",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "DEPTNAME",
+			    "field_type": "VARCHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "MGRNO",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "ADMRDEPT",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "LOCATION",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   }
+			  ],
+			  "filter": "",
+			  "label": "",
+			  "table_alias": "DEPT",
+			  "table_name": "DEPT",
+			  "type": "Final",
+			  "visible": false
+			 },
+			 {
+			  "_id": "EMPLOYEEFinalEMPLOYEE",
+			  "_ref": null,
+			  "fields": [
+			   {
+			    "field_name": "EMPNO",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "FIRSTNME",
+			    "field_type": "VARCHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "MIDINIT",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "LASTNAME",
+			    "field_type": "VARCHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "WORKDEPT",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "PHONENO",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "HIREDATE",
+			    "field_type": "DATE",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "JOB",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "EDLEVEL",
+			    "field_type": "SMALLINT",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "SEX",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "BIRTHDATE",
+			    "field_type": "DATE",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "SALARY",
+			    "field_type": "DECIMAL",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "BONUS",
+			    "field_type": "DECIMAL",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "COMM",
+			    "field_type": "DECIMAL",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   }
+			  ],
+			  "filter": "",
+			  "label": "",
+			  "table_alias": "EMPLOYEE",
+			  "table_name": "EMPLOYEE",
+			  "type": "Final",
+			  "visible": false
+			 },
+			 {
+			  "_id": "PROJECTFinalPROJECT",
+			  "_ref": null,
+			  "fields": [
+			   {
+			    "field_name": "PROJNO",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "PROJNAME",
+			    "field_type": "VARCHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "DEPTNO",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "RESPEMP",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "PRSTAFF",
+			    "field_type": "DECIMAL",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "PRSTDATE",
+			    "field_type": "DATE",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "PRENDATE",
+			    "field_type": "DATE",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   },
+			   {
+			    "field_name": "MAJPROJ",
+			    "field_type": "CHAR",
+			    "icon": "",
+			    "label": "",
+			    "timezone": false,
+			    "traduction": false,
+			    "visibleField": false
+			   }
+			  ],
+			  "filter": "",
+			  "label": "",
+			  "table_alias": "PROJECT",
+			  "table_name": "PROJECT",
+			  "type": "Final",
+			  "visible": false
+			 }
+			]
+
+
+			var $table = $('#table');
+			var $subtable = $('#subtable');
+			var url = "js/QuerySubjects.json";
+
+			var cols = [];
+			cols.push({field:"checkbox", checkbox: "true"});
+			cols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
+			cols.push({field:"_id", title: "_id", sortable: false});
+			cols.push({field:"table_name", title: "table_name", sortable: false });
+			cols.push({field:"table_alias", title: "table_alias", editable: false, sortable: false});
+			cols.push({field:"type", title: "type", sortable: false});
+			cols.push({field:"visible", title: "visible", formatter: "boolFormatter", sortable: false});
+			cols.push({field:"filter", title: "filter", editable: {type: "textarea"}, sortable: false});
+			cols.push({field:"label", title: "label", editable: {type: "textarea"}});
+
+			var subcols = [];
+			subcols.push({field:"subindex", title: "subindex", formatter: "indexFormatter", sortable: false});
+			subcols.push({field:"field_name", title: "field_name", sortable: false });
+			subcols.push({field:"label", title: "label", editable: {type: "text"}, sortable: false});
+			subcols.push({field:"traduction", title: "traduction", formatter: "boolFormatter", sortable: false});
+			subcols.push({field:"visibleField", title: "visible", formatter: "boolFormatter", sortable: false});
+			subcols.push({field:"field_type", title: "field_type", editable: false, sortable: false});
+			subcols.push({field:"timezone", title: "timezone", formatter: "boolFormatter", sortable: false});
+
+			$(function () {
+					buildTable($table, cols, data, true);
+					// $table.bootstrapTable('load', data);
+			});
+
+			function boolFormatter(value, row, index) {
+				var icon = value == true ? 'glyphicon-check' : 'glyphicon-unchecked'
+				return '<i class="glyphicon ' + icon + '"></i> ';
+			}
+
+			function indexFormatter(value, row, index) {
+				row.index = index;
+			  return index;
+			}
+
+			function expandTable($detail, cols, data) {
+					$subtable = $detail.html('<table id="subtable"></table>').find('table');
+					buildSubTable($subtable, cols, data, false);
+			}
+
+			function buildSubTable($el, cols, data, detailView){
+
+				$el.bootstrapTable({
+						columns: cols,
+						// url: url,
+						data: data,
+						onClickCell: function (field, value, row, $element){
+							if(field.match("traduction|visibleField|timezone")){
+								var newValue = value == false ? true : false;
+
+								console.log($(this).bootstrapTable("getData"));
+
+								console.log("row.index=" + row.index);
+								console.log("field=" + field);
+								console.log("newValue=" + newValue);
+
+								updateCell($el, row.index, field, newValue);
+
+							}
+						}
+				});
+
+			}
+
+			function buildTable($el, cols, data, detailView) {
+
+
+					$el.bootstrapTable({
+							columns: cols,
+							// url: url,
+							data: data,
+							detailView: detailView,
+							onClickCell: function (field, value, row, $element){
+	 							if(field == "visible"){
+	 								var newValue = value == false ? true : false;
+
+	 								console.log($(this).bootstrapTable("getData"));
+
+	 								console.log("row.index=" + row.index);
+	 								console.log("field=" + field);
+	 								console.log("newValue=" + newValue);
+
+									updateCell($el, row.index, field, newValue);
+
+	 							}
+							},
+							onExpandRow: function (index, row, $detail) {
+									expandTable($detail, subcols, row.fields);
+							}
+					});
+			}
+
+			function updateCell($table, index, field, newValue){
+
+				$table.bootstrapTable("updateCell", {
+					index: index,
+					field: field,
+					value: newValue
+				});
+
+			}
+
+
+			$table.on('click-cell.bs.table', function(field, value, row, $element){
+
+				// if(value == "visible"){
+				//
+				// 	console.log(JSON.stringify($(this).bootstrapTable("getData")));
+				// 	console.log($(this).bootstrapTable("getData"));
+				//
+				// 	var newValue = row == false ? true : false;
+				// 	// $element.visible = true;
+				// 	console.log("$element.index=" + $element.index);
+				// 	console.log("value=" + value);
+				// 	console.log("newValue=" + newValue);
+				//
+				// 	$table.bootstrapTable("updateCell", {
+				// 		index: $element.index,
+				// 		field: value,
+				// 		value: newValue
+				// 	});
+				// 	return;
+				// }
+
+			});
+
+			$subtable.on('click-cell.bs.table', function(field, value, row, $element){
+
+				// if(value.match("traduction|visibleField|timezone")){
+				//
+				// 	console.log(JSON.stringify($(this).bootstrapTable("getData")));
+				// 	console.log($(this).bootstrapTable("getData"));
+				//
+				// 	var newValue = row == false ? true : false;
+				// 	// $element.visible = true;
+				// 	console.log("$element.index=" + $element.index);
+				// 	console.log("value=" + value);
+				// 	console.log("newValue=" + newValue);
+				//
+				// 	$table.bootstrapTable("updateCell", {
+				// 		index: $element.index,
+				// 		field: value,
+				// 		value: newValue
+				// 	});
+				// 	return;
+				// }
+
+			});
+
+	</script>
+
 	<script src="js/bootstrap-editable.js"></script>
 	<script src="js/bootstrap-table-editable.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/test0.js"></script>
+	<!-- <script src="js/test0.js"></script> -->
 
 </body>
 </html>

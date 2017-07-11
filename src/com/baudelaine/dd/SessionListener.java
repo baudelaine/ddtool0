@@ -26,7 +26,6 @@ public class SessionListener implements HttpSessionListener {
 	String jndiName = "";
 	String schema = "";
 	String query = "";
-	Map<String, Relation> relations = new HashMap<String, Relation>();
 	Map<String, QuerySubject> query_subjects = new HashMap<String, QuerySubject>();
 	
     /**
@@ -66,7 +65,6 @@ public class SessionListener implements HttpSessionListener {
 			s.setAttribute("jndiName", jndiName);
 			s.setAttribute("schema", schema);
 			s.setAttribute("query", query);
-			s.setAttribute("relations", relations);
 			s.setAttribute("query_subjects", query_subjects);
 			System.out.println("SessionId " + s.getId() + " is now connected to " + jndiName + " using shema " + schema);
 			
@@ -85,7 +83,6 @@ public class SessionListener implements HttpSessionListener {
     	HttpSession s = arg0.getSession();
     	InitialContext ic = (InitialContext) s.getServletContext().getAttribute("ic");
     	try {
-    		relations.clear();
     		query_subjects.clear();
 			DataSource ds = (DataSource) ic.lookup(jndiName);
 			Connection con = ds.getConnection();

@@ -1,7 +1,9 @@
 package com.baudelaine.dd;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class QuerySubject {
 	
@@ -13,7 +15,10 @@ public class QuerySubject {
 	boolean visible = false;
 	String filter = "";
 	String Label = "";
+	boolean linker = false;
+	Set<String> linker_ids =  new HashSet<String>();
 	List<Field> fields = new ArrayList<Field>();
+	List<Relation> relations = new ArrayList<Relation>();
 	
 	public String get_id() {
 		return _id;
@@ -63,6 +68,21 @@ public class QuerySubject {
 	public void setLabel(String label) {
 		Label = label;
 	}
+	public boolean isLinker() {
+		return linker;
+	}
+	public void setLinker(boolean linker) {
+		this.linker = linker;
+	}
+	public Set<String> getLinker_ids() {
+		return linker_ids;
+	}
+	public void setLinker_ids(Set<String> linker_ids) {
+		this.linker_ids = linker_ids;
+	}
+	public void addLinker_id(String linker_id){
+		this.linker_ids.add(linker_id);
+	}
 	public List<Field> getFields() {
 		return fields;
 	}
@@ -71,6 +91,18 @@ public class QuerySubject {
 	}
 	public void addField(Field field){
 		this.fields.add(field);
+	}
+	public List<Relation> getRelations() {
+		return relations;
+	}
+	public void setRelations(List<Relation> relations) {
+		this.relations = relations;
+	} 
+	public void addRelation(Relation relation){
+		this.relations.add(relation);
+	}
+	public void addRelations(List<Relation> relations){
+		this.relations.addAll(relations);
 	}
 	
 }

@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GetImportedKeysServlet
  */
-@WebServlet("/GetKeys")
-public class GetKeysServlet extends HttpServlet {
+@WebServlet("/GetQueryObjects")
+public class GetQueryObjectsServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	Connection con = null;
@@ -31,15 +31,12 @@ public class GetKeysServlet extends HttpServlet {
 	String alias = "";
 	String type = "";
 	String linker_id = "";
-	Map<String, Relation> newRelations = null;
-	Map<String, Relation> relations = null;
-	Map<String, QuerySubject> query_subjects = null;
-
+	boolean pk = false;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetKeysServlet() {
+    public GetQueryObjectsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -55,10 +52,14 @@ public class GetKeysServlet extends HttpServlet {
 		alias = request.getParameter("alias");
 		type = request.getParameter("type");
 		linker_id = request.getParameter("linker_id");
+		
+		pk = Boolean.parseBoolean(request.getParameter("pk"));
 		System.out.println("table=" + table);
 		System.out.println("alias=" + alias);
 		System.out.println("type=" + type);
 		System.out.println("linker_id=" + linker_id);
+		System.out.println("pk=" + request.getParameter("pk"));
+		System.out.println("pk=" + pk);
 		List<Object> result = new ArrayList<Object>();
 
 		try{
@@ -67,47 +68,32 @@ public class GetKeysServlet extends HttpServlet {
 			schema = (String) request.getSession().getAttribute("schema");
 			metaData = con.getMetaData();
 			
-			query_subjects = (Map<String, QuerySubject>) request.getSession().getAttribute("query_subjects");
-	        
-						
-			newRelations = new HashMap<String, Relation>();
-			relations = (Map<String, Relation>) request.getSession().getAttribute("relations");
+			Map<String, QuerySubject> query_subjects = (Map<String, QuerySubject>) request.getSession().getAttribute("query_subjects");
 			
-			getQuerySubjects();
-			getForeignKeys();
-			getPrimaryKeys();
+			QuerySubject querySubject = query_subjects.get(alias + type);
 			
-			
-			for(Entry<String, Relation> relation: relations.entrySet()){
-				System.out.println(relation.getKey());
+			if(querySubject == null){
+				
+				querySubject = getQuerySubjects();
+				querySubject.setFields(getFields());
+				querySubject.addRelations(getForeignKeys());
+				if(pk){
+					querySubject.addRelations(getPrimaryKeys());
+				}
+				
 			}
 			
 			if(linker_id != null && linker_id.length() > -1){
-				if(relations.containsKey(linker_id)){
-					System.out.println("+++ Update linker in relations +++");
-					Relation relation = relations.get(linker_id);
-					relation.setLinker(true);
-					if(type.equalsIgnoreCase("Final")){
-						relation.setFin(true);
-					}
-					if(type.equalsIgnoreCase("Ref")){
-						relation.setRef(true);
-					}
-					relations.put(relation.get_id(), relation);
-				}
+				querySubject.addLinker_id(linker_id);
 			}
+			
+			query_subjects.put(querySubject.get_id(), querySubject);
 
-			relations.putAll(newRelations);
-			
-			
-			
-			
-			
-			
-			for(Entry<String, Relation> relation: relations.entrySet()){
-		    	result.add(relation.getValue());
+			for(Entry<String, QuerySubject> query_subject : query_subjects.entrySet()){
+		    	result.add(query_subject.getValue());
 		    }
-		    
+			
+			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(Tools.toJSON(result));			
@@ -126,20 +112,23 @@ public class GetKeysServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	protected void getQuerySubjects() throws SQLException{
+	protected QuerySubject getQuerySubjects() throws SQLException{
 		
-		String _id = alias + type + table;
+		QuerySubject result = new QuerySubject();
 		
-		if(query_subjects.containsKey(_id)){
-			return;
-		}
-		
-		QuerySubject query_subject = new QuerySubject();
-        query_subject.set_id(alias + type + table);
-        query_subject.setTable_alias(alias);
-        query_subject.setTable_name(table);
-        query_subject.setType(type);
+		result.set_id(alias + type);
+		result.setTable_alias(alias);
+		result.setTable_name(table);
+		result.setType(type);
         
+        return result;
+        
+	}
+	
+	protected List<Field> getFields() throws SQLException{
+		
+		List<Field> result = new ArrayList<Field>();
+		
         ResultSet rst = metaData.getColumns(con.getCatalog(), schema, table, "%");
         
         while (rst.next()) {
@@ -149,19 +138,22 @@ public class GetKeysServlet extends HttpServlet {
         	Field field = new Field();
         	field.setField_name(field_name);
         	field.setField_type(field_type);
-        	query_subject.addField(field);
-        	
+        	field.set_id(field_name + field_type);
+        	result.add(field);
         }
-        
-        query_subjects.put(alias + type + table, query_subject);
-
-        
+		
+		return result;
+		
 	}
 	
-	protected void getForeignKeys() throws SQLException{
+	protected List<Relation> getForeignKeys() throws SQLException{
+		
+		List<Relation> result = new ArrayList<Relation>();
 		
 	    ResultSet rst = metaData.getImportedKeys(con.getCatalog(), schema, table);
 	    System.out.println("rst=" + rst);
+	    
+	    Map<String, Relation> relations = new HashMap<String, Relation>();
 	    
 	    while (rst.next()) {
 	    	
@@ -173,35 +165,24 @@ public class GetKeysServlet extends HttpServlet {
 	    	String pkcolumn_name = rst.getString("PKCOLUMN_NAME");
 	        String fktable_name = rst.getString("FKTABLE_NAME");
 	        String pktable_name = rst.getString("PKTABLE_NAME");
-	        String _id = key_name + type + alias + "F";
+	        String _id = key_name + "FK";
 	        
 	        System.out.println("_id=" + _id);
 
-	        if(!newRelations.containsKey(key_name)){
+	        if(!relations.containsKey(_id)){
 	        	
 	        	System.out.println("+++ add relation +++");
 	        	
 	        	Relation relation = new Relation();
 	        	
-	        	if(relations.get(_id) != null){
-		        	System.out.println("Relation _id: " + _id + " already exists. Adding existing linker_ids...");
-		        	relation.setLinker_ids(relations.get(_id).getLinker_ids());
-		        }
-
 	        	relation.set_id(_id);
 	        	relation.setKey_name(key_name);
 	        	relation.setFk_name(fk_name);
 	        	relation.setPk_name(pk_name);
 	        	relation.setTable_name(fktable_name);
 	        	relation.setPktable_name(pktable_name);
-	        	relation.setTable_alias(alias);
-	        	relation.setPktable_alias(pktable_name);
-	        	relation.type = type;
 	        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
-	        	relation.setKey_type("F");
-	        	if(linker_id != null && linker_id.length() > -1){
-	        		relation.addLinker_id(linker_id);
-	        	}
+	        	relation.setKey_type("FK");
 	        	
 	        	Seq seq = new Seq();
 	        	seq.setColumn_name(fkcolumn_name);
@@ -209,12 +190,12 @@ public class GetKeysServlet extends HttpServlet {
 	        	seq.setKey_seq(Short.parseShort(key_seq));
 	        	relation.addSeq(seq);
 	        	
-	        	newRelations.put(_id, relation);
+	        	relations.put(_id, relation);
 
 	        }
 	        else{
 	        	
-	        	Relation relation = newRelations.get(_id);
+	        	Relation relation = relations.get(_id);
 	        	if(!relation.getSeqs().isEmpty()){
 		        	System.out.println("+++ update relation +++");
 	        		Seq seq = new Seq();
@@ -233,14 +214,22 @@ public class GetKeysServlet extends HttpServlet {
         	
 	        	
 	    }
+	    
+	    result = new ArrayList<Relation>(relations.values());
+	    
+	    return result;
 		
 	}
 	
-	protected void getPrimaryKeys() throws SQLException{
+	protected List<Relation> getPrimaryKeys() throws SQLException{
+		
+		List<Relation> result = new ArrayList<Relation>();
 		
 		ResultSet rst = null;
 		DatabaseMetaData metaData = con.getMetaData();
 	    rst = metaData.getExportedKeys(con.getCatalog(), schema, table);
+	    
+	    Map<String, Relation> relations = new HashMap<String, Relation>();
 	    
 	    while (rst.next()) {
 	    	
@@ -252,37 +241,24 @@ public class GetKeysServlet extends HttpServlet {
 	    	String pkcolumn_name = rst.getString("PKCOLUMN_NAME");
 	        String fktable_name = rst.getString("FKTABLE_NAME");
 	        String pktable_name = rst.getString("PKTABLE_NAME");
-	        String _id = key_name + type + alias + "P";
+	        String _id = key_name + "PK";
 	        
 	        System.out.println("_id=" + _id);
 
-	        if(!newRelations.containsKey(key_name)){
+	        if(!relations.containsKey(_id)){
 	        	
 	        	System.out.println("+++ add relation +++");
 	        	
 	        	Relation relation = new Relation();
 	        	
-	        	if(type.equalsIgnoreCase("Ref")){
-			        if(relations.get(_id) != null){
-			        	System.out.println("Relation _id: " + _id + " already exists. Adding existing linker_ids...");
-			        	relation.setLinker_ids(relations.get(_id).getLinker_ids());
-			        }
-	        	}
-
 	        	relation.set_id(_id);
 	        	relation.setKey_name(key_name);
 	        	relation.setFk_name(fk_name);
 	        	relation.setPk_name(pk_name);
 	        	relation.setTable_name(pktable_name);
 	        	relation.setPktable_name(fktable_name);
-	        	relation.setTable_alias(alias);
-	        	relation.setPktable_alias(fktable_name);
-	        	relation.type = type;
 	        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
-	        	relation.setKey_type("P");
-	        	if(linker_id != null && linker_id.length() > -1){
-	        		relation.addLinker_id(linker_id);
-	        	}
+	        	relation.setKey_type("PK");
 	        	
 	        	Seq seq = new Seq();
 	        	seq.setColumn_name(pkcolumn_name);
@@ -290,12 +266,12 @@ public class GetKeysServlet extends HttpServlet {
 	        	seq.setKey_seq(Short.parseShort(key_seq));
 	        	relation.addSeq(seq);
 	        	
-	        	newRelations.put(_id, relation);
+	        	relations.put(_id, relation);
 
 	        }
 	        else{
 	        	
-	        	Relation relation = newRelations.get(_id);
+	        	Relation relation = relations.get(_id);
 	        	if(!relation.getSeqs().isEmpty()){
 		        	System.out.println("+++ update relation +++");
 	        		Seq seq = new Seq();
@@ -314,6 +290,10 @@ public class GetKeysServlet extends HttpServlet {
         	
 	        	
 	    }
+	    
+	    result = new ArrayList<Relation>(relations.values());
+	    
+	    return result;
 		
 	}
 	

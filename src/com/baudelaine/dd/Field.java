@@ -2,14 +2,28 @@ package com.baudelaine.dd;
 
 public class Field {
 
+	String _id = "";
+	String _ref = null;
 	String field_name = "";
 	String field_type = "";
 	String label = "";
 	boolean traduction = false;
-	boolean visibleField = false;
+	boolean visible = false;
 	boolean timezone = false;
 	String icon = "";
 
+	public String get_id() {
+		return _id;
+	}
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+	public String get_ref() {
+		return _ref;
+	}
+	public void set_ref(String _ref) {
+		this._ref = _ref;
+	}
 	public String getField_name() {
 		return field_name;
 	}
@@ -35,11 +49,11 @@ public class Field {
 		this.traduction = traduction;
 	}
 	
-	public boolean isVisibleField() {
-		return visibleField;
+	public boolean isVisible() {
+		return visible;
 	}
-	public void setVisibleField(boolean visibleField) {
-		this.visibleField = visibleField;
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 	public boolean isTimezone() {
 		return timezone;

@@ -14,15 +14,10 @@ public class Relation {
 	String pk_name = "";
 	String table_name = "";
 	String pktable_name = "";	
-	String table_alias = "";
-	String pktable_alias = "";	
-	String type = "";
 	boolean fin = false;
 	boolean ref = false;
 	String relashionship = "";
-	boolean linker = false;
 	String key_type = "";
-	Set<String> linker_ids =  new HashSet<String>();
 	List<Seq> seqs = new ArrayList<Seq>();
 	
 	public String get_id() {
@@ -67,24 +62,6 @@ public class Relation {
 	public void setPktable_name(String pktable_name) {
 		this.pktable_name = pktable_name;
 	}
-	public String getTable_alias() {
-		return table_alias;
-	}
-	public void setTable_alias(String table_alias) {
-		this.table_alias = table_alias;
-	}
-	public String getPktable_alias() {
-		return pktable_alias;
-	}
-	public void setPktable_alias(String pktable_alias) {
-		this.pktable_alias = pktable_alias;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
 	public boolean isFin() {
 		return fin;
 	}
@@ -103,24 +80,14 @@ public class Relation {
 	public void setRelashionship(String relashionship) {
 		this.relashionship = relashionship;
 	}
-	public boolean isLinker() {
-		return linker;
-	}
-	public void setLinker(boolean linker) {
-		this.linker = linker;
-	}
+
 	public String getKey_type() {
 		return key_type;
 	}
 	public void setKey_type(String key_type) {
 		this.key_type = key_type;
 	}
-	public Set<String> getLinker_ids() {
-		return linker_ids;
-	}
-	public void setLinker_ids(Set<String> linker_ids) {
-		this.linker_ids = linker_ids;
-	}
+
 	public List<Seq> getSeqs() {
 		return seqs;
 	}
@@ -130,11 +97,6 @@ public class Relation {
 	public void addSeq(Seq seq) {
 		this.seqs.add(seq);
 	}
-	public void addLinker_id(String linker){
-		this.linker_ids.add(linker);
-	}
-	
-	
-	
+
 	
 }

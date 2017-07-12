@@ -9,6 +9,6 @@ fi
 
 rm -rf WebContent/WEB-INF/classes/*
 
-javac -cp wlp/*:WebContent/WEB-INF/lib/* -d WebContent/WEB-INF/classes/ src/com/baudelaine/dd/*.java
+javac -cp wlp/*:WebContent/WEB-INF/lib/* -d WebContent/WEB-INF/classes/ src/com/baudelaine/dd/*.java src/datadixit/limsbi/svc/*.java src/datadixit/limsbi/cognos/*.java src/datadixit/limsbi/db/*.java src/datadixit/limsbi/properties/*.java src/datadixit/limsbi/pojos/*.java 
 
 exit 0

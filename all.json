@@ -1,13 +1,13 @@
 [
  {
-  "_id": "PROJECT_ALIASFinal",
+  "_id": "S_BATCH_ALIASFinal",
   "_ref": null,
   "fields": [
    {
-    "_id": "PROJNOCHAR",
+    "_id": "S_BATCHIDVARCHAR2",
     "_ref": null,
-    "field_name": "PROJNO",
-    "field_type": "CHAR",
+    "field_name": "S_BATCHID",
+    "field_type": "VARCHAR2",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -15,10 +15,10 @@
     "visible": false
    },
    {
-    "_id": "PROJNAMEVARCHAR",
+    "_id": "BATCHDESCVARCHAR2",
     "_ref": null,
-    "field_name": "PROJNAME",
-    "field_type": "VARCHAR",
+    "field_name": "BATCHDESC",
+    "field_type": "VARCHAR2",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -26,42 +26,9 @@
     "visible": false
    },
    {
-    "_id": "DEPTNOCHAR",
+    "_id": "CREATEDTDATE",
     "_ref": null,
-    "field_name": "DEPTNO",
-    "field_type": "CHAR",
-    "icon": "",
-    "label": "",
-    "timezone": false,
-    "traduction": false,
-    "visible": false
-   },
-   {
-    "_id": "RESPEMPCHAR",
-    "_ref": null,
-    "field_name": "RESPEMP",
-    "field_type": "CHAR",
-    "icon": "",
-    "label": "",
-    "timezone": false,
-    "traduction": false,
-    "visible": false
-   },
-   {
-    "_id": "PRSTAFFDECIMAL",
-    "_ref": null,
-    "field_name": "PRSTAFF",
-    "field_type": "DECIMAL",
-    "icon": "",
-    "label": "",
-    "timezone": false,
-    "traduction": false,
-    "visible": false
-   },
-   {
-    "_id": "PRSTDATEDATE",
-    "_ref": null,
-    "field_name": "PRSTDATE",
+    "field_name": "CREATEDT",
     "field_type": "DATE",
     "icon": "",
     "label": "",
@@ -70,9 +37,9 @@
     "visible": false
    },
    {
-    "_id": "PRENDATEDATE",
+    "_id": "BATCHDTDATE",
     "_ref": null,
-    "field_name": "PRENDATE",
+    "field_name": "BATCHDT",
     "field_type": "DATE",
     "icon": "",
     "label": "",
@@ -81,10 +48,417 @@
     "visible": false
    },
    {
-    "_id": "MAJPROJCHAR",
+    "_id": "CREATEBYVARCHAR2",
     "_ref": null,
-    "field_name": "MAJPROJ",
-    "field_type": "CHAR",
+    "field_name": "CREATEBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BATCHSTATUSVARCHAR2",
+    "_ref": null,
+    "field_name": "BATCHSTATUS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CREATETOOLVARCHAR2",
+    "_ref": null,
+    "field_name": "CREATETOOL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODDTDATE",
+    "_ref": null,
+    "field_name": "MODDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODBYVARCHAR2",
+    "_ref": null,
+    "field_name": "MODBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODTOOLVARCHAR2",
+    "_ref": null,
+    "field_name": "MODTOOL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUDITDEFERFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "AUDITDEFERFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "NOTESVARCHAR2",
+    "_ref": null,
+    "field_name": "NOTES",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUDITSEQUENCENUMBER",
+    "_ref": null,
+    "field_name": "AUDITSEQUENCE",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TRACELOGIDVARCHAR2",
+    "_ref": null,
+    "field_name": "TRACELOGID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "USERSEQUENCENUMBER",
+    "_ref": null,
+    "field_name": "USERSEQUENCE",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TEMPLATEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "TEMPLATEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODUCTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODUCTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RELEASEDBYVARCHAR2",
+    "_ref": null,
+    "field_name": "RELEASEDBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BATCHTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "BATCHTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BATCHSIZENUMBER",
+    "_ref": null,
+    "field_name": "BATCHSIZE",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BATCHSIZEUNITSVARCHAR2",
+    "_ref": null,
+    "field_name": "BATCHSIZEUNITS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RECEIVEDDTDATE",
+    "_ref": null,
+    "field_name": "RECEIVEDDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RECEIVEDBYVARCHAR2",
+    "_ref": null,
+    "field_name": "RECEIVEDBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RELEASEDDTDATE",
+    "_ref": null,
+    "field_name": "RELEASEDDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MANUFACTUREDTDATE",
+    "_ref": null,
+    "field_name": "MANUFACTUREDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SUPPLIERADDRESSIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SUPPLIERADDRESSID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SUPPLIERADDRESSTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "SUPPLIERADDRESSTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODVARIANTLOTREFERENCEVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODVARIANTLOTREFERENCE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MANUFACTURERADDRESSIDVARCHAR2",
+    "_ref": null,
+    "field_name": "MANUFACTURERADDRESSID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MANUFACTURERADDRESSTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "MANUFACTURERADDRESSTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LEVELIDVARCHAR2",
+    "_ref": null,
+    "field_name": "LEVELID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DISPOSITIONVARCHAR2",
+    "_ref": null,
+    "field_name": "DISPOSITION",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODVARIANTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODVARIANTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODUCTIONSITEADDRESSIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODUCTIONSITEADDRESSID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODUCTIONSITEADDRESSTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODUCTIONSITEADDRESSTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SAMPLINGPLANIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SAMPLINGPLANID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SAMPLINGPLANVERSIONIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SAMPLINGPLANVERSIONID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "ACTIVEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "ACTIVEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BATCHMODEVARCHAR2",
+    "_ref": null,
+    "field_name": "BATCHMODE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODUCTVERSIONIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODUCTVERSIONID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SECURITYUSERVARCHAR2",
+    "_ref": null,
+    "field_name": "SECURITYUSER",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SECURITYDEPARTMENTVARCHAR2",
+    "_ref": null,
+    "field_name": "SECURITYDEPARTMENT",
+    "field_type": "VARCHAR2",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -95,100 +469,228 @@
   "filter": "",
   "label": "",
   "linker": false,
-  "linker_ids": [
-   "RPPKEYFinalEMPF"
-  ],
+  "linker_ids": [],
   "relations": [
    {
-    "_id": "FK_PROJECT_1FK",
+    "_id": "FKADDRESS_SBATCH_MFK",
     "_rev": null,
     "fin": false,
-    "fk_name": "FK_PROJECT_1",
-    "key_name": "FK_PROJECT_1",
+    "fk_name": "FKADDRESS_SBATCH_M",
+    "key_name": "FKADDRESS_SBATCH_M",
     "key_type": "FK",
-    "pk_name": "PK_DEPARTMENT",
+    "pk_name": "XPKADDRESS",
+    "pktable_name": "ADDRESS",
+    "ref": false,
+    "relashionship": "[S_BATCH].[MANUFACTURERADDRESSID] = [ADDRESS].[ADDRESSID] AND [S_BATCH].[MANUFACTURERADDRESSTYPE] = [ADDRESS].[ADDRESSTYPE]",
+    "seqs": [
+     {
+      "column_name": "MANUFACTURERADDRESSID",
+      "key_seq": 1,
+      "pkcolumn_name": "ADDRESSID"
+     },
+     {
+      "column_name": "MANUFACTURERADDRESSTYPE",
+      "key_seq": 2,
+      "pkcolumn_name": "ADDRESSTYPE"
+     }
+    ],
+    "table_name": "S_BATCH"
+   },
+   {
+    "_id": "FKADDRESS_SBATCH_PFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKADDRESS_SBATCH_P",
+    "key_name": "FKADDRESS_SBATCH_P",
+    "key_type": "FK",
+    "pk_name": "XPKADDRESS",
+    "pktable_name": "ADDRESS",
+    "ref": false,
+    "relashionship": "[S_BATCH].[PRODUCTIONSITEADDRESSID] = [ADDRESS].[ADDRESSID] AND [S_BATCH].[PRODUCTIONSITEADDRESSTYPE] = [ADDRESS].[ADDRESSTYPE]",
+    "seqs": [
+     {
+      "column_name": "PRODUCTIONSITEADDRESSID",
+      "key_seq": 1,
+      "pkcolumn_name": "ADDRESSID"
+     },
+     {
+      "column_name": "PRODUCTIONSITEADDRESSTYPE",
+      "key_seq": 2,
+      "pkcolumn_name": "ADDRESSTYPE"
+     }
+    ],
+    "table_name": "S_BATCH"
+   },
+   {
+    "_id": "FKSPRODUCT_SBATCHFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSPRODUCT_SBATCH",
+    "key_name": "FKSPRODUCT_SBATCH",
+    "key_type": "FK",
+    "pk_name": "XPKS_PRODUCT",
+    "pktable_name": "S_PRODUCT",
+    "ref": false,
+    "relashionship": "[S_BATCH].[PRODUCTID] = [S_PRODUCT].[S_PRODUCTID] AND [S_BATCH].[PRODUCTVERSIONID] = [S_PRODUCT].[S_PRODUCTVERSIONID]",
+    "seqs": [
+     {
+      "column_name": "PRODUCTID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_PRODUCTID"
+     },
+     {
+      "column_name": "PRODUCTVERSIONID",
+      "key_seq": 2,
+      "pkcolumn_name": "S_PRODUCTVERSIONID"
+     }
+    ],
+    "table_name": "S_BATCH"
+   },
+   {
+    "_id": "FKSPRODVARIANT_SBATCHFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSPRODVARIANT_SBATCH",
+    "key_name": "FKSPRODVARIANT_SBATCH",
+    "key_type": "FK",
+    "pk_name": "XPKS_PRODVARIANT",
+    "pktable_name": "S_PRODVARIANT",
+    "ref": false,
+    "relashionship": "[S_BATCH].[PRODVARIANTID] = [S_PRODVARIANT].[S_PRODVARIANTID]",
+    "seqs": [
+     {
+      "column_name": "PRODVARIANTID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_PRODVARIANTID"
+     }
+    ],
+    "table_name": "S_BATCH"
+   },
+   {
+    "_id": "FKADDRESS_SBATCH_SFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKADDRESS_SBATCH_S",
+    "key_name": "FKADDRESS_SBATCH_S",
+    "key_type": "FK",
+    "pk_name": "XPKADDRESS",
+    "pktable_name": "ADDRESS",
+    "ref": false,
+    "relashionship": "[S_BATCH].[SUPPLIERADDRESSID] = [ADDRESS].[ADDRESSID] AND [S_BATCH].[SUPPLIERADDRESSTYPE] = [ADDRESS].[ADDRESSTYPE]",
+    "seqs": [
+     {
+      "column_name": "SUPPLIERADDRESSID",
+      "key_seq": 1,
+      "pkcolumn_name": "ADDRESSID"
+     },
+     {
+      "column_name": "SUPPLIERADDRESSTYPE",
+      "key_seq": 2,
+      "pkcolumn_name": "ADDRESSTYPE"
+     }
+    ],
+    "table_name": "S_BATCH"
+   },
+   {
+    "_id": "FKDEPARTMENT_SBATCHFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKDEPARTMENT_SBATCH",
+    "key_name": "FKDEPARTMENT_SBATCH",
+    "key_type": "FK",
+    "pk_name": "XPKDEPARTMENT",
     "pktable_name": "DEPARTMENT",
     "ref": false,
-    "relashionship": "[PROJECT].[DEPTNO] = [DEPARTMENT].[DEPTNO] AND [PROJECT].[DEPTNO] = [DEPT].[DEPTNO]",
+    "relashionship": "[S_BATCH].[SECURITYDEPARTMENT] = [DEPARTMENT].[DEPARTMENTID]",
     "seqs": [
      {
-      "column_name": "DEPTNO",
+      "column_name": "SECURITYDEPARTMENT",
       "key_seq": 1,
-      "pkcolumn_name": "DEPTNO"
-     },
-     {
-      "column_name": "DEPTNO",
-      "key_seq": 1,
-      "pkcolumn_name": "DEPTNO"
+      "pkcolumn_name": "DEPARTMENTID"
      }
     ],
-    "table_name": "PROJECT"
+    "table_name": "S_BATCH"
    },
    {
-    "_id": "FK_PROJECT_2FK",
+    "_id": "FKSYSUSER_SBATCH_RCFK",
     "_rev": null,
     "fin": false,
-    "fk_name": "FK_PROJECT_2",
-    "key_name": "FK_PROJECT_2",
+    "fk_name": "FKSYSUSER_SBATCH_RC",
+    "key_name": "FKSYSUSER_SBATCH_RC",
     "key_type": "FK",
-    "pk_name": "PK_EMPLOYEE",
-    "pktable_name": "EMP",
+    "pk_name": "XPKSYSUSER",
+    "pktable_name": "SYSUSER",
     "ref": false,
-    "relashionship": "[PROJECT].[RESPEMP] = [EMP].[EMPNO] AND [PROJECT].[RESPEMP] = [EMPLOYEE].[EMPNO]",
+    "relashionship": "[S_BATCH].[RECEIVEDBY] = [SYSUSER].[SYSUSERID]",
     "seqs": [
      {
-      "column_name": "RESPEMP",
+      "column_name": "RECEIVEDBY",
       "key_seq": 1,
-      "pkcolumn_name": "EMPNO"
-     },
-     {
-      "column_name": "RESPEMP",
-      "key_seq": 1,
-      "pkcolumn_name": "EMPNO"
+      "pkcolumn_name": "SYSUSERID"
      }
     ],
-    "table_name": "PROJECT"
+    "table_name": "S_BATCH"
    },
    {
-    "_id": "RPPFK",
+    "_id": "FKSYSUSER_SBATCHFK",
     "_rev": null,
     "fin": false,
-    "fk_name": "RPP",
-    "key_name": "RPP",
+    "fk_name": "FKSYSUSER_SBATCH",
+    "key_name": "FKSYSUSER_SBATCH",
     "key_type": "FK",
-    "pk_name": "PK_PROJECT",
-    "pktable_name": "PROJ",
+    "pk_name": "XPKSYSUSER",
+    "pktable_name": "SYSUSER",
     "ref": false,
-    "relashionship": "[PROJECT].[MAJPROJ] = [PROJ].[PROJNO] AND [PROJECT].[MAJPROJ] = [PROJECT].[PROJNO]",
+    "relashionship": "[S_BATCH].[SECURITYUSER] = [SYSUSER].[SYSUSERID]",
     "seqs": [
      {
-      "column_name": "MAJPROJ",
+      "column_name": "SECURITYUSER",
       "key_seq": 1,
-      "pkcolumn_name": "PROJNO"
-     },
-     {
-      "column_name": "MAJPROJ",
-      "key_seq": 1,
-      "pkcolumn_name": "PROJNO"
+      "pkcolumn_name": "SYSUSERID"
      }
     ],
-    "table_name": "PROJECT"
+    "table_name": "S_BATCH"
+   },
+   {
+    "_id": "FKSSAMPLINGPLAN_SBATCHFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSSAMPLINGPLAN_SBATCH",
+    "key_name": "FKSSAMPLINGPLAN_SBATCH",
+    "key_type": "FK",
+    "pk_name": "XPKS_SAMPLINGPLAN",
+    "pktable_name": "S_SAMPLINGPLAN",
+    "ref": false,
+    "relashionship": "[S_BATCH].[SAMPLINGPLANID] = [S_SAMPLINGPLAN].[S_SAMPLINGPLANID] AND [S_BATCH].[SAMPLINGPLANVERSIONID] = [S_SAMPLINGPLAN].[S_SAMPLINGPLANVERSIONID]",
+    "seqs": [
+     {
+      "column_name": "SAMPLINGPLANID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_SAMPLINGPLANID"
+     },
+     {
+      "column_name": "SAMPLINGPLANVERSIONID",
+      "key_seq": 2,
+      "pkcolumn_name": "S_SAMPLINGPLANVERSIONID"
+     }
+    ],
+    "table_name": "S_BATCH"
    }
   ],
-  "table_alias": "PROJECT_ALIAS",
-  "table_name": "PROJECT",
+  "table_alias": "S_BATCH_ALIAS",
+  "table_name": "S_BATCH",
   "type": "Final",
   "visible": false
  },
  {
-  "_id": "DEPARTMENT_ALIASFinal",
+  "_id": "SYSUSER_ALIASRef",
   "_ref": null,
   "fields": [
    {
-    "_id": "DEPTNOCHAR",
+    "_id": "SYSUSERIDVARCHAR2",
     "_ref": null,
-    "field_name": "DEPTNO",
-    "field_type": "CHAR",
+    "field_name": "SYSUSERID",
+    "field_type": "VARCHAR2",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -196,10 +698,10 @@
     "visible": false
    },
    {
-    "_id": "DEPTNAMEVARCHAR",
+    "_id": "PASSWORDVARCHAR2",
     "_ref": null,
-    "field_name": "DEPTNAME",
-    "field_type": "VARCHAR",
+    "field_name": "PASSWORD",
+    "field_type": "VARCHAR2",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -207,10 +709,10 @@
     "visible": false
    },
    {
-    "_id": "MGRNOCHAR",
+    "_id": "SYSUSERDESCVARCHAR2",
     "_ref": null,
-    "field_name": "MGRNO",
-    "field_type": "CHAR",
+    "field_name": "SYSUSERDESC",
+    "field_type": "VARCHAR2",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -218,10 +720,10 @@
     "visible": false
    },
    {
-    "_id": "ADMRDEPTCHAR",
+    "_id": "PASSWORDEXPIRYDTDATE",
     "_ref": null,
-    "field_name": "ADMRDEPT",
-    "field_type": "CHAR",
+    "field_name": "PASSWORDEXPIRYDT",
+    "field_type": "DATE",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -229,10 +731,406 @@
     "visible": false
    },
    {
-    "_id": "LOCATIONCHAR",
+    "_id": "BIOMETRICREGISTERVARCHAR2",
     "_ref": null,
-    "field_name": "LOCATION",
-    "field_type": "CHAR",
+    "field_name": "BIOMETRICREGISTER",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LASTSETUSERDTDATE",
+    "_ref": null,
+    "field_name": "LASTSETUSERDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LASTCLEARUSERDTDATE",
+    "_ref": null,
+    "field_name": "LASTCLEARUSERDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LASTDEVICEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "LASTDEVICEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "NAMEDUSERFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "NAMEDUSERFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "USERSEQUENCENUMBER",
+    "_ref": null,
+    "field_name": "USERSEQUENCE",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "NOTESVARCHAR2",
+    "_ref": null,
+    "field_name": "NOTES",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUDITSEQUENCENUMBER",
+    "_ref": null,
+    "field_name": "AUDITSEQUENCE",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUDITDEFERFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "AUDITDEFERFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TRACELOGIDVARCHAR2",
+    "_ref": null,
+    "field_name": "TRACELOGID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TEMPLATEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "TEMPLATEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CREATEDTDATE",
+    "_ref": null,
+    "field_name": "CREATEDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CREATEBYVARCHAR2",
+    "_ref": null,
+    "field_name": "CREATEBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CREATETOOLVARCHAR2",
+    "_ref": null,
+    "field_name": "CREATETOOL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODDTDATE",
+    "_ref": null,
+    "field_name": "MODDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODBYVARCHAR2",
+    "_ref": null,
+    "field_name": "MODBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TOTALATTEMPTSNUMBER",
+    "_ref": null,
+    "field_name": "TOTALATTEMPTS",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODTOOLVARCHAR2",
+    "_ref": null,
+    "field_name": "MODTOOL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "FAILEDATTEMPTSNUMBER",
+    "_ref": null,
+    "field_name": "FAILEDATTEMPTS",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DISABLEDFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "DISABLEDFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DISABLEDREASONVARCHAR2",
+    "_ref": null,
+    "field_name": "DISABLEDREASON",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CHANGEPASSWORDFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "CHANGEPASSWORDFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "EMAILVARCHAR2",
+    "_ref": null,
+    "field_name": "EMAIL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LOCALEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "LOCALEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TIMEZONEVARCHAR2",
+    "_ref": null,
+    "field_name": "TIMEZONE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "GLPFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "GLPFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PHONEVARCHAR2",
+    "_ref": null,
+    "field_name": "PHONE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DEFAULTDEPARTMENTVARCHAR2",
+    "_ref": null,
+    "field_name": "DEFAULTDEPARTMENT",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LANGUAGEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "LANGUAGEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "INITIALSVARCHAR2",
+    "_ref": null,
+    "field_name": "INITIALS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CASESENSITIVEPASSWORDFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "CASESENSITIVEPASSWORDFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DEFAULTJOBTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "DEFAULTJOBTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LASTJOBTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "LASTJOBTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "ACTIVEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "ACTIVEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SECURITYTYPEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "SECURITYTYPEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BASEDEPARTMENTVARCHAR2",
+    "_ref": null,
+    "field_name": "BASEDEPARTMENT",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUTHENTICATIONTYPEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "AUTHENTICATIONTYPEFLAG",
+    "field_type": "VARCHAR2",
     "icon": "",
     "label": "",
     "timezone": false,
@@ -243,138 +1141,1621 @@
   "filter": "",
   "label": "",
   "linker": false,
-  "linker_ids": [
-   "RPPKEYFinalEMPF"
-  ],
+  "linker_ids": [],
   "relations": [
    {
-    "_id": "RODFK",
+    "_id": "FKJOBTYPESYSUSER_DFK",
     "_rev": null,
     "fin": false,
-    "fk_name": "ROD",
-    "key_name": "ROD",
+    "fk_name": "FKJOBTYPESYSUSER_D",
+    "key_name": "FKJOBTYPESYSUSER_D",
     "key_type": "FK",
-    "pk_name": "PK_DEPARTMENT",
+    "pk_name": "XPKJOBTYPE",
+    "pktable_name": "JOBTYPE",
+    "ref": false,
+    "relashionship": "[SYSUSER].[DEFAULTJOBTYPE] = [JOBTYPE].[JOBTYPEID]",
+    "seqs": [
+     {
+      "column_name": "DEFAULTJOBTYPE",
+      "key_seq": 1,
+      "pkcolumn_name": "JOBTYPEID"
+     }
+    ],
+    "table_name": "SYSUSER"
+   },
+   {
+    "_id": "FK_DEPARTMENT_SYSUSER_BDFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FK_DEPARTMENT_SYSUSER_BD",
+    "key_name": "FK_DEPARTMENT_SYSUSER_BD",
+    "key_type": "FK",
+    "pk_name": "XPKDEPARTMENT",
     "pktable_name": "DEPARTMENT",
     "ref": false,
-    "relashionship": "[DEPARTMENT].[ADMRDEPT] = [DEPARTMENT].[DEPTNO] AND [DEPARTMENT].[ADMRDEPT] = [DEPT].[DEPTNO]",
+    "relashionship": "[SYSUSER].[BASEDEPARTMENT] = [DEPARTMENT].[DEPARTMENTID]",
     "seqs": [
      {
-      "column_name": "ADMRDEPT",
+      "column_name": "BASEDEPARTMENT",
       "key_seq": 1,
-      "pkcolumn_name": "DEPTNO"
-     },
-     {
-      "column_name": "ADMRDEPT",
-      "key_seq": 1,
-      "pkcolumn_name": "DEPTNO"
+      "pkcolumn_name": "DEPARTMENTID"
      }
     ],
-    "table_name": "DEPARTMENT"
+    "table_name": "SYSUSER"
    },
    {
-    "_id": "RDEFK",
+    "_id": "FKLOCALE_SYSUSERFK",
     "_rev": null,
     "fin": false,
-    "fk_name": "RDE",
-    "key_name": "RDE",
+    "fk_name": "FKLOCALE_SYSUSER",
+    "key_name": "FKLOCALE_SYSUSER",
     "key_type": "FK",
-    "pk_name": "PK_EMPLOYEE",
-    "pktable_name": "EMP",
+    "pk_name": "XPKLOCALE",
+    "pktable_name": "LOCALE",
     "ref": false,
-    "relashionship": "[DEPARTMENT].[MGRNO] = [EMP].[EMPNO] AND [DEPARTMENT].[MGRNO] = [EMPLOYEE].[EMPNO]",
+    "relashionship": "[SYSUSER].[LOCALEID] = [LOCALE].[LOCALEID]",
     "seqs": [
      {
-      "column_name": "MGRNO",
+      "column_name": "LOCALEID",
       "key_seq": 1,
-      "pkcolumn_name": "EMPNO"
-     },
-     {
-      "column_name": "MGRNO",
-      "key_seq": 1,
-      "pkcolumn_name": "EMPNO"
+      "pkcolumn_name": "LOCALEID"
      }
     ],
-    "table_name": "DEPARTMENT"
+    "table_name": "SYSUSER"
    },
    {
-    "_id": "RODPK",
+    "_id": "FKLANGUAGE_SYSUSERFK",
     "_rev": null,
     "fin": false,
-    "fk_name": "ROD",
-    "key_name": "ROD",
-    "key_type": "PK",
-    "pk_name": "PK_DEPARTMENT",
+    "fk_name": "FKLANGUAGE_SYSUSER",
+    "key_name": "FKLANGUAGE_SYSUSER",
+    "key_type": "FK",
+    "pk_name": "XPKLANGUAGE",
+    "pktable_name": "LANGUAGE",
+    "ref": false,
+    "relashionship": "[SYSUSER].[LANGUAGEID] = [LANGUAGE].[LANGUAGEID]",
+    "seqs": [
+     {
+      "column_name": "LANGUAGEID",
+      "key_seq": 1,
+      "pkcolumn_name": "LANGUAGEID"
+     }
+    ],
+    "table_name": "SYSUSER"
+   },
+   {
+    "_id": "FKDEPARTMENT_SYSUSER_DDFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKDEPARTMENT_SYSUSER_DD",
+    "key_name": "FKDEPARTMENT_SYSUSER_DD",
+    "key_type": "FK",
+    "pk_name": "XPKDEPARTMENT",
     "pktable_name": "DEPARTMENT",
     "ref": false,
-    "relashionship": "[DEPARTMENT].[ADMRDEPT] = [DEPARTMENT].[DEPTNO] AND [DEPT].[ADMRDEPT] = [DEPARTMENT].[DEPTNO]",
+    "relashionship": "[SYSUSER].[DEFAULTDEPARTMENT] = [DEPARTMENT].[DEPARTMENTID]",
     "seqs": [
      {
-      "column_name": "DEPTNO",
+      "column_name": "DEFAULTDEPARTMENT",
       "key_seq": 1,
-      "pkcolumn_name": "ADMRDEPT"
-     },
-     {
-      "column_name": "DEPTNO",
-      "key_seq": 1,
-      "pkcolumn_name": "ADMRDEPT"
+      "pkcolumn_name": "DEPARTMENTID"
      }
     ],
-    "table_name": "DEPARTMENT"
+    "table_name": "SYSUSER"
    },
    {
-    "_id": "FK_PROJECT_1PK",
+    "_id": "FKJOBTYPE_SYSUSER_LFK",
     "_rev": null,
     "fin": false,
-    "fk_name": "FK_PROJECT_1",
-    "key_name": "FK_PROJECT_1",
-    "key_type": "PK",
-    "pk_name": "PK_DEPARTMENT",
-    "pktable_name": "PROJ",
+    "fk_name": "FKJOBTYPE_SYSUSER_L",
+    "key_name": "FKJOBTYPE_SYSUSER_L",
+    "key_type": "FK",
+    "pk_name": "XPKJOBTYPE",
+    "pktable_name": "JOBTYPE",
     "ref": false,
-    "relashionship": "[PROJ].[DEPTNO] = [DEPARTMENT].[DEPTNO] AND [PROJECT].[DEPTNO] = [DEPARTMENT].[DEPTNO]",
+    "relashionship": "[SYSUSER].[LASTJOBTYPE] = [JOBTYPE].[JOBTYPEID]",
     "seqs": [
      {
-      "column_name": "DEPTNO",
+      "column_name": "LASTJOBTYPE",
       "key_seq": 1,
-      "pkcolumn_name": "DEPTNO"
-     },
-     {
-      "column_name": "DEPTNO",
-      "key_seq": 1,
-      "pkcolumn_name": "DEPTNO"
+      "pkcolumn_name": "JOBTYPEID"
      }
     ],
-    "table_name": "DEPARTMENT"
-   },
-   {
-    "_id": "REDPK",
-    "_rev": null,
-    "fin": false,
-    "fk_name": "RED",
-    "key_name": "RED",
-    "key_type": "PK",
-    "pk_name": "PK_DEPARTMENT",
-    "pktable_name": "EMP",
-    "ref": false,
-    "relashionship": "[EMP].[WORKDEPT] = [DEPARTMENT].[DEPTNO] AND [EMPLOYEE].[WORKDEPT] = [DEPARTMENT].[DEPTNO]",
-    "seqs": [
-     {
-      "column_name": "DEPTNO",
-      "key_seq": 1,
-      "pkcolumn_name": "WORKDEPT"
-     },
-     {
-      "column_name": "DEPTNO",
-      "key_seq": 1,
-      "pkcolumn_name": "WORKDEPT"
-     }
-    ],
-    "table_name": "DEPARTMENT"
+    "table_name": "SYSUSER"
    }
   ],
-  "table_alias": "DEPARTMENT_ALIAS",
-  "table_name": "DEPARTMENT",
+  "table_alias": "SYSUSER_ALIAS",
+  "table_name": "SYSUSER",
+  "type": "Ref",
+  "visible": false
+ },
+ {
+  "_id": "S_SAMPLE_ALIASFinal",
+  "_ref": null,
+  "fields": [
+   {
+    "_id": "S_SAMPLEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "S_SAMPLEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SAMPLEDESCVARCHAR2",
+    "_ref": null,
+    "field_name": "SAMPLEDESC",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SAMPLETYPEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SAMPLETYPEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CREATEDTDATE",
+    "_ref": null,
+    "field_name": "CREATEDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CREATEBYVARCHAR2",
+    "_ref": null,
+    "field_name": "CREATEBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CREATETOOLVARCHAR2",
+    "_ref": null,
+    "field_name": "CREATETOOL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODDTDATE",
+    "_ref": null,
+    "field_name": "MODDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SUBMITTERIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SUBMITTERID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODBYVARCHAR2",
+    "_ref": null,
+    "field_name": "MODBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "MODTOOLVARCHAR2",
+    "_ref": null,
+    "field_name": "MODTOOL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SUBMITTEDDTDATE",
+    "_ref": null,
+    "field_name": "SUBMITTEDDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUDITDEFERFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "AUDITDEFERFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "NOTESVARCHAR2",
+    "_ref": null,
+    "field_name": "NOTES",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUDITSEQUENCENUMBER",
+    "_ref": null,
+    "field_name": "AUDITSEQUENCE",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TRACELOGIDVARCHAR2",
+    "_ref": null,
+    "field_name": "TRACELOGID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "USERSEQUENCENUMBER",
+    "_ref": null,
+    "field_name": "USERSEQUENCE",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "REVIEWREQUIREDFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "REVIEWREQUIREDFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRIORITYVARCHAR2",
+    "_ref": null,
+    "field_name": "PRIORITY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DISPOSALSTATUSVARCHAR2",
+    "_ref": null,
+    "field_name": "DISPOSALSTATUS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SAMPLESTATUSVARCHAR2",
+    "_ref": null,
+    "field_name": "SAMPLESTATUS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "COLLECTIONDTDATE",
+    "_ref": null,
+    "field_name": "COLLECTIONDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RECEIVEDDTDATE",
+    "_ref": null,
+    "field_name": "RECEIVEDDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BATCHIDVARCHAR2",
+    "_ref": null,
+    "field_name": "BATCHID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PHYSICALCONDITIONVARCHAR2",
+    "_ref": null,
+    "field_name": "PHYSICALCONDITION",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODUCTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODUCTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PROJECTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PROJECTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SAMPLEPOINTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SAMPLEPOINTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "LOCATIONIDVARCHAR2",
+    "_ref": null,
+    "field_name": "LOCATIONID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "REQUESTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "REQUESTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "STARTTESTINGDTDATE",
+    "_ref": null,
+    "field_name": "STARTTESTINGDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "COMPLETEDTDATE",
+    "_ref": null,
+    "field_name": "COMPLETEDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DISPOSALDTDATE",
+    "_ref": null,
+    "field_name": "DISPOSALDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DUEDTDATE",
+    "_ref": null,
+    "field_name": "DUEDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BASEDONSAMPLEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "BASEDONSAMPLEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "COLLECTEDBYVARCHAR2",
+    "_ref": null,
+    "field_name": "COLLECTEDBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TEMPLATEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "TEMPLATEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RECEIVEDBYVARCHAR2",
+    "_ref": null,
+    "field_name": "RECEIVEDBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DISPOSEDBYVARCHAR2",
+    "_ref": null,
+    "field_name": "DISPOSEDBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "REVIEWEDBYVARCHAR2",
+    "_ref": null,
+    "field_name": "REVIEWEDBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "REVIEWEDDTDATE",
+    "_ref": null,
+    "field_name": "REVIEWEDDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "REVIEWDISPOSITIONVARCHAR2",
+    "_ref": null,
+    "field_name": "REVIEWDISPOSITION",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "REVIEWREMARKSVARCHAR2",
+    "_ref": null,
+    "field_name": "REVIEWREMARKS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "NUMBERLABELSNUMBER",
+    "_ref": null,
+    "field_name": "NUMBERLABELS",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CONTROLSUBSTANCEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "CONTROLSUBSTANCEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RECEIVEREQUIREDFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "RECEIVEREQUIREDFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "COCREQUIREDFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "COCREQUIREDFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUTORECEIVEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "AUTORECEIVEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "EVENTDTDATE",
+    "_ref": null,
+    "field_name": "EVENTDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "AUTOFINALRPTFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "AUTOFINALRPTFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "EVENTPLANVARCHAR2",
+    "_ref": null,
+    "field_name": "EVENTPLAN",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "STUDYIDVARCHAR2",
+    "_ref": null,
+    "field_name": "STUDYID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CONDITIONLABELVARCHAR2",
+    "_ref": null,
+    "field_name": "CONDITIONLABEL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "EVENTPLANITEMVARCHAR2",
+    "_ref": null,
+    "field_name": "EVENTPLANITEM",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SCHEDULERULELABELVARCHAR2",
+    "_ref": null,
+    "field_name": "SCHEDULERULELABEL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SAMPLEFAMILYIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SAMPLEFAMILYID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CONFIRMEDBYVARCHAR2",
+    "_ref": null,
+    "field_name": "CONFIRMEDBY",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CONFIRMEDDTDATE",
+    "_ref": null,
+    "field_name": "CONFIRMEDDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SSTUDYIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SSTUDYID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "POOLEDFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "POOLEDFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "GLPFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "GLPFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "COCFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "COCFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "RESTRICTIONSFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "RESTRICTIONSFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CONCENTRATIONNUMBER",
+    "_ref": null,
+    "field_name": "CONCENTRATION",
+    "field_type": "NUMBER",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CONCENTRATIONUNITSVARCHAR2",
+    "_ref": null,
+    "field_name": "CONCENTRATIONUNITS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "STORAGESTATUSVARCHAR2",
+    "_ref": null,
+    "field_name": "STORAGESTATUS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PREVIOUSSTORAGESTATUSVARCHAR2",
+    "_ref": null,
+    "field_name": "PREVIOUSSTORAGESTATUS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DEVIATIONSVARCHAR2",
+    "_ref": null,
+    "field_name": "DEVIATIONS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "TREATMENTSVARCHAR2",
+    "_ref": null,
+    "field_name": "TREATMENTS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "ALLOCATEDFORADDRESSIDVARCHAR2",
+    "_ref": null,
+    "field_name": "ALLOCATEDFORADDRESSID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "ALLOCATEDFORADDRESSTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "ALLOCATEDFORADDRESSTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "ALLOCATEDFORDEPARTMENTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "ALLOCATEDFORDEPARTMENTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PREPTYPEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PREPTYPEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "STORAGEDISPOSALSTATUSVARCHAR2",
+    "_ref": null,
+    "field_name": "STORAGEDISPOSALSTATUS",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "REAGENTLOTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "REAGENTLOTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "QCSAMPLETYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "QCSAMPLETYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SPECIMENTYPEVARCHAR2",
+    "_ref": null,
+    "field_name": "SPECIMENTYPE",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "DISPOSALTARGETDTDATE",
+    "_ref": null,
+    "field_name": "DISPOSALTARGETDT",
+    "field_type": "DATE",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SOURCESPIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SOURCESPID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SOURCESPVERSIONIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SOURCESPVERSIONID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SOURCESPLEVELIDVARCHAR2",
+    "_ref": null,
+    "field_name": "SOURCESPLEVELID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SOURCESPSOURCELABELVARCHAR2",
+    "_ref": null,
+    "field_name": "SOURCESPSOURCELABEL",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "BATCHSTAGEIDVARCHAR2",
+    "_ref": null,
+    "field_name": "BATCHSTAGEID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "ACTIVEFLAGVARCHAR2",
+    "_ref": null,
+    "field_name": "ACTIVEFLAG",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "PRODUCTVERSIONIDVARCHAR2",
+    "_ref": null,
+    "field_name": "PRODUCTVERSIONID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "INSTRUMENTIDVARCHAR2",
+    "_ref": null,
+    "field_name": "INSTRUMENTID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "WORKORDERIDVARCHAR2",
+    "_ref": null,
+    "field_name": "WORKORDERID",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "CLASSIFICATIONVARCHAR2",
+    "_ref": null,
+    "field_name": "CLASSIFICATION",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SECURITYUSERVARCHAR2",
+    "_ref": null,
+    "field_name": "SECURITYUSER",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   },
+   {
+    "_id": "SECURITYDEPARTMENTVARCHAR2",
+    "_ref": null,
+    "field_name": "SECURITYDEPARTMENT",
+    "field_type": "VARCHAR2",
+    "icon": "",
+    "label": "",
+    "timezone": false,
+    "traduction": false,
+    "visible": false
+   }
+  ],
+  "filter": "",
+  "label": "",
+  "linker": false,
+  "linker_ids": [],
+  "relations": [
+   {
+    "_id": "FKDEPARTMENT_SSAMPLE01FK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKDEPARTMENT_SSAMPLE01",
+    "key_name": "FKDEPARTMENT_SSAMPLE01",
+    "key_type": "FK",
+    "pk_name": "XPKDEPARTMENT",
+    "pktable_name": "DEPARTMENT",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SECURITYDEPARTMENT] = [DEPARTMENT].[DEPARTMENTID]",
+    "seqs": [
+     {
+      "column_name": "SECURITYDEPARTMENT",
+      "key_seq": 1,
+      "pkcolumn_name": "DEPARTMENTID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSPRODUCT_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSPRODUCT_SSAMPLE",
+    "key_name": "FKSPRODUCT_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_PRODUCT",
+    "pktable_name": "S_PRODUCT",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[PRODUCTID] = [S_PRODUCT].[S_PRODUCTID] AND [S_SAMPLE].[PRODUCTVERSIONID] = [S_PRODUCT].[S_PRODUCTVERSIONID]",
+    "seqs": [
+     {
+      "column_name": "PRODUCTID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_PRODUCTID"
+     },
+     {
+      "column_name": "PRODUCTVERSIONID",
+      "key_seq": 2,
+      "pkcolumn_name": "S_PRODUCTVERSIONID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSTUDY_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSTUDY_SSAMPLE",
+    "key_name": "FKSTUDY_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKSTUDY",
+    "pktable_name": "STUDY",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[STUDYID] = [STUDY].[STUDYID]",
+    "seqs": [
+     {
+      "column_name": "STUDYID",
+      "key_seq": 1,
+      "pkcolumn_name": "STUDYID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSPROJECT_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSPROJECT_SSAMPLE",
+    "key_name": "FKSPROJECT_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_PROJECT",
+    "pktable_name": "S_PROJECT",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[PROJECTID] = [S_PROJECT].[S_PROJECTID]",
+    "seqs": [
+     {
+      "column_name": "PROJECTID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_PROJECTID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSREQUEST_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSREQUEST_SSAMPLE",
+    "key_name": "FKSREQUEST_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_REQUEST",
+    "pktable_name": "S_REQUEST",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[REQUESTID] = [S_REQUEST].[S_REQUESTID]",
+    "seqs": [
+     {
+      "column_name": "REQUESTID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_REQUESTID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSSAMPLEFAMILY_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSSAMPLEFAMILY_SSAMPLE",
+    "key_name": "FKSSAMPLEFAMILY_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_SAMPLEFAMILY",
+    "pktable_name": "S_SAMPLEFAMILY",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SAMPLEFAMILYID] = [S_SAMPLEFAMILY].[S_SAMPLEFAMILYID]",
+    "seqs": [
+     {
+      "column_name": "SAMPLEFAMILYID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_SAMPLEFAMILYID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSYSUSER_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSYSUSER_SSAMPLE",
+    "key_name": "FKSYSUSER_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKSYSUSER",
+    "pktable_name": "SYSUSER",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SECURITYUSER] = [SYSUSER].[SYSUSERID]",
+    "seqs": [
+     {
+      "column_name": "SECURITYUSER",
+      "key_seq": 1,
+      "pkcolumn_name": "SYSUSERID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSYSUSER_SSAMPLE_SUBFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSYSUSER_SSAMPLE_SUB",
+    "key_name": "FKSYSUSER_SSAMPLE_SUB",
+    "key_type": "FK",
+    "pk_name": "XPKSYSUSER",
+    "pktable_name": "SYSUSER",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SUBMITTERID] = [SYSUSER].[SYSUSERID]",
+    "seqs": [
+     {
+      "column_name": "SUBMITTERID",
+      "key_seq": 1,
+      "pkcolumn_name": "SYSUSERID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSBATCHSTAGE_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSBATCHSTAGE_SSAMPLE",
+    "key_name": "FKSBATCHSTAGE_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_BATCHSTAGE",
+    "pktable_name": "S_BATCHSTAGE",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[BATCHSTAGEID] = [S_BATCHSTAGE].[S_BATCHSTAGEID]",
+    "seqs": [
+     {
+      "column_name": "BATCHSTAGEID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_BATCHSTAGEID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKUNITS_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKUNITS_SSAMPLE",
+    "key_name": "FKUNITS_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKUNITS",
+    "pktable_name": "UNITS",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[CONCENTRATIONUNITS] = [UNITS].[UNITSID]",
+    "seqs": [
+     {
+      "column_name": "CONCENTRATIONUNITS",
+      "key_seq": 1,
+      "pkcolumn_name": "UNITSID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSSAMPLEPOINT_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSSAMPLEPOINT_SSAMPLE",
+    "key_name": "FKSSAMPLEPOINT_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_SAMPLEPOINT",
+    "pktable_name": "S_SAMPLEPOINT",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SAMPLEPOINTID] = [S_SAMPLEPOINT].[S_SAMPLEPOINTID]",
+    "seqs": [
+     {
+      "column_name": "SAMPLEPOINTID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_SAMPLEPOINTID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKWORKORDER_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKWORKORDER_SSAMPLE",
+    "key_name": "FKWORKORDER_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKWORKORDER",
+    "pktable_name": "WORKORDER",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[WORKORDERID] = [WORKORDER].[WORKORDERID]",
+    "seqs": [
+     {
+      "column_name": "WORKORDERID",
+      "key_seq": 1,
+      "pkcolumn_name": "WORKORDERID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSYSUSER_SSAMPLE_CONFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSYSUSER_SSAMPLE_CON",
+    "key_name": "FKSYSUSER_SSAMPLE_CON",
+    "key_type": "FK",
+    "pk_name": "XPKSYSUSER",
+    "pktable_name": "SYSUSER",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[CONFIRMEDBY] = [SYSUSER].[SYSUSERID]",
+    "seqs": [
+     {
+      "column_name": "CONFIRMEDBY",
+      "key_seq": 1,
+      "pkcolumn_name": "SYSUSERID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "SPREPTYPE_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "SPREPTYPE_SSAMPLE",
+    "key_name": "SPREPTYPE_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_PREPTYPE",
+    "pktable_name": "S_PREPTYPE",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[PREPTYPEID] = [S_PREPTYPE].[S_PREPTYPEID]",
+    "seqs": [
+     {
+      "column_name": "PREPTYPEID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_PREPTYPEID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKREAGENTLOT_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKREAGENTLOT_SSAMPLE",
+    "key_name": "FKREAGENTLOT_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKREAGENTLOT",
+    "pktable_name": "REAGENTLOT",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[REAGENTLOTID] = [REAGENTLOT].[REAGENTLOTID]",
+    "seqs": [
+     {
+      "column_name": "REAGENTLOTID",
+      "key_seq": 1,
+      "pkcolumn_name": "REAGENTLOTID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSSAMPLE_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSSAMPLE_SSAMPLE",
+    "key_name": "FKSSAMPLE_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_SAMPLE",
+    "pktable_name": "S_SAMPLE",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[BASEDONSAMPLEID] = [S_SAMPLE].[S_SAMPLEID]",
+    "seqs": [
+     {
+      "column_name": "BASEDONSAMPLEID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_SAMPLEID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSBATCH_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSBATCH_SSAMPLE",
+    "key_name": "FKSBATCH_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_BATCH",
+    "pktable_name": "S_BATCH",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[BATCHID] = [S_BATCH].[S_BATCHID]",
+    "seqs": [
+     {
+      "column_name": "BATCHID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_BATCHID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSLOCATION_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSLOCATION_SSAMPLE",
+    "key_name": "FKSLOCATION_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_LOCATION",
+    "pktable_name": "S_LOCATION",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[LOCATIONID] = [S_LOCATION].[S_LOCATIONID]",
+    "seqs": [
+     {
+      "column_name": "LOCATIONID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_LOCATIONID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKDEPARTMENT_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKDEPARTMENT_SSAMPLE",
+    "key_name": "FKDEPARTMENT_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKDEPARTMENT",
+    "pktable_name": "DEPARTMENT",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[ALLOCATEDFORDEPARTMENTID] = [DEPARTMENT].[DEPARTMENTID]",
+    "seqs": [
+     {
+      "column_name": "ALLOCATEDFORDEPARTMENTID",
+      "key_seq": 1,
+      "pkcolumn_name": "DEPARTMENTID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKINSTRUMENT_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKINSTRUMENT_SSAMPLE",
+    "key_name": "FKINSTRUMENT_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKINSTRUMENT",
+    "pktable_name": "INSTRUMENT",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[INSTRUMENTID] = [INSTRUMENT].[INSTRUMENTID]",
+    "seqs": [
+     {
+      "column_name": "INSTRUMENTID",
+      "key_seq": 1,
+      "pkcolumn_name": "INSTRUMENTID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSSTUDY_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSSTUDY_SSAMPLE",
+    "key_name": "FKSSTUDY_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_STUDY",
+    "pktable_name": "S_STUDY",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SSTUDYID] = [S_STUDY].[S_STUDYID]",
+    "seqs": [
+     {
+      "column_name": "SSTUDYID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_STUDYID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKADDRESS_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKADDRESS_SSAMPLE",
+    "key_name": "FKADDRESS_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKADDRESS",
+    "pktable_name": "ADDRESS",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[ALLOCATEDFORADDRESSID] = [ADDRESS].[ADDRESSID] AND [S_SAMPLE].[ALLOCATEDFORADDRESSTYPE] = [ADDRESS].[ADDRESSTYPE]",
+    "seqs": [
+     {
+      "column_name": "ALLOCATEDFORADDRESSID",
+      "key_seq": 1,
+      "pkcolumn_name": "ADDRESSID"
+     },
+     {
+      "column_name": "ALLOCATEDFORADDRESSTYPE",
+      "key_seq": 2,
+      "pkcolumn_name": "ADDRESSTYPE"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSSAMPLETYPE_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSSAMPLETYPE_SSAMPLE",
+    "key_name": "FKSSAMPLETYPE_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_SAMPLETYPE",
+    "pktable_name": "S_SAMPLETYPE",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SAMPLETYPEID] = [S_SAMPLETYPE].[S_SAMPLETYPEID]",
+    "seqs": [
+     {
+      "column_name": "SAMPLETYPEID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_SAMPLETYPEID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   },
+   {
+    "_id": "FKSSAMPLINGPLAN_SSAMPLEFK",
+    "_rev": null,
+    "fin": false,
+    "fk_name": "FKSSAMPLINGPLAN_SSAMPLE",
+    "key_name": "FKSSAMPLINGPLAN_SSAMPLE",
+    "key_type": "FK",
+    "pk_name": "XPKS_SAMPLINGPLAN",
+    "pktable_name": "S_SAMPLINGPLAN",
+    "ref": false,
+    "relashionship": "[S_SAMPLE].[SOURCESPID] = [S_SAMPLINGPLAN].[S_SAMPLINGPLANID] AND [S_SAMPLE].[SOURCESPVERSIONID] = [S_SAMPLINGPLAN].[S_SAMPLINGPLANVERSIONID]",
+    "seqs": [
+     {
+      "column_name": "SOURCESPID",
+      "key_seq": 1,
+      "pkcolumn_name": "S_SAMPLINGPLANID"
+     },
+     {
+      "column_name": "SOURCESPVERSIONID",
+      "key_seq": 2,
+      "pkcolumn_name": "S_SAMPLINGPLANVERSIONID"
+     }
+    ],
+    "table_name": "S_SAMPLE"
+   }
+  ],
+  "table_alias": "S_SAMPLE_ALIAS",
+  "table_name": "S_SAMPLE",
   "type": "Final",
   "visible": false
  }

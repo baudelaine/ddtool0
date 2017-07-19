@@ -30,6 +30,8 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	String table = "";
 	String alias = "";
 	String type = "";
+	String qs_id = "";
+	String r_id = "";
 	String linker_id = "";
 	boolean pk = false;
        
@@ -51,14 +53,17 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 		table = request.getParameter("table");
 		alias = request.getParameter("alias");
 		type = request.getParameter("type");
-		linker_id = request.getParameter("linker_id");
-		
+		qs_id = request.getParameter("qs_id");
+		r_id = request.getParameter("r_id");
+		linker_id = qs_id + '.' + r_id;
 		pk = Boolean.parseBoolean(request.getParameter("pk"));
+		
 		System.out.println("table=" + table);
 		System.out.println("alias=" + alias);
 		System.out.println("type=" + type);
+		System.out.println("qs_id=" + qs_id);
+		System.out.println("r_id=" + r_id);
 		System.out.println("linker_id=" + linker_id);
-		System.out.println("pk=" + request.getParameter("pk"));
 		System.out.println("pk=" + pk);
 		List<Object> result = new ArrayList<Object>();
 
@@ -88,6 +93,21 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 			}
 			
 			query_subjects.put(querySubject.get_id(), querySubject);
+			
+			// Update fin/ref to true of the linker relation
+			QuerySubject linker = query_subjects.get(qs_id);
+			if(linker != null){
+				Map<String, Relation> linkerRelations = linker.getRelations();
+				Relation linkerRelation = linkerRelations.get(r_id);
+				if(type.equalsIgnoreCase("Final")){
+					linkerRelation.setFin(true);
+				}
+				if(type.equalsIgnoreCase("Ref")){
+					linkerRelation.setRef(true);
+				}
+				linker.incRelationCount(alias + type);
+			}
+			
 
 			for(Entry<String, QuerySubject> query_subject : query_subjects.entrySet()){
 		    	result.add(query_subject.getValue());
@@ -125,9 +145,9 @@ public class GetQuerySubjectsServlet extends HttpServlet {
         
 	}
 	
-	protected List<Field> getFields() throws SQLException{
+	protected Map<String, Field> getFields() throws SQLException{
 		
-		List<Field> result = new ArrayList<Field>();
+		Map<String, Field> result = new HashMap<String, Field>();
 		
         ResultSet rst = metaData.getColumns(con.getCatalog(), schema, table, "%");
         
@@ -139,21 +159,18 @@ public class GetQuerySubjectsServlet extends HttpServlet {
         	field.setField_name(field_name);
         	field.setField_type(field_type);
         	field.set_id(field_name + field_type);
-        	result.add(field);
+        	result.put(field.get_id(), field);
         }
 		
 		return result;
 		
 	}
 	
-	protected List<Relation> getForeignKeys() throws SQLException{
+	protected Map<String, Relation> getForeignKeys() throws SQLException{
 		
-		List<Relation> result = new ArrayList<Relation>();
+		Map<String, Relation> result = new HashMap<String, Relation>();
 		
 	    ResultSet rst = metaData.getImportedKeys(con.getCatalog(), schema, table);
-	    System.out.println("rst=" + rst);
-	    
-	    Map<String, Relation> relations = new HashMap<String, Relation>();
 	    
 	    while (rst.next()) {
 	    	
@@ -165,11 +182,11 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	    	String pkcolumn_name = rst.getString("PKCOLUMN_NAME");
 	        String fktable_name = rst.getString("FKTABLE_NAME");
 	        String pktable_name = rst.getString("PKTABLE_NAME");
-	        String _id = key_name + "FK";
+	        String _id = key_name + "F";
 	        
 	        System.out.println("_id=" + _id);
 
-	        if(!relations.containsKey(_id)){
+	        if(!result.containsKey(_id)){
 	        	
 	        	System.out.println("+++ add relation +++");
 	        	
@@ -181,8 +198,9 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	        	relation.setPk_name(pk_name);
 	        	relation.setTable_name(fktable_name);
 	        	relation.setPktable_name(pktable_name);
+	        	relation.setPktable_alias(alias);
 	        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
-	        	relation.setKey_type("FK");
+	        	relation.setKey_type("F");
 	        	
 	        	Seq seq = new Seq();
 	        	seq.setColumn_name(fkcolumn_name);
@@ -190,12 +208,12 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	        	seq.setKey_seq(Short.parseShort(key_seq));
 	        	relation.addSeq(seq);
 	        	
-	        	relations.put(_id, relation);
+	        	result.put(_id, relation);
 
 	        }
 	        else{
 	        	
-	        	Relation relation = relations.get(_id);
+	        	Relation relation = result.get(_id);
 	        	if(!relation.getSeqs().isEmpty()){
 		        	System.out.println("+++ update relation +++");
 	        		Seq seq = new Seq();
@@ -215,21 +233,18 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	        	
 	    }
 	    
-	    result = new ArrayList<Relation>(relations.values());
-	    
 	    return result;
 		
 	}
 	
-	protected List<Relation> getPrimaryKeys() throws SQLException{
+	protected Map<String, Relation> getPrimaryKeys() throws SQLException{
 		
-		List<Relation> result = new ArrayList<Relation>();
+	    Map<String, Relation> result = new HashMap<String, Relation>();
 		
 		ResultSet rst = null;
 		DatabaseMetaData metaData = con.getMetaData();
 	    rst = metaData.getExportedKeys(con.getCatalog(), schema, table);
 	    
-	    Map<String, Relation> relations = new HashMap<String, Relation>();
 	    
 	    while (rst.next()) {
 	    	
@@ -241,11 +256,11 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	    	String pkcolumn_name = rst.getString("PKCOLUMN_NAME");
 	        String fktable_name = rst.getString("FKTABLE_NAME");
 	        String pktable_name = rst.getString("PKTABLE_NAME");
-	        String _id = key_name + "PK";
+	        String _id = key_name + "P";
 	        
 	        System.out.println("_id=" + _id);
 
-	        if(!relations.containsKey(_id)){
+	        if(!result.containsKey(_id)){
 	        	
 	        	System.out.println("+++ add relation +++");
 	        	
@@ -257,8 +272,9 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	        	relation.setPk_name(pk_name);
 	        	relation.setTable_name(pktable_name);
 	        	relation.setPktable_name(fktable_name);
+	        	relation.setPktable_alias(alias);
 	        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
-	        	relation.setKey_type("PK");
+	        	relation.setKey_type("P");
 	        	
 	        	Seq seq = new Seq();
 	        	seq.setColumn_name(pkcolumn_name);
@@ -266,12 +282,12 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	        	seq.setKey_seq(Short.parseShort(key_seq));
 	        	relation.addSeq(seq);
 	        	
-	        	relations.put(_id, relation);
+	        	result.put(_id, relation);
 
 	        }
 	        else{
 	        	
-	        	Relation relation = relations.get(_id);
+	        	Relation relation = result.get(_id);
 	        	if(!relation.getSeqs().isEmpty()){
 		        	System.out.println("+++ update relation +++");
 	        		Seq seq = new Seq();
@@ -290,8 +306,6 @@ public class GetQuerySubjectsServlet extends HttpServlet {
         	
 	        	
 	    }
-	    
-	    result = new ArrayList<Relation>(relations.values());
 	    
 	    return result;
 		

@@ -14,6 +14,7 @@ public class Relation {
 	String pk_name = "";
 	String table_name = "";
 	String pktable_name = "";	
+	String pktable_alias = "";	
 	boolean fin = false;
 	boolean ref = false;
 	String relashionship = "";
@@ -61,6 +62,12 @@ public class Relation {
 	}
 	public void setPktable_name(String pktable_name) {
 		this.pktable_name = pktable_name;
+	}
+	public String getPktable_alias() {
+		return pktable_alias;
+	}
+	public void setPktable_alias(String pktable_alias) {
+		this.pktable_alias = pktable_alias;
 	}
 	public boolean isFin() {
 		return fin;

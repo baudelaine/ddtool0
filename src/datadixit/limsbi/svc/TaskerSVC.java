@@ -201,19 +201,26 @@ public class TaskerSVC {
 
 	}
 	
-	public static void DATA() {
+	public static void IICInitNameSpace() {
 		FactorySVC.createNamespace("AUTOGENERATION", "STANDARD");
 		FactorySVC.createNamespace("FINAL", "AUTOGENERATION");
 		FactorySVC.createNamespace("REF", "AUTOGENERATION");
 		FactorySVC.createNamespace("DATA", "AUTOGENERATION");
 
-		
-		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_SAMPLE", "S_SAMPLE_ALIAS");
-		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_BATCH", "S_BATCH_ALIAS");
 		System.out.println("******** DATA	 ***********");
 		
 		
+		
 	}
+	
+	
+//	public static void IICCreateQuerySubject(){
+//
+//		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_SAMPLE", "S_SAMPLE_ALIAS");
+//		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_BATCH", "S_BATCH_ALIAS");
+//		System.out.println("******** DATA	 ***********");
+//		
+//	}
 
 	public static void Final() {
 		FactorySVC.createNamespace("AUTOGENERATION", "STANDARD");

@@ -34,6 +34,7 @@ public class JDBCProperties {
 			Properties prop = new Properties();
 			prop.load(new FileInputStream("/opt/wks/eclipse-4.1.2/ddtool/res/jdbc.properties"));
 			server = prop.getProperty("server");
+			System.out.println("++++++++++++++++++++++server " + server);
 			baseType = prop.getProperty("baseType");
 			databaseName = prop.getProperty("databaseName");
 			user = prop.getProperty("user");

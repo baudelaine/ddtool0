@@ -57,6 +57,7 @@ public class ConfigProperties {
 			model = prop.getProperty("model");
 			dispatcher = prop.getProperty("dispatcher");
 			PathToXML = prop.getProperty("PathToXML");
+			System.out.println("++++++++++++++++++++++ PathToXML=" + PathToXML);
 			DefaultLocale = prop.getProperty("DefaultLocale");
 			ActiveLocale = prop.getProperty("ActiveLocale");
 			PublishFolder = prop.getProperty("PublishFolder");

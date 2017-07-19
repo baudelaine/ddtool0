@@ -1,8 +1,8 @@
 package com.baudelaine.dd;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class QuerySubject {
@@ -17,9 +17,25 @@ public class QuerySubject {
 	String Label = "";
 	boolean linker = false;
 	Set<String> linker_ids =  new HashSet<String>();
-	List<Field> fields = new ArrayList<Field>();
-	List<Relation> relations = new ArrayList<Relation>();
+	Map<String, Field> fields = new HashMap<String, Field>();
+	Map<String, Relation> relations = new HashMap<String, Relation>();
+	Map<String, Integer> relationCount = new HashMap<String, Integer>(); 
 	
+	public void incRelationCount(String qs_id){
+		if(relationCount.get(qs_id) == null){
+			relationCount.put(qs_id, new Integer(1));
+		}
+		else{
+			int count = relationCount.get(qs_id);
+			relationCount.put(qs_id, ++count);
+		}
+	}
+	public Map<String, Integer> getRelationCount() {
+		return relationCount;
+	}
+	public void setRelationCount(Map<String, Integer> relationCount) {
+		this.relationCount = relationCount;
+	}
 	public String get_id() {
 		return _id;
 	}
@@ -83,26 +99,26 @@ public class QuerySubject {
 	public void addLinker_id(String linker_id){
 		this.linker_ids.add(linker_id);
 	}
-	public List<Field> getFields() {
+	public Map<String, Field> getFields() {
 		return fields;
 	}
-	public void setFields(List<Field> fields) {
+	public void setFields(Map<String, Field> fields) {
 		this.fields = fields;
 	}
-	public void addField(Field field){
-		this.fields.add(field);
+	public void addField(String _id, Field field){
+		this.fields.put(_id, field);
 	}
-	public List<Relation> getRelations() {
+	public Map<String, Relation> getRelations() {
 		return relations;
 	}
-	public void setRelations(List<Relation> relations) {
+	public void setRelations(Map<String, Relation> relations) {
 		this.relations = relations;
 	} 
-	public void addRelation(Relation relation){
-		this.relations.add(relation);
+	public void addRelation(String _id, Relation relation){
+		this.relations.put(_id, relation);
 	}
-	public void addRelations(List<Relation> relations){
-		this.relations.addAll(relations);
+	public void addRelations(Map<String, Relation> relations){
+		this.relations.putAll(relations);
 	}
 	
 }

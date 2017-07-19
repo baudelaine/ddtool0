@@ -20,7 +20,7 @@ public class Main2 {
 		TaskerSVC.init();
 		TaskerSVC.Import();
 		
-		TaskerSVC.DATA();
+		TaskerSVC.IICInitNameSpace();
 		RelationShip RS = new RelationShip("[DATA].[S_SAMPLE_ALIAS]", "[DATA].[S_BATCH_ALIAS]");
 		RS.setExpression("[DATA].[S_SAMPLE_ALIAS].[BATCHID] = [DATA].[S_BATCH_ALIAS].[S_BATCHID]");
 		RS.setCard_left_min("one");

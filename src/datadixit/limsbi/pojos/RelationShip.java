@@ -104,12 +104,12 @@ public class RelationShip {
 	}
 
 	// @Override
-	// public String toString() {
-	// return "RelationShip{" + "Name=" + Name + ", ParentNamespace=" +
-	// ParentNamespace + ", querySubject_left=" + querySubject_left +
-	// ", querySubject_right=" + querySubject_right + ", expression=" +
-	// expression + ", card_left_min=" + card_left_min +
-	// ", card_left_max=" + card_left_max + ", card_right_min=" +
-	// card_right_min + ", card_right_max=" + card_right_max + '}';
-	// }
+	 public String toString() {
+	 return "RelationShip{" + "Name=" + Name + ", ParentNamespace=" +
+	 ParentNamespace + ", querySubject_left=" + querySubject_left +
+	 ", querySubject_right=" + querySubject_right + ", expression=" +
+	 expression + ", card_left_min=" + card_left_min +
+	 ", card_left_max=" + card_left_max + ", card_right_min=" +
+	 card_right_min + ", card_right_max=" + card_right_max + '}';
+	 }
 }

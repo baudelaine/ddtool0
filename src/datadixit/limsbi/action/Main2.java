@@ -1,7 +1,5 @@
 package datadixit.limsbi.action;
 
-import datadixit.limsbi.pojos.RelationShip;
-import datadixit.limsbi.svc.FactorySVC;
 import datadixit.limsbi.svc.TaskerSVC;
 
 
@@ -21,15 +19,46 @@ public class Main2 {
 		TaskerSVC.Import();
 		
 		TaskerSVC.IICInitNameSpace();
-		RelationShip RS = new RelationShip("[DATA].[S_SAMPLE_ALIAS]", "[DATA].[S_BATCH_ALIAS]");
-		RS.setExpression("[DATA].[S_SAMPLE_ALIAS].[BATCHID] = [DATA].[S_BATCH_ALIAS].[S_BATCHID]");
-		RS.setCard_left_min("one");
-		RS.setCard_left_max("many");
+		
+		TaskerSVC.IICCreateQuerySubject();
+		
+		TaskerSVC.IICCreateRelation();
+		TaskerSVC.IICCreateRelation();
+		TaskerSVC.IICCreateRelation();
+		TaskerSVC.IICCreateRelation();
+		TaskerSVC.IICCreateRelation();
+		TaskerSVC.IICCreateRelation();
+		
+//		RS = new RelationShip("[DATA].[S_SAMPLE_ALIAS]", "[DATA].[S_BATCH_ALIAS]");
+//		RS.setExpression("[DATA].[S_SAMPLE_ALIAS].[BATCHID] = [DATA].[S_BATCH_ALIAS].[S_BATCHID]");
+//		RS.setCard_left_min("one");
+//		RS.setCard_left_max("many");
+//
+//		RS.setCard_right_min("one");
+//		RS.setCard_right_max("one");
+//		RS.setParentNamespace("DATA");
+//		
+//		rsList.add(RS);
+//
+//		RS = new RelationShip("[DATA].[S_SAMPLE_ALIAS]", "[DATA].[S_BATCH_ALIAS]");
+//		RS.setExpression("[DATA].[S_SAMPLE_ALIAS].[BATCHID] = [DATA].[S_BATCH_ALIAS].[S_BATCHID]");
+//		RS.setCard_left_min("one");
+//		RS.setCard_left_max("many");
+//
+//		RS.setCard_right_min("one");
+//		RS.setCard_right_max("one");
+//		RS.setParentNamespace("DATA");
+//
+//		rsList.add(RS);
 
-		RS.setCard_right_min("one");
-		RS.setCard_right_max("one");
-		RS.setParentNamespace("DATA");
-		FactorySVC.createRelationship(RS);
+//		for(RelationShip rs: rsList){
+//			System.out.println("+++++++++++++" + System.currentTimeMillis());
+//			Thread.sleep(10000);
+//			System.out.println("+++++++++++++ Wait for 10 secs.....");
+//			System.out.println("+++++++++++++" + System.currentTimeMillis());
+//			System.out.println("++++++++++++ EXPRESSION=" + rsList.get(0).getExpression());
+//			FactorySVC.createRelationship(rsList.get(0));
+//		}
 
 //		TaskerSVC.Security();
 

@@ -154,6 +154,8 @@ public class FactorySVC {
 			mod_path.setText("/O/name[0]/O/[" + Destination + "].[" + Name + "_" + Name + "]");
 			mod_val.setText(Name);
 
+			System.out.println("+-+-+-+-+-+-+- CREATE QS " + Source + ", " + Destination + ", " + Folder + ", " + Name);
+			
 			CognosSVC.executeModel(document);
 
 		} catch (DocumentException ex) {

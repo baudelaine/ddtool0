@@ -80,7 +80,7 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 			if(querySubject == null){
 				
 				querySubject = getQuerySubjects();
-				querySubject.setFields(getFields());
+//				querySubject.setFields(getFields());
 				querySubject.addRelations(getForeignKeys());
 				if(pk){
 					querySubject.addRelations(getPrimaryKeys());
@@ -198,7 +198,7 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 	        	relation.setPk_name(pk_name);
 	        	relation.setTable_name(fktable_name);
 	        	relation.setPktable_name(pktable_name);
-	        	relation.setPktable_alias(alias);
+	        	relation.setPktable_alias(pktable_name);
 	        	relation.setRelashionship("[" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 	        	relation.setKey_type("F");
 	        	

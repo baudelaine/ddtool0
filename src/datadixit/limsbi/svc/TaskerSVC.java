@@ -213,14 +213,39 @@ public class TaskerSVC {
 		
 	}
 	
+	public static void IICCreateRelation(List<RelationShip> list){
+		for(RelationShip rs: list){
+			System.out.println(rs);
+			System.out.println("******** CREATE RS ***********");
+			FactorySVC.createRelationship(rs);
+		}
+	}
 	
-//	public static void IICCreateQuerySubject(){
-//
-//		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_SAMPLE", "S_SAMPLE_ALIAS");
-//		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_BATCH", "S_BATCH_ALIAS");
-//		System.out.println("******** DATA	 ***********");
-//		
-//	}
+	public static void IICCreateRelation(){
+		RelationShip RS = new RelationShip("[DATA].[S_SAMPLE_ALIAS]", "[DATA].[S_BATCH_ALIAS]");
+		RS.setExpression("<refobj> [DATA].[S_SAMPLE_ALIAS].[BATCHID] </refobj> = <refobj> [DATA].[S_BATCH_ALIAS].[S_BATCHID] </refobj>");
+//		RS.setExpression("[FINAL].[S_SAMPLE_ALIAS].[BATCHID] = [REF].[S_BATCH_ALIAS].[S_BATCHID]");
+//		RS.setExpression("[S_SAMPLE_ALIAS].[BATCHID] = [S_BATCH_ALIAS].[S_BATCHID]");
+		RS.setCard_left_min("one");
+		RS.setCard_left_max("many");
+
+		RS.setCard_right_min("one");
+		RS.setCard_right_max("one");
+		RS.setParentNamespace("DATA");
+		
+		System.out.println("******** CREATE RS ***********");
+		
+		FactorySVC.createRelationship(RS);
+	}
+	
+	
+	public static void IICCreateQuerySubject(){
+
+		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_SAMPLE", "S_SAMPLE_ALIAS");
+		FactorySVC.createQuerySubject("PHYSICAL", "DATA", "S_BATCH", "S_BATCH_ALIAS");
+		System.out.println("******** DATA	 ***********");
+		
+	}
 
 	public static void Final() {
 		FactorySVC.createNamespace("AUTOGENERATION", "STANDARD");

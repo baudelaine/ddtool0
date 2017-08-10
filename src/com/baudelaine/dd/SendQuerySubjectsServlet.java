@@ -115,8 +115,26 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 
 							qs = alias + refMap.getInc();
 							
+							
+							
 							RelationShip RS = new RelationShip("[FINAL].[" + query_subject.getValue().getTable_alias() + "]" , "[REF].[" + qs + "]");
-							RS.setExpression(rel.getValue().getRelashionship());
+							
+							String exp = rel.getValue().getRelashionship();
+//							System.out.println("+++++++++++ EXP AVANT= " + exp);
+//							exp = exp.replaceAll("\\[" + query_subject.getValue().getTable_name() + "\\]", "[FINAL].[" + query_subject.getValue().getTable_alias() + "]");
+//							System.out.println("+++++++++++ EXP ENCORE APRES= " + exp);
+//							exp = exp.replaceAll("[" + rel.getValue().getPktable_name() + "]", "[REF].[" + qs + "]");
+//							System.out.println("+++++++++++ EXP ENCORE APRES= " + exp);
+//							exp = exp.replaceAll(" = ", " </refobj> = <refobj> ");
+//							exp = exp.replaceAll(" AND ", " </refobj> AND <refobj> ");
+//							exp = "<refobj> " + exp + " </refobj>";
+							
+							// [SYSUSER].[DEFAULTDEPARTMENT] = [DEPARTMENT].[DEPARTMENTID]
+							// to be changed in
+							// "and <refobj>" + [SYSUSERX].[DEFAULTDEPARTMENT] + "</refobj> = <refobj>" + [DEPARTMENTX].[DEPARTMENTID] + "</refobj>"
+							
+							RS.setExpression(exp);
+							
 							RS.setCard_left_min("one");
 							RS.setCard_left_max("many");
 
@@ -159,6 +177,46 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 					
 				
 			}
+			
+			// create qs in data namespace
+			
+			for(Entry<String, QuerySubject> query_subject: query_subjects.entrySet()){
+				if (query_subject.getValue().getType().equalsIgnoreCase("Final")){
+					
+					FactorySVC.createQuerySubject("FINAL", "DATA", query_subject.getValue().getTable_alias() , query_subject.getValue().getTable_alias());
+					
+					for(Entry<String, Relation> rel: query_subject.getValue().getRelations().entrySet()){
+						if(rel.getValue().isFin()){
+					
+							RelationShip RS = new RelationShip("[DATA].[" + query_subject.getValue().getTable_alias() + "]" , "[DATA].[" + rel.getValue().getPktable_alias() + "]");
+							// changer en qs + refobj
+							RS.setExpression(rel.getValue().getRelashionship());
+							RS.setCard_left_min("one");
+							RS.setCard_left_max("many");
+		
+							RS.setCard_right_min("one");
+							RS.setCard_right_max("one");
+							RS.setParentNamespace("DATA");
+							rsList.add(RS);					
+					
+						}
+					}
+					
+				}
+			}
+			
+			// create folders in qs
+			
+			FactorySVC.createSubFolder("[DATA].[S_SAMPLE]", "createBy");
+			
+			FactorySVC.ReorderSubFolderBefore("[DATA].[S_SAMPLE].[createBy]", "[DATA].[S_SAMPLE].[CREATEBY]");
+			
+			FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.SYSUSERID", "[REF].[SYSUSER1].[SYSUSERID]");
+			
+			FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.baseDepartment");
+			
+			FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy.baseDepartment", "createBy.baseDepartment.DEPARTMENTID", "[REF].[DEPARTMENT4].[DEPARTMENTID]");
+			
 			TaskerSVC.IICCreateRelation(rsList);
 			
 			TaskerSVC.stop();

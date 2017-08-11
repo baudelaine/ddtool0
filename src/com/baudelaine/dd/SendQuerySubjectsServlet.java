@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import datadixit.limsbi.pojos.RelationShip;
 import datadixit.limsbi.svc.FactorySVC;
@@ -27,6 +29,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 	Map<String, RefMap> gRefMap;
 	List<RelationShip> rsList;
 	Map<String, QuerySubject> query_subjects;
+//	Map<String, DefaultMutableTreeNode> arbres = new HashMap<String, DefaultMutableTreeNode>();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -98,6 +101,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 								qs = alias + refMap.getCount();
 								
 								FactorySVC.createQuerySubject("PHYSICAL", "REF", rel.getValue().getPktable_name(), qs);
+								
 
 							}
 							else{
@@ -114,8 +118,19 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 							}
 
 							qs = alias + refMap.getInc();
-							
-							
+
+							// on cree un arbre pour la seq[0] de chaque ref cochée du qs  final
+							String champ = rel.getValue().getSeqs().get(0).getColumn_name();
+//							Dossier dossier = new Dossier(champ.toLowerCase(), qs, champ.toUpperCase());
+							String clef = query_subject.getValue().getTable_alias() + "." +  champ + "." + qs;
+							String FolderName = champ.toLowerCase();
+							String QSRef = qs;
+							String QS = alias;
+							String reoderBefore = champ.toUpperCase();
+							String valeurSep = ";";
+							String valeur = FolderName + valeurSep + QSRef + valeurSep + reoderBefore + valeurSep + QS;
+//							arbres.put(clef, new DefaultMutableTreeNode(valeur));
+							refMap.addNoeud(qs, new DefaultMutableTreeNode(valeur));
 							
 							RelationShip RS = new RelationShip("[FINAL].[" + query_subject.getValue().getTable_alias() + "]" , "[REF].[" + qs + "]");
 							
@@ -199,23 +214,44 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 							RS.setParentNamespace("DATA");
 							rsList.add(RS);					
 					
-						}
+						}	
 					}
+					
+					
 					
 				}
 			}
 			
 			// create folders in qs
 			
-			FactorySVC.createSubFolder("[DATA].[S_SAMPLE]", "createBy");
 			
-			FactorySVC.ReorderSubFolderBefore("[DATA].[S_SAMPLE].[createBy]", "[DATA].[S_SAMPLE].[CREATEBY]");
+//			FactorySVC.ReorderSubFolderBefore("[DATA].[S_SAMPLE].[createBy]", "[DATA].[S_SAMPLE].[CREATEBY]");
+//			
+//			FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.SYSUSERID", "[REF].[SYSUSER1].[SYSUSERID]");
+//			
+//			FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.baseDepartment");
+//			
+//			FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy.baseDepartment", "cr  eateBy.baseDepartment.DEPARTMENTID", "[REF].[DEPARTMENT4].[DEPARTMENTID]");
+
+				
+//				for(Entry<String, DefaultMutableTreeNode> arbre: arbres.entrySet()){
+//
+//					String alias = arbre.getKey().split("\\.")[0];
+//					
+//					TreeNode root = arbre.getValue().getRoot();
+//					
+//					String dossier = root.toString();
+//					
+//					String FolderName = dossier.split(";")[0];
+//					String QSRef = dossier.split(";")[1]; 
+//					String reoderBefore = dossier.split(";")[2];
+//					String QS = dossier.split(";")[3];
+//					
+//					FactorySVC.createSubFolder("[DATA].[" + alias + "]", FolderName.toLowerCase());
+//					FactorySVC.ReorderSubFolderBefore("[DATA].["+ alias + "].[" + FolderName.toLowerCase() + "]", "[DATA].["+ alias + "].[" + reoderBefore + "]");
+//				
+//				}
 			
-			FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.SYSUSERID", "[REF].[SYSUSER1].[SYSUSERID]");
-			
-			FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.baseDepartment");
-			
-			FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy.baseDepartment", "createBy.baseDepartment.DEPARTMENTID", "[REF].[DEPARTMENT4].[DEPARTMENTID]");
 			
 			TaskerSVC.IICCreateRelation(rsList);
 			
@@ -262,6 +298,58 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 //						gRefMap.put(alias, refMap);
 				
 				FactorySVC.createQuerySubject("PHYSICAL", "REF", rel.getValue().getPktable_name(), alias + refMap.getCount());
+
+//				for(Entry<String, DefaultMutableTreeNode> arbre: arbres.entrySet()){
+
+//					FactorySVC.createSubFolder("[DATA].[S_SAMPLE], "createBy");
+
+//					FactorySVC.ReorderSubFolderBefore("[DATA].[S_SAMPLE].[createBy]", "[DATA].[S_SAMPLE].[CREATEBY]");
+//					
+//					FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.SYSUSERID", "[REF].[SYSUSER1].[SYSUSERID]");
+//					
+//					FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.baseDepartment");
+//					
+//					FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy.baseDepartment", "createBy.baseDepartment.DEPARTMENTID", "[REF].[DEPARTMENT4].[DEPARTMENTID]");
+					
+					
+//					DefaultMutableTreeNode pere = arbre.getValue();
+//					String FolderNameDuPere = pere.toString().split(";")[0];
+//					String QSref = arbre.getKey().split("\\.")[2];
+//					if(qs.equalsIgnoreCase(QSref)){
+//						String champ = rel.getValue().getSeqs().get(0).getColumn_name();
+//						String FolderNameDuFils = FolderNameDuPere + "." + champ.toLowerCase();
+//						String fils = FolderNameDuFils + ";" + qs + ";" + champ + ";" + alias;
+//						DefaultMutableTreeNode newChild = new DefaultMutableTreeNode(fils);
+//						pere.add(newChild);
+//						
+//					}
+					
+					
+//				}
+				
+				
+	        	System.out.print("------------- QS " + qs);
+	        	
+	        	RefMap rfg = gRefMap.get(aliasTronc);
+	        	
+				
+//				for(DefaultMutableTreeNode noeud: rfg.getNoeuds(qs)){
+		        	System.out.print("------------- ON PASS DANS LA BOUCLE ");
+		        	DefaultMutableTreeNode noeud = rfg.getNoeuds(qs).get(0);
+					String FolderNameDuPere = noeud.toString().split(";")[0];
+					String champ = rel.getValue().getSeqs().get(0).getColumn_name();
+					String FolderNameDuFils = FolderNameDuPere + "." + champ.toLowerCase();
+					String fils = FolderNameDuFils + ";" + qs + ";" + champ + ";" + aliasTronc;
+					DefaultMutableTreeNode newChild = new DefaultMutableTreeNode(fils);
+					noeud.add(newChild);
+					rfg.addNoeud(qs, newChild);
+					System.out.print("-------------" + qs + "-------------");
+					
+					System.out.print("-------------" + newChild.toString() + "-------------");
+	
+//				}
+				
+				
 				
 				RelationShip RS = new RelationShip("[REF].[" + qs + "]" , "[REF].[" + alias + refMap.getCount() + "]");
 				// changer en qs + refobj

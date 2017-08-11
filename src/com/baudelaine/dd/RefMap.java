@@ -1,17 +1,19 @@
 package com.baudelaine.dd;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class RefMap {
 	
 	Integer count = new Integer(0);
 	Integer inc = new Integer(0);
 	Integer treeCount = new Integer(0);
-	Map<String, Boolean> tree = new HashMap<String, Boolean>();  
-	ReentrantLock lock = new ReentrantLock();
-	
+	Map<String, Boolean> tree = new HashMap<String, Boolean>();
+	Map<String, List<DefaultMutableTreeNode>> noeuds = new HashMap<String, List<DefaultMutableTreeNode>>(); 
 	
 	public RefMap(Integer count, Integer inc, Integer treeCount,
 			Map<String, Boolean> tree) {
@@ -36,6 +38,10 @@ public class RefMap {
 		if(tree == true){
 			this.treeCount++;
 		}
+		
+		List<DefaultMutableTreeNode> l = new ArrayList<DefaultMutableTreeNode>();
+		this.noeuds.put(s, l);
+//		System.out.println("***************** NBRE DE NOEUDS" + this.noeuds.get(s).size());
 		
 	}
 	
@@ -62,6 +68,16 @@ public class RefMap {
 	public int getTreeCount(){
 		return this.treeCount;
 	}
+
+	public List<DefaultMutableTreeNode> getNoeuds(String qsRef){
+
+		return this.noeuds.get(qsRef);
+		
+	}
 	
+	public void addNoeud(String qsRef, DefaultMutableTreeNode noeud){
+		this.noeuds.get(qsRef).add(noeud);
+		System.out.println("***************** NBRE DE NOEUDS(" + qsRef + ")" + this.noeuds.get(qsRef).size());
+	}
 	
 }

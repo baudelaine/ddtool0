@@ -1,7 +1,9 @@
 package com.baudelaine.dd;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,8 +19,8 @@ public class QuerySubject {
 	String Label = "";
 	boolean linker = false;
 	Set<String> linker_ids =  new HashSet<String>();
-	Map<String, Field> fields = new HashMap<String, Field>();
-	Map<String, Relation> relations = new HashMap<String, Relation>();
+	List<Field> fields = new ArrayList<Field>();
+	List<Relation> relations = new ArrayList<Relation>();
 	Map<String, Integer> relationCount = new HashMap<String, Integer>(); 
 	
 	public void incRelationCount(String qs_id){
@@ -99,26 +101,29 @@ public class QuerySubject {
 	public void addLinker_id(String linker_id){
 		this.linker_ids.add(linker_id);
 	}
-	public Map<String, Field> getFields() {
+	public List<Field> getFields() {
 		return fields;
 	}
-	public void setFields(Map<String, Field> fields) {
+	public void setFields(List<Field> fields) {
 		this.fields = fields;
 	}
-	public void addField(String _id, Field field){
-		this.fields.put(_id, field);
+	public void addField(Field field){
+		this.fields.add(field);
 	}
-	public Map<String, Relation> getRelations() {
+	public void addFields(List<Field> fields){
+		this.fields.addAll(fields);
+	}
+	public List<Relation> getRelations() {
 		return relations;
 	}
-	public void setRelations(Map<String, Relation> relations) {
+	public void setRelations(List<Relation> relations) {
 		this.relations = relations;
 	} 
 	public void addRelation(String _id, Relation relation){
-		this.relations.put(_id, relation);
+		this.relations.add(relation);
 	}
-	public void addRelations(Map<String, Relation> relations){
-		this.relations.putAll(relations);
+	public void addRelations(List<Relation> relations){
+		this.relations.addAll(relations);
 	}
 	
 }

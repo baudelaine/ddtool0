@@ -227,7 +227,7 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 		        	
 		        	relation.addSeq(seq);
 		        	
-		        	StringBuffer sb = new StringBuffer((String) relation.getRelashionship());
+		        	StringBuffer sb = new StringBuffer((String) relation.getRelationship());
 		        	sb.append(" AND [" + type.toUpperCase() + "].[" + alias + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 		        	relation.setRelashionship(sb.toString());
 	        	}
@@ -301,7 +301,7 @@ public class GetQuerySubjectsServlet extends HttpServlet {
 		        	
 		        	relation.addSeq(seq);
 		        	
-		        	StringBuffer sb = new StringBuffer((String) relation.getRelashionship());
+		        	StringBuffer sb = new StringBuffer((String) relation.getRelationship());
 		        	sb.append(" AND [" + fktable_name + "].[" + fkcolumn_name + "] = [" + pktable_name + "].[" + pkcolumn_name + "]");
 		        	relation.setRelashionship(sb.toString());
 	        	}

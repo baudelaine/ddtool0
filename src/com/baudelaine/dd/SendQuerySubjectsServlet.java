@@ -134,7 +134,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 							
 							RelationShip RS = new RelationShip("[FINAL].[" + query_subject.getValue().getTable_alias() + "]" , "[REF].[" + qs + "]");
 							
-							String exp = rel.getRelashionship();
+							String exp = rel.getRelationship();
 //							System.out.println("+++++++++++ EXP AVANT= " + exp);
 //							exp = exp.replaceAll("\\[" + query_subject.getValue().getTable_name() + "\\]", "[FINAL].[" + query_subject.getValue().getTable_alias() + "]");
 //							System.out.println("+++++++++++ EXP ENCORE APRES= " + exp);
@@ -205,7 +205,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 					
 							RelationShip RS = new RelationShip("[DATA].[" + query_subject.getValue().getTable_alias() + "]" , "[DATA].[" + rel.getPktable_alias() + "]");
 							// changer en qs + refobj
-							RS.setExpression(rel.getRelashionship());
+							RS.setExpression(rel.getRelationship());
 							RS.setCard_left_min("one");
 							RS.setCard_left_max("many");
 		
@@ -353,7 +353,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 				
 				RelationShip RS = new RelationShip("[REF].[" + qs + "]" , "[REF].[" + alias + refMap.getCount() + "]");
 				// changer en qs + refobj
-				RS.setExpression(rel.getRelashionship());
+				RS.setExpression(rel.getRelationship());
 				RS.setCard_left_min("one");
 				RS.setCard_left_max("many");
 

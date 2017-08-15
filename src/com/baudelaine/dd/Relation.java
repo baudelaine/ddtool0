@@ -17,7 +17,7 @@ public class Relation {
 	String pktable_alias = "";	
 	boolean fin = false;
 	boolean ref = false;
-	String relashionship = "";
+	String relationship = "";
 	String key_type = "";
 	List<Seq> seqs = new ArrayList<Seq>();
 	
@@ -81,11 +81,11 @@ public class Relation {
 	public void setRef(boolean ref) {
 		this.ref = ref;
 	}
-	public String getRelashionship() {
-		return relashionship;
+	public String getRelationship() {
+		return relationship;
 	}
 	public void setRelashionship(String relashionship) {
-		this.relashionship = relashionship;
+		this.relationship = relashionship;
 	}
 
 	public String getKey_type() {

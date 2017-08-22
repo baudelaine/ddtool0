@@ -8,6 +8,7 @@ var $finTab = $("a[href='#Final']");
 var $qsTab = $("a[href='#QuerySubject']");
 var activeTab = "Final";
 var $activeSubDatasTable = "";
+var $newRowModal = $('#newRowModal');
 
 // var url = "js/PROJECT.json";
 
@@ -21,6 +22,7 @@ qsCols.push({field:"type", title: "type", sortable: true});
 qsCols.push({field:"visible", title: "visible", formatter: "boolFormatter", align: "center", sortable: false});
 qsCols.push({field:"filter", title: "filter", editable: {type: "textarea"}, sortable: true});
 qsCols.push({field:"label", title: "label", editable: {type: "textarea"}, sortable: true});
+qsCols.push({field:"operate", title: "operate", formatter: "operateQSFormatter", align: "center", events: "operateQSEvents"});
 
 var relationCols = [];
 relationCols.push({field:"checkbox", checkbox: "true"});
@@ -33,7 +35,7 @@ relationCols.push({field:"pktable_alias", title: "pktable_alias", sortable: true
 relationCols.push({field:"relationship", title: "relationship", editable: {type: "textarea", rows: 4}});
 relationCols.push({field:"fin", title: "fin", formatter: "boolFormatter", align: "center"});
 relationCols.push({field:"ref", title: "ref", formatter: "boolFormatter", align: "center"});
-relationCols.push({field:"operate", title: "operate", formatter: "operateFormatter", align: "center", events: "operateEvents"});
+relationCols.push({field:"operate", title: "operate", formatter: "operateRelationFormatter", align: "center", events: "operateRelationEvents"});
 
 // relationCols.push({field:"linker", formatter: "boolFormatter", align: "center", title: "linker"});
 // relationCols.push({field:"linker_ids", title: "linker_ids"});
@@ -49,6 +51,7 @@ fieldCols.push({field:"timezone", title: "timezone", formatter: "boolFormatter",
 
 $(document)
 .ready(function() {
+  $('#DatasToolbar').hide();
   ChooseTable($tableList);
   buildTable($datasTable, qsCols, datas, true);
 })
@@ -78,6 +81,7 @@ $qsTab.on('shown.bs.tab', function(e) {
   $datasTable.bootstrapTable('showColumn', 'visible');
   $datasTable.bootstrapTable('showColumn', 'filter');
   $datasTable.bootstrapTable('showColumn', 'label');
+  $datasTable.bootstrapTable('hideColumn', 'operate');
 });
 
 $finTab.on('shown.bs.tab', function(e) {
@@ -85,6 +89,7 @@ $finTab.on('shown.bs.tab', function(e) {
   // $datasTable.bootstrapTable("filterBy", {type: ['Final'], key_type: ['F', 'C']});
   // $datasTable.bootstrapTable('hideColumn', 'fin');
   // $datasTable.bootstrapTable('showColumn', 'ref');
+  $datasTable.bootstrapTable('showColumn', 'operate');
   $datasTable.bootstrapTable('hideColumn', 'visible');
   $datasTable.bootstrapTable('hideColumn', 'filter');
   $datasTable.bootstrapTable('hideColumn', 'label');
@@ -96,6 +101,7 @@ $refTab.on('shown.bs.tab', function(e) {
   // $datasTable.bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F','P', 'C']});
   // $datasTable.bootstrapTable('hideColumn', 'fin');
   // $datasTable.bootstrapTable('showColumn', 'ref');
+  $datasTable.bootstrapTable('showColumn', 'operate');
   $datasTable.bootstrapTable('hideColumn', 'visible');
   $datasTable.bootstrapTable('hideColumn', 'filter');
   $datasTable.bootstrapTable('hideColumn', 'label');
@@ -140,7 +146,19 @@ $datasTable.on('expand-row.bs.table', function (index, row, $detail) {
 
 });
 
-window.operateEvents = {
+$newRowModal.on('show.bs.modal', function (e) {
+  // do something...
+	ChooseQuerySubject($('#modQuerySubject'));
+	ChooseTable($('#modPKTables'));
+
+})
+
+$('#modPKTables').change(function () {
+    selectedText = $(this).find("option:selected").text();
+		$('#modPKTableAlias').val(selectedText);
+});
+
+window.operateRelationEvents = {
     'click .duplicate': function (e, value, row, index) {
         // alert('You click duplicate action, row: ' + JSON.stringify(row));
         $activeSubDatasTable.bootstrapTable("filterBy", {});
@@ -166,17 +184,40 @@ window.operateEvents = {
     }
 };
 
-function operateFormatter(value, row, index) {
+window.operateQSEvents = {
+    'click .addRelation': function (e, value, row, index) {
+
+      console.log("++++++++++++++on passe dans window.operateQSEvents.add");
+      if($activeSubDatasTable != ""){
+
+        var v = $activeSubDatasTable.bootstrapTable('getData');
+        console.log("+++++++++++ $activeSubDatasTable");
+        console.log(v);
+      }
+      $newRowModal.modal('toggle');
+      var qs = row._id + ' - ' + row.table_name;
+      $('#modQuerySubject').selectpicker('val', qs);
+
+
+    }
+};
+
+function operateRelationFormatter(value, row, index) {
     return [
         '<a class="duplicate" href="javascript:void(0)" title="Duplicate">',
         '<i class="glyphicon glyphicon-duplicate"></i>',
         '</a>  ',
-        '<a class="add" href="javascript:void(0)" title="Add">',
-        '<i class="glyphicon glyphicon-plus-sign"></i>',
-        '</a>  ',
         '<a class="remove" href="javascript:void(0)" title="Remove">',
         '<i class="glyphicon glyphicon-trash"></i>',
         '</a>'
+    ].join('');
+}
+
+function operateQSFormatter(value, row, index) {
+    return [
+        '<a class="addRelation" href="javascript:void(0)" title="Add Relation">',
+        '<i class="glyphicon glyphicon-plus-sign"></i>',
+        '</a>  '
     ].join('');
 }
 
@@ -195,7 +236,7 @@ function expandTable($detail, cols, data) {
     console.log("expandTable.data=");
     console.log(data);
     $activeSubDatasTable = $subtable;
-    buildSubTable($subtable, cols, data, false);
+    buildSubTable($subtable, cols, data);
 }
 
 function buildSubTable($el, cols, data, detailView){
@@ -208,8 +249,8 @@ function buildSubTable($el, cols, data, detailView){
       columns: cols,
       // url: url,
       data: data,
-      showToggle: true,
-      search: true,
+      showToggle: false,
+      search: false,
       checkboxHeader: false,
       idField: "index",
       onClickCell: function (field, value, row, $element){
@@ -264,21 +305,21 @@ function buildSubTable($el, cols, data, detailView){
 
 }
 
-function buildTable($el, cols, data, detailView) {
+function buildTable($el, cols, data) {
 
     $el.bootstrapTable({
         columns: cols,
         // url: url,
         // data: data,
-        search: true,
+        search: false,
 				showRefresh: false,
 				showColumns: false,
-				showToggle: true,
+				showToggle: false,
 				pagination: false,
 				showPaginationSwitch: false,
         idField: "index",
-				toolbar: "#DatasToolbar",
-        detailView: detailView,
+				// toolbar: "#DatasToolbar",
+        detailView: true,
         onClickCell: function (field, value, row, $element){
           if(field == "visible"){
             var newValue = value == false ? true : false;
@@ -337,6 +378,28 @@ function updateRow($table, index, row){
     row: row
   });
 
+}
+
+function AddRow(){
+
+	var qs = $('#modQuerySubject').find("option:selected").text().split(" ");
+
+	console.log("qs=" + qs);
+
+	var relation = {};
+
+	relation.key_name = $('#modKeyName').val();
+	relation.table_alias = qs[0];
+	relation.table_name = qs[2];
+	relation.pktable_alias = $('#modPKTableAlias').val();
+	relation.pktable_name = $('#modPKTables').find("option:selected").text()
+	relation.relashionship = $('#modRelashionship').val();
+	relation.type = qs[1];
+	relation.key_type = 'C';
+	relation._id = qs[0] + qs[1] + relation.table_alias + relation.key_type;
+
+	console.log("relation");
+	console.log(relation);
 }
 
 function GetQuerySubjects(table_name, table_alias, type, pk) {
@@ -399,6 +462,20 @@ function GetQuerySubjects(table_name, table_alias, type, pk) {
   if(activeTab == 'Reference'){
     // $('#DatasTable').bootstrapTable("filterBy", {type: ['Final', 'Ref'], key_type: ['F', 'P']});
   }
+
+}
+
+function ChooseQuerySubject(table) {
+
+	table.empty();
+
+  var data = $datasTable.bootstrapTable("getData");
+
+  $.each(data, function(i, obj){
+		//console.log(obj.name);
+		table.append('<option class="fontsize">' + obj._id + ' - ' + obj.table_name +'</option>');
+  });
+  table.selectpicker('refresh');
 
 }
 

@@ -12,20 +12,8 @@ var $newRowModal = $('#newRowModal');
 
 // var url = "js/PROJECT.json";
 
-var qsCols = [];
-qsCols.push({field:"checkbox", checkbox: "true"});
-qsCols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
-qsCols.push({field:"_id", title: "_id", sortable: true});
-qsCols.push({field:"table_name", title: "table_name", sortable: true});
-qsCols.push({field:"table_alias", title: "table_alias", editable: false, sortable: true});
-qsCols.push({field:"type", title: "type", sortable: true});
-qsCols.push({field:"visible", title: "visible", formatter: "boolFormatter", align: "center", sortable: false});
-qsCols.push({field:"filter", title: "filter", editable: {type: "textarea"}, sortable: true});
-qsCols.push({field:"label", title: "label", editable: {type: "textarea"}, sortable: true});
-qsCols.push({field:"operate", title: "operate", formatter: "operateQSFormatter", align: "center", events: "operateQSEvents"});
-
 var relationCols = [];
-relationCols.push({field:"checkbox", checkbox: "true"});
+// relationCols.push({field:"checkbox", checkbox: "true"});
 relationCols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
 relationCols.push({field:"_id", title: "_id", sortable: true});
 relationCols.push({field:"key_name", title: "key_name", sortable: true});
@@ -35,10 +23,25 @@ relationCols.push({field:"pktable_alias", title: "pktable_alias", sortable: true
 relationCols.push({field:"relationship", title: "relationship", editable: {type: "textarea", rows: 4}});
 relationCols.push({field:"fin", title: "fin", formatter: "boolFormatter", align: "center"});
 relationCols.push({field:"ref", title: "ref", formatter: "boolFormatter", align: "center"});
-relationCols.push({field:"operate", title: "operate", formatter: "operateRelationFormatter", align: "center", events: "operateRelationEvents"});
+relationCols.push({field:"duplicate", title: '<i class="glyphicon glyphicon-duplicate"></i>', formatter: "duplicateFormatter", align: "center"});
+relationCols.push({field:"addRelation", title: '<i class="glyphicon glyphicon-plus-sign"></i>', formatter: "addRelationFormatter", align: "center"});
+relationCols.push({field:"remove", title: '<i class="glyphicon glyphicon-trash"></i>', formatter: "removeFormatter", align: "center"});
+// relationCols.push({field:"operate", title: "operate", formatter: "operateRelationFormatter", align: "center", events: "operateRelationEvents"});
 
 // relationCols.push({field:"linker", formatter: "boolFormatter", align: "center", title: "linker"});
 // relationCols.push({field:"linker_ids", title: "linker_ids"});
+
+var qsCols = [];
+// qsCols.push({field:"checkbox", checkbox: "true"});
+qsCols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
+qsCols.push({field:"_id", title: "_id", sortable: true});
+qsCols.push({field:"table_name", title: "table_name", sortable: true});
+qsCols.push({field:"table_alias", title: "table_alias", editable: false, sortable: true});
+qsCols.push({field:"type", title: "type", sortable: true});
+qsCols.push({field:"visible", title: "visible", formatter: "boolFormatter", align: "center", sortable: false});
+qsCols.push({field:"filter", title: "filter", editable: {type: "textarea"}, sortable: true});
+qsCols.push({field:"label", title: "label", editable: {type: "textarea"}, sortable: true});
+// qsCols.push({field:"operate", title: "operate", formatter: "operateQSFormatter", align: "center", events: "operateQSEvents"});
 
 var fieldCols = [];
 fieldCols.push({field:"index", title: "index", formatter: "indexFormatter", sortable: false});
@@ -154,12 +157,25 @@ $newRowModal.on('show.bs.modal', function (e) {
 })
 
 $('#modPKTables').change(function () {
-    selectedText = $(this).find("option:selected").text();
+    var selectedText = $(this).find("option:selected").text();
 		$('#modPKTableAlias').val(selectedText);
+    var newText = 'CK_' + $('#modQuerySubject').text().split(" - ")[0] + '_' + selectedText;
+    $('#modKeyName').val(newText);
+});
+
+$('#modPKTableAlias').change(function () {
+    var newText = 'CK_' + $('#modQuerySubject').text().split(" - ")[0] + '_' + $('#modPKTableAlias').val();
+    $('#modKeyName').val(newText);
 });
 
 window.operateRelationEvents = {
     'click .duplicate': function (e, value, row, index) {
+      console.log("+++++ on entre dans click .duplicate");
+      console.log(e);
+      console.log(value);
+      console.log(row);
+      console.log(index);
+
         // alert('You click duplicate action, row: ' + JSON.stringify(row));
         $activeSubDatasTable.bootstrapTable("filterBy", {});
         nextIndex = row.index + 1;
@@ -174,6 +190,7 @@ window.operateRelationEvents = {
         console.log("newRow");
         console.log(newRow);
         $activeSubDatasTable.bootstrapTable('insertRow', {index: nextIndex, row: newRow});
+        console.log("+++++ on sort de click .duplicate");
 
     },
     'click .remove': function (e, value, row, index) {
@@ -187,18 +204,34 @@ window.operateRelationEvents = {
 window.operateQSEvents = {
     'click .addRelation': function (e, value, row, index) {
 
+      console.log("index=" + index);
+      // $datasTable.bootstrapTable('expandAllRows');
+      $datasTable.bootstrapTable('expandRow', index);
+
       console.log("++++++++++++++on passe dans window.operateQSEvents.add");
       if($activeSubDatasTable != ""){
 
         var v = $activeSubDatasTable.bootstrapTable('getData');
         console.log("+++++++++++ $activeSubDatasTable");
+
         console.log(v);
+        $newRowModal.modal('toggle');
+        var qs = row.table_alias + ' - ' + row.type + ' - ' + row.table_name;
+        // $('#modQuerySubject').selectpicker('val', qs);
+
+        $('#modQuerySubject').text(qs);
+        $('#modKeyName').val("CK_" + row.table_alias);
+        $('#modPKTableAlias').val("");
+        $('#modRelashionship').val("");
+
       }
-      $newRowModal.modal('toggle');
-      var qs = row._id + ' - ' + row.table_name;
-      $('#modQuerySubject').selectpicker('val', qs);
 
-
+    },
+    'click .expandAllQS': function (e, value, row, index) {
+      $datasTable.bootstrapTable("expandAllRows")
+    },
+    'click .collapseAllQS': function (e, value, row, index) {
+      $datasTable.bootstrapTable("collapseAllRows")
     }
 };
 
@@ -217,13 +250,47 @@ function operateQSFormatter(value, row, index) {
     return [
         '<a class="addRelation" href="javascript:void(0)" title="Add Relation">',
         '<i class="glyphicon glyphicon-plus-sign"></i>',
-        '</a>  '
+        '</a>  ',
+        '<a class="expandAllQS" href="javascript:void(0)" title="Expand all QS">',
+        '<i class="glyphicon glyphicon-resize-full"></i>',
+        '</a>  ',
+        '<a class="collapseAllQS" href="javascript:void(0)" title="Collapse all QS">',
+        '<i class="glyphicon glyphicon-resize-small"></i>',
+        '</a>'
+    ].join('');
+}
+
+function addRelationFormatter(value, row, index) {
+    return [
+        '<a class="addRelation" href="javascript:void(0)" title="Add Relation">',
+        '<i class="glyphicon glyphicon-plus-sign"></i>',
+        '</a>'
     ].join('');
 }
 
 function boolFormatter(value, row, index) {
   var icon = value == true ? 'glyphicon-check' : 'glyphicon-unchecked'
-  return '<i class="glyphicon ' + icon + '"></i> ';
+  return [
+    '<a href="javascript:void(0)">',
+    '<i class="glyphicon ' + icon + '"></i> ',
+    '</a>'
+  ].join('');
+}
+
+function duplicateFormatter(value, row, index) {
+  return [
+      '<a class="duplicate" href="javascript:void(0)" title="Duplicate">',
+      '<i class="glyphicon glyphicon-duplicate"></i>',
+      '</a>'
+  ].join('');
+}
+
+function removeFormatter(value, row, index) {
+  return [
+      '<a class="remove" href="javascript:void(0)" title="Remove">',
+      '<i class="glyphicon glyphicon-trash"></i>',
+      '</a>'
+  ].join('');
 }
 
 function indexFormatter(value, row, index) {
@@ -231,15 +298,15 @@ function indexFormatter(value, row, index) {
   return index;
 }
 
-function expandTable($detail, cols, data) {
+function expandTable($detail, cols, data, parentData) {
     $subtable = $detail.html('<table></table>').find('table');
     console.log("expandTable.data=");
     console.log(data);
     $activeSubDatasTable = $subtable;
-    buildSubTable($subtable, cols, data);
+    buildSubTable($subtable, cols, data, parentData);
 }
 
-function buildSubTable($el, cols, data, detailView){
+function buildSubTable($el, cols, data, parentData){
 
   console.log("activeTab=" + activeTab);
 
@@ -288,6 +355,41 @@ function buildSubTable($el, cols, data, detailView){
           }
 
         }
+
+        if(field.match("duplicate")){
+          // $activeSubDatasTable.bootstrapTable("filterBy", {});
+          nextIndex = row.index + 1;
+          console.log("nextIndex=" + nextIndex);
+          var newRow = $.extend({}, row);
+          newRow.checkbox = false;
+          newRow.pktable_alias = "";
+          newRow.fin = false;
+          newRow.ref = false;
+          newRow.relationship = newRow.relationship.replace(/ = \[FINAL\]\./g, " = ");
+          newRow.relationship = newRow.relationship.replace(/ = \[REF\]\./g, " = ");
+          console.log("newRow");
+          console.log(newRow);
+          $el.bootstrapTable('insertRow', {index: nextIndex, row: newRow});
+        }
+
+        if(field.match("remove")){
+          $el.bootstrapTable('remove', {
+              field: 'index',
+              values: [row.index]
+          });
+        }
+        if(field.match("addRelation")){
+          $activeSubDatasTable = $el;
+          $newRowModal.modal('toggle');
+          var qs = parentData.table_alias + ' - ' + parentData.type + ' - ' + parentData.table_name;
+          // $('#modQuerySubject').selectpicker('val', qs);
+
+          $('#modQuerySubject').text(qs);
+          $('#modKeyName').val("CK_" + parentData.table_alias);
+          $('#modPKTableAlias').val("");
+          $('#modRelashionship').val("");
+        }
+
       }
   });
 
@@ -336,10 +438,10 @@ function buildTable($el, cols, data) {
         },
         onExpandRow: function (index, row, $detail) {
           if(activeTab == "Final" || activeTab == "Reference"){
-            expandTable($detail, relationCols, row.relations);
+            expandTable($detail, relationCols, row.relations, row);
           }
           else{
-            expandTable($detail, fieldCols, row.fields);
+            expandTable($detail, fieldCols, row.fields, row);
           }
         }
     });
@@ -380,26 +482,65 @@ function updateRow($table, index, row){
 
 }
 
-function AddRow(){
+function AddRow($table){
 
-	var qs = $('#modQuerySubject').find("option:selected").text().split(" ");
+  if( $table == undefined){
+    $table = $activeSubDatasTable;
+  }
 
-	console.log("qs=" + qs);
+  // var relation = {
+  // 	_id : "",
+  // 	_ref : null,
+  // 	table_name : "",
+  // 	key_name : "",
+  //   fk_name : "",
+  //   pk_name : "",
+  // 	key_type : "",
+  // 	pktable_name : "",
+  // 	pktable_alias : "",
+  // 	relationship : "",
+  // 	fin : false,
+  // 	ref : false,
+  //   seqs : []
+  // };
+  var relation = {};
 
-	var relation = {};
+  relation.relationship = $('#modRelashionship').val();
+  relation.ref = null;
+  relation.table_name = $('#modQuerySubject').text().split(" - ")[2];
+  relation.key_name = $('#modKeyName').val();
+  relation.fk_name = "";
+  relation.pk_name = "";
+  relation.key_type = 'C';
+  relation.pktable_name = $('#modPKTables').find("option:selected").text()
+  relation.pktable_alias = $('#modPKTableAlias').val();
+  relation.fin = false;
+  relation.ref = false;
+  relation.seqs = [];
+  relation._id = $('#modKeyName').val() + relation.key_type;
 
-	relation.key_name = $('#modKeyName').val();
-	relation.table_alias = qs[0];
-	relation.table_name = qs[2];
-	relation.pktable_alias = $('#modPKTableAlias').val();
-	relation.pktable_name = $('#modPKTables').find("option:selected").text()
-	relation.relashionship = $('#modRelashionship').val();
-	relation.type = qs[1];
-	relation.key_type = 'C';
-	relation._id = qs[0] + qs[1] + relation.table_alias + relation.key_type;
+  var data = $datasTable.bootstrapTable("getData");
 
-	console.log("relation");
-	console.log(relation);
+  var qs = $('#modQuerySubject').text().split(" - ")[0] + $('#modQuerySubject').text().split(" - ")[1]
+
+  $.each(data, function(i, obj){
+    //console.log(obj.name);
+    if(obj._id.match(qs)){
+      // obj.relations.push(relation);
+    }
+  });
+
+  console.log("relation");
+  console.log(relation);
+
+  $table.bootstrapTable("filterBy", {});
+
+	nextIndex = $table.bootstrapTable("getData").length;
+	console.log("nextIndex=" + nextIndex);
+	$table.bootstrapTable('insertRow', {index: nextIndex, row: relation});
+
+  $newRowModal.modal('toggle');
+
 }
 
 function GetQuerySubjects(table_name, table_alias, type, pk) {
@@ -411,7 +552,7 @@ function GetQuerySubjects(table_name, table_alias, type, pk) {
 	}
 
   if (table_name == 'Choose a table...') {
-		showalert("GetQuerySubjects(): no table selected.", "alert-warning");
+		showalert("GetQuerySubjects()", "No table selected.", "alert-warning");
 		return;
 	}
 
@@ -439,9 +580,9 @@ function GetQuerySubjects(table_name, table_alias, type, pk) {
 
     success: function(data) {
 			console.log(data);
-			if (data == "") {
-				showalert("GetQuerySubjects(): " + table_name + " has no key.", "alert-info");
-				return;
+			if (data[0].relations.length == 0) {
+				showalert("GetQuerySubjects()", table_name + " has no key.", "alert-info");
+				// return;
 			}
 
 			$datasTable.bootstrapTable('append', data);
@@ -451,7 +592,7 @@ function GetQuerySubjects(table_name, table_alias, type, pk) {
   	},
       error: function(data) {
           console.log(data);
-          showalert("GetQuerySubjects() failed.", "alert-danger");
+          showalert("GetQuerySubjects()", "Operation failed.", "alert-danger");
     }
 
   });
@@ -498,22 +639,45 @@ function ChooseTable(table) {
 			        },
         error: function(data) {
             console.log(data);
-            showalert("ChooseTable() failed.", "alert-danger");
+            showalert("ChooseTable()", "Operation failed.", "alert-danger");
         }
 		});
 
 }
 
-function showalert(message, alerttype) {
+function showalert(title, message, alerttype) {
 
-    $('#alert_placeholder').append('<div id="alertdiv" class="alert ' +
-		alerttype + ' input-sm"><span>' + message + '</span></div>')
+    // $('#alert_placeholder').append('<div id="alertdiv" class="alert ' +
+		// alerttype + ' input-sm"><span>' + message + '</span></div>')
+    //
+    // setTimeout(function() {
+    //
+    //   $("#alertdiv").remove();
+    //
+    // }, 2500);
 
-    setTimeout(function() {
+    // if($('#alertmsg').length){
+    $('#alertmsg').remove();
+    // }
 
-      $("#alertdiv").remove();
+    var $newDiv = $('<div/>')
+       .attr( 'id', 'alertmsg' )
+       .html(
+          '<h4>' + title + '</h4>' +
+          '<p>' +
+          message +
+          '</p>'
+        )
+       .addClass('alert ' + alerttype + ' flyover flyover-top');
+    $('#alert_placeholder').append($newDiv);
 
-    }, 2500);
+    if ( !$('#alertmsg').is( '.in' ) ) {
+      $('#alertmsg').addClass('in');
+
+      setTimeout(function() {
+         $('#alertmsg').removeClass('in');
+      }, 3200);
+    }
 }
 
 function TestDBConnection() {
@@ -525,11 +689,11 @@ function TestDBConnection() {
 
         success: function(data) {
             console.log(data);
-            showalert("TestDBConnection() was successfull.", "alert-success");
+            showalert("TestDBConnection()", "Connection to database was successfull.", "alert-success");
         },
         error: function(data) {
             console.log(data);
-            showalert("TestDBConnection() failed.", "alert-danger");
+            showalert("TestDBConnection()", "Connection to database failed.", "alert-danger");
         }
 
     });
@@ -556,13 +720,19 @@ function Reset() {
     });
 
 	if (success == "KO") {
-		showalert("Reset() failed.", "alert-danger");
+		showalert("Reset()", "Operation failed.", "alert-danger");
 	}
 
 	location.reload(true);
 
 }
 
+function GetTableData(){
+		var data = $datasTable.bootstrapTable("getData");
+		console.log("data=");
+		console.log(data);
+
+}
 // function refreshTable($table){
 // 	var data = $table.bootstrapTable("getData");
 // 	$table.bootstrapTable('load', data);

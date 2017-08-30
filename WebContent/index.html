@@ -31,6 +31,7 @@
 				<form class="navbar-form navbar-left">
 
 							<div id="alert_placeholder"></div>
+
 							<div id="divLoading"></div>
 
 				</form>
@@ -49,6 +50,7 @@
 					</div>
 
 						<button type="button" onclick="GetQuerySubjects()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Get Query Subject(s) from table selected above."><span class="glyphicon glyphicon-magnet" aria-hidden="true"></span></button>
+						<button type="button" onclick="GetTableData()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Show object in console"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>
 						<button type="button" onclick="ClearSelections()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove all."><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 
 					<button type="button" onclick="TestDBConnection()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Test connection to server database."><span class="glyphicon glyphicon-signal aria-hidden="true"></span></button>
@@ -76,13 +78,15 @@
 							<div class="row">
 								<div class="form-group">
 									<div class="input-group">
-										<div class="input-group-btn">
+										<!-- <div class="input-group-btn">
 											<select class="selectpicker" data-style="btn-default" id="modQuerySubject" data-live-search="true" title="Choose query subject..."></select>
-										</div>
-											<!-- <div class="input-group">
+										</div> -->
+											<!-- <div class="input-group"> -->
+											<!-- <input type="text" id="modFKTable" class="form-control disabled" placeholder="fktable">
 											<span class="input-group-addon">@</span>
-											<input type="text" id="modFKTableAlias" class="form-control" placeholder="fktable_alias">
-											</div> -->
+											<input type="text" id="modFKTableAlias" class="form-control disabled" placeholder="fktable_alias"> -->
+											<!-- </div> -->
+											<label id="modQuerySubject" for="modPKTables"></label>
 									</div>
 								</div>
 							</div>
@@ -103,6 +107,7 @@
 
 							<div class="row">
 									<div class="form-group">
+										<label for="modKeyName">key_name</label>
 										<input type="text" id="modKeyName" class="form-control" placeholder="fk_name">
 									</div>
 							</div>
@@ -190,6 +195,8 @@
 				</table>
 
 	</div> <!-- container -->
+
+
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

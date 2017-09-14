@@ -1,6 +1,8 @@
 package com.baudelaine.dd;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import datadixit.limsbi.pojos.RelationShip;
 import datadixit.limsbi.svc.FactorySVC;
@@ -45,6 +52,26 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        String json = "";
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        query_subjects = new HashMap<String, QuerySubject>();
+        
+        if(br != null){
+            while((json = br.readLine()) != null){
+	            System.out.println("json="+json);
+	            QuerySubject query_subject = mapper.readValue(json, QuerySubject.class);
+	            query_subjects.put(query_subject.get_id(), query_subject);
+            }
+        }
+        
+        
+        request.getSession().setAttribute("query_subjects", query_subjects);;
+        
+		
 		query_subjects = (Map<String, QuerySubject>) request.getSession().getAttribute("query_subjects");
 		
 		System.out.println("+++++++++++ query_subjects.size=" + query_subjects.size());
@@ -67,6 +94,38 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 			
 			rsList = new ArrayList<RelationShip>();
 			
+			// create qs in data namespace
+			
+			for(Entry<String, QuerySubject> query_subject: query_subjects.entrySet()){
+				if (query_subject.getValue().getType().equalsIgnoreCase("Final")){
+					
+					FactorySVC.createQuerySubject("PHYSICAL", "FINAL", query_subject.getValue().getTable_name(), query_subject.getValue().getTable_alias());
+					System.out.println("FactorySVC.createQuerySubject PHYSICAL, FINAL, " + query_subject.getValue().getTable_name() + ", " + query_subject.getValue().getTable_alias());
+
+					FactorySVC.createQuerySubject("FINAL", "DATA", query_subject.getValue().getTable_alias() , query_subject.getValue().getTable_alias());
+					
+					for(Relation rel: query_subject.getValue().getRelations()){
+						if(rel.isFin()){
+					
+							RelationShip RS = new RelationShip("[DATA].[" + query_subject.getValue().getTable_alias() + "]" , "[DATA].[" + rel.getPktable_alias() + "]");
+							// changer en qs + refobj
+							RS.setExpression(rel.getRelationship());
+							RS.setCard_left_min("one");
+							RS.setCard_left_max("many");
+		
+							RS.setCard_right_min("one");
+							RS.setCard_right_max("one");
+							RS.setParentNamespace("DATA");
+							rsList.add(RS);					
+					
+						}	
+					}
+					
+				}
+			}
+
+			// start creation troncs
+			
 			for(Entry<String, QuerySubject> query_subject: query_subjects.entrySet()){
 	
 				// on reset tout les inc de gRefMap
@@ -78,12 +137,8 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 				System.out.println("+++++++++++++++ table=" + query_subject.getValue().getTable_name());
 				System.out.println("+++++++++++++++ type=" + query_subject.getValue().getType());
 				
-				if (query_subject.getValue().getType().equalsIgnoreCase("Final")){
-					FactorySVC.createQuerySubject("PHYSICAL", "FINAL", query_subject.getValue().getTable_name(), query_subject.getValue().getTable_alias());
-					System.out.println("FactorySVC.createQuerySubject PHYSICAL, FINAL, " + query_subject.getValue().getTable_name() + ", " + query_subject.getValue().getTable_alias());
-					
-					
-					
+				if (query_subject.getValue().getType().equalsIgnoreCase("Final")){					
+								
 					for(Relation rel: query_subject.getValue().getRelations()){
 						if(rel.isRef()){
 							
@@ -120,17 +175,17 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 							qs = alias + refMap.getInc();
 
 							// on cree un arbre pour la seq[0] de chaque ref cochée du qs  final
-							String champ = rel.getSeqs().get(0).getColumn_name();
+//							String champ = rel.getSeqs().get(0).getColumn_name();
 //							Dossier dossier = new Dossier(champ.toLowerCase(), qs, champ.toUpperCase());
-							String clef = query_subject.getValue().getTable_alias() + "." +  champ + "." + qs;
-							String FolderName = champ.toLowerCase();
-							String QSRef = qs;
-							String QS = alias;
-							String reoderBefore = champ.toUpperCase();
-							String valeurSep = ";";
-							String valeur = FolderName + valeurSep + QSRef + valeurSep + reoderBefore + valeurSep + QS;
+//							String clef = query_subject.getValue().getTable_alias() + "." +  champ + "." + qs;
+//							String FolderName = champ.toLowerCase();
+//							String QSRef = qs;
+//							String QS = alias;
+//							String reoderBefore = champ.toUpperCase();
+//							String valeurSep = ";";
+//							String valeur = FolderName + valeurSep + QSRef + valeurSep + reoderBefore + valeurSep + QS;
 //							arbres.put(clef, new DefaultMutableTreeNode(valeur));
-							refMap.addNoeud(qs, new DefaultMutableTreeNode(valeur));
+//							refMap.addNoeud(qs, new DefaultMutableTreeNode(valeur));
 							
 							RelationShip RS = new RelationShip("[FINAL].[" + query_subject.getValue().getTable_alias() + "]" , "[REF].[" + qs + "]");
 							
@@ -148,7 +203,9 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 							// to be changed in
 							// "and <refobj>" + [SYSUSERX].[DEFAULTDEPARTMENT] + "</refobj> = <refobj>" + [DEPARTMENTX].[DEPARTMENTID] + "</refobj>"
 							
-							RS.setExpression(exp);
+//							System.out.println("******** REGEX EXP =" +exp.replaceAll("\\[REF\\]\\.\\[[^\\]]+\\]", "[REF].["+qs+"]"));
+							String fixedExp = StringUtils.replace(exp, "[REF].[" + alias + "]", "[REF].[" + qs + "]");
+							RS.setExpression(fixedExp);
 							
 							RS.setCard_left_min("one");
 							RS.setCard_left_max("many");
@@ -157,15 +214,38 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 							RS.setCard_right_max("one");
 							RS.setParentNamespace("AUTOGENERATION");
 							rsList.add(RS);
+
+							String gTableAlias = query_subject.getValue().getTable_alias();
+							String gFieldName = rel.getSeqs().get(0).getColumn_name();
+							String gDirName = "." + rel.getSeqs().get(0).getColumn_name();
+							System.out.println("QS=" + qs);
+							refMap.addDir(qs, "[DATA].[" + gTableAlias + "];" + gDirName);
 							
+							FactorySVC.createSubFolder("[DATA].[" + gTableAlias + "]", gDirName);
+							
+							FactorySVC.ReorderSubFolderBefore("[DATA].[" + gTableAlias + "].[" + gDirName + "]", "[DATA].[" + gTableAlias + "].[" + gFieldName + "]");
+							
+							for(Field field: query_subjects.get(alias + "Ref").getFields()){
+								
+								FactorySVC.createQueryItemInFolder("[DATA].[" + gTableAlias + "]", gDirName, gDirName + "." + field.getField_name(), "[REF].["+ qs +"].[" + field.getField_name() + "]");
+//							
+//							FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.baseDepartment");
+//							
+//							FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy.baseDepartment", "createBy.baseDepartment.DEPARTMENTID", "[REF].[DEPARTMENT4].[DEPARTMENTID]");
+								
+							}
+								
 						}
 					}
 
 				}
 	
 		    }
-			
 			// end creation troncs
+			
+
+			
+			
 
 			Map<String, RefMap> troncs = new HashMap<String, RefMap>();
 			
@@ -193,34 +273,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 				
 			}
 			
-			// create qs in data namespace
-			
-			for(Entry<String, QuerySubject> query_subject: query_subjects.entrySet()){
-				if (query_subject.getValue().getType().equalsIgnoreCase("Final")){
-					
-					FactorySVC.createQuerySubject("FINAL", "DATA", query_subject.getValue().getTable_alias() , query_subject.getValue().getTable_alias());
-					
-					for(Relation rel: query_subject.getValue().getRelations()){
-						if(rel.isFin()){
-					
-							RelationShip RS = new RelationShip("[DATA].[" + query_subject.getValue().getTable_alias() + "]" , "[DATA].[" + rel.getPktable_alias() + "]");
-							// changer en qs + refobj
-							RS.setExpression(rel.getRelationship());
-							RS.setCard_left_min("one");
-							RS.setCard_left_max("many");
-		
-							RS.setCard_right_min("one");
-							RS.setCard_right_max("one");
-							RS.setParentNamespace("DATA");
-							rsList.add(RS);					
-					
-						}	
-					}
-					
-					
-					
-				}
-			}
+
 			
 			// create folders in qs
 			
@@ -279,6 +332,9 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 
 	protected void f0(String aliasTronc, String qs){
 		
+		System.out.println("aliasTronc=" + aliasTronc);
+		System.out.println("qs=" + qs);
+	
 		QuerySubject query_subject = query_subjects.get(aliasTronc + "Ref");
 		
 		System.out.println("+-+-+-+-" + query_subject.get_id());
@@ -292,12 +348,30 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 				if(refMap == null){
 					System.out.println("+-+-+-+- ON RENTRE DANS LE NULL");
 					refMap = new RefMap();
+					gRefMap.put(alias, refMap);
 				}
 				refMap.add(alias, false);
 
-//						gRefMap.put(alias, refMap);
 				
 				FactorySVC.createQuerySubject("PHYSICAL", "REF", rel.getPktable_name(), alias + refMap.getCount());
+				
+
+				RefMap aliasTroncRefMap = gRefMap.get(aliasTronc);
+				
+				
+				for(String dir: aliasTroncRefMap.getDirList().get(qs)){	
+					String qsFinal = dir.split(";")[0];
+					String rep = dir.split(";")[1];
+					System.out.println("dir=" + dir + ";qsFinal=" + qsFinal + ";rep=" + rep);
+					System.out.println("rel.getSeqs().get(0).getColumn_name()=" + rel.getSeqs().get(0).getColumn_name());
+					FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", ".SUBMITTERID", ".SUBMITTERID.DEFAULTDEPARTMENT_Blabla");
+//					FactorySVC.createSubFolderInSubFolder(qsFinal, rep, rep + "." + rel.getSeqs().get(0).getColumn_name());
+					System.out.println("rep créé :" + rep + "." + rel.getSeqs().get(0).getColumn_name());
+					refMap.addDir(alias + refMap.getCount(), qsFinal + ";" + rep + "." + rel.getSeqs().get(0).getColumn_name());
+//					FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy.baseDepartment", "createBy.baseDepartment.DEPARTMENTID", "[REF].[DEPARTMENT4].[DEPARTMENTID]");
+				}
+
+				
 
 //				for(Entry<String, DefaultMutableTreeNode> arbre: arbres.entrySet()){
 
@@ -334,6 +408,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 	        	
 				
 //				for(DefaultMutableTreeNode noeud: rfg.getNoeuds(qs)){
+	/*        	
 		        	System.out.print("------------- ON PASS DANS LA BOUCLE ");
 		        	DefaultMutableTreeNode noeud = rfg.getNoeuds(qs).get(0);
 					String FolderNameDuPere = noeud.toString().split(";")[0];
@@ -346,14 +421,16 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 					System.out.print("-------------" + qs + "-------------");
 					
 					System.out.print("-------------" + newChild.toString() + "-------------");
-	
+	*/
 //				}
 				
 				
 				
 				RelationShip RS = new RelationShip("[REF].[" + qs + "]" , "[REF].[" + alias + refMap.getCount() + "]");
 				// changer en qs + refobj
-				RS.setExpression(rel.getRelationship());
+				String fixedExp = StringUtils.replace(rel.getRelationship(), "[REF].[" + aliasTronc + "]", "[REF].[" + qs + "]");
+				fixedExp = StringUtils.replace(fixedExp, "[REF].[" + alias + "]", "[REF].[" + alias + refMap.getCount() + "]");
+				RS.setExpression(fixedExp);
 				RS.setCard_left_min("one");
 				RS.setCard_left_max("many");
 

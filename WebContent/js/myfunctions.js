@@ -575,6 +575,19 @@ function GetQuerySubjects(table_name, table_alias, type, pk) {
 		pk = false;
 	}
 
+  var qsAlreadyExist = false;
+
+  $.each($datasTable.bootstrapTable("getData"), function(i, obj){
+		//console.log(obj.name);
+    if(obj._id == table_alias + type){
+      qsAlreadyExist = true;
+    }
+  });
+
+  if(qsAlreadyExist){
+    return;
+  }
+
 	var parms = "table=" + table_name + "&alias=" + table_alias + "&type=" + type + "&pk=" + pk;
 
 	console.log("calling GetKeys with: " + parms);
@@ -708,6 +721,33 @@ function TestDBConnection() {
         }
 
     });
+
+}
+
+function Publish(){
+
+	var data = $datasTable.bootstrapTable('getData');
+
+	var objs = [];
+
+	$.each(data, function(k, v){
+		var obj = JSON.stringify(v);
+		objs += obj + "\r\n";
+	});
+
+	$.ajax({
+		type: 'POST',
+		url: "SendQuerySubjects",
+		dataType: 'json',
+		data: objs,
+
+		success: function(data) {
+			$('#DatasTable').bootstrapTable('load', data);
+		},
+		error: function(data) {
+			showalert("SyncRelations() failed.", "alert-danger");
+		}
+	});
 
 }
 

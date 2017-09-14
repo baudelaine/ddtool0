@@ -5,15 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 public class RefMap {
 	
 	Integer count = new Integer(0);
 	Integer inc = new Integer(0);
 	Integer treeCount = new Integer(0);
 	Map<String, Boolean> tree = new HashMap<String, Boolean>();
-	Map<String, List<DefaultMutableTreeNode>> noeuds = new HashMap<String, List<DefaultMutableTreeNode>>(); 
+	Map<String, List<String>> dirList = new HashMap<String, List<String>>();
 	
 	public RefMap(Integer count, Integer inc, Integer treeCount,
 			Map<String, Boolean> tree) {
@@ -28,6 +26,21 @@ public class RefMap {
 		// TODO Auto-generated constructor stub
 	}
 
+	public void addDir(String qs, String dir){
+		System.out.println("on passe dans addDir()");
+		System.out.println("on ajoute:" + qs + "->" + dir);
+		List<String> l = this.dirList.get(qs);
+		if(l == null){
+			l = new ArrayList<String>();
+		}
+		l.add(dir);
+		this.dirList.put(qs, l);
+	}
+	
+	public Map<String, List<String>> getDirList(){
+		return this.dirList;
+	}
+	
 	public void add(String alias, boolean tree){
 
 		String s = alias + ++this.count;
@@ -38,10 +51,6 @@ public class RefMap {
 		if(tree == true){
 			this.treeCount++;
 		}
-		
-		List<DefaultMutableTreeNode> l = new ArrayList<DefaultMutableTreeNode>();
-		this.noeuds.put(s, l);
-//		System.out.println("***************** NBRE DE NOEUDS" + this.noeuds.get(s).size());
 		
 	}
 	
@@ -69,15 +78,4 @@ public class RefMap {
 		return this.treeCount;
 	}
 
-	public List<DefaultMutableTreeNode> getNoeuds(String qsRef){
-
-		return this.noeuds.get(qsRef);
-		
-	}
-	
-	public void addNoeud(String qsRef, DefaultMutableTreeNode noeud){
-		this.noeuds.get(qsRef).add(noeud);
-		System.out.println("***************** NBRE DE NOEUDS(" + qsRef + ")" + this.noeuds.get(qsRef).size());
-	}
-	
 }

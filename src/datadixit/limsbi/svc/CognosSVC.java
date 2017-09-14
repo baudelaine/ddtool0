@@ -105,7 +105,7 @@ public class CognosSVC {
 
 				XmlEncodedXML xex = new XmlEncodedXML(root.asXML());
 				
-				System.out.println("-+-+-+-+-++ crnConnect = " + crnConnect);
+//				System.out.println("-+-+-+-+-++ crnConnect = " + crnConnect);
 
 				String res = crnConnect.getMetadataService().updateMetadata(xex).toString();
 

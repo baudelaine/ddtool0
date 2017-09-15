@@ -40,6 +40,7 @@ qsCols.push({field:"type", title: "type", sortable: true});
 qsCols.push({field:"visible", title: "visible", formatter: "boolFormatter", align: "center", sortable: false});
 qsCols.push({field:"filter", title: "filter", editable: {type: "textarea"}, sortable: true});
 qsCols.push({field:"label", title: "label", editable: {type: "textarea"}, sortable: true});
+qsCols.push({field:"recurseCount", title: "recurseCount", editable: true, sortable: false});
 qsCols.push({field:"addRelation", title: '<i class="glyphicon glyphicon-plus-sign" title="Add new relation"></i>', formatter: "addRelationFormatter", align: "center"});
 
 var fieldCols = [];
@@ -84,6 +85,8 @@ $qsTab.on('shown.bs.tab', function(e) {
   $datasTable.bootstrapTable('showColumn', 'filter');
   $datasTable.bootstrapTable('showColumn', 'label');
   $datasTable.bootstrapTable('hideColumn', 'operate');
+  $datasTable.bootstrapTable('hideColumn', 'addRelation');
+  $datasTable.bootstrapTable('hideColumn', 'recurseCount');
 });
 
 $finTab.on('shown.bs.tab', function(e) {
@@ -95,7 +98,8 @@ $finTab.on('shown.bs.tab', function(e) {
   $datasTable.bootstrapTable('hideColumn', 'visible');
   $datasTable.bootstrapTable('hideColumn', 'filter');
   $datasTable.bootstrapTable('hideColumn', 'label');
-
+  $datasTable.bootstrapTable('hideColumn', 'recurseCount');
+  $datasTable.bootstrapTable('showColumn', 'addRelation');
 });
 
 $refTab.on('shown.bs.tab', function(e) {
@@ -107,6 +111,8 @@ $refTab.on('shown.bs.tab', function(e) {
   $datasTable.bootstrapTable('hideColumn', 'visible');
   $datasTable.bootstrapTable('hideColumn', 'filter');
   $datasTable.bootstrapTable('hideColumn', 'label');
+  $datasTable.bootstrapTable('showColumn', 'addRelation');
+  $datasTable.bootstrapTable('showColumn', 'recurseCount');
 });
 
 $datasTable.on('editable-save.bs.table', function (editable, field, row, oldValue, $el) {
@@ -297,6 +303,10 @@ function removeFormatter(value, row, index) {
 function indexFormatter(value, row, index) {
   row.index = index;
   return index;
+}
+
+function recurseCountFormatter(value, row, index) {
+  return 1;
 }
 
 function modValidate(){
@@ -507,13 +517,14 @@ function buildTable($el, cols, data) {
     $el.bootstrapTable('hideColumn', 'visible');
     $el.bootstrapTable('hideColumn', 'filter');
     $el.bootstrapTable('hideColumn', 'label');
+    $el.bootstrapTable('hideColumn', 'recurseCount');
 
     if(activeTab == "Reference"){
       // $el.bootstrapTable("filterBy", {type: ['Final', 'Ref']});
     }
 
     if(activeTab == "Final"){
-      // $el.bootstrapTable("filterBy", {type: ['Final']});
+      //$el.bootstrapTable("filterBy", {type: ['Final']});
     }
 
     if(activeTab == "Query Subject"){
@@ -781,7 +792,8 @@ function Reset() {
 function GetTableData(){
 		var data = $datasTable.bootstrapTable("getData");
 		console.log("data=");
-		console.log(data);
+		console.log(JSON.stringify(data));
+    console.log(data);
 
 }
 // function refreshTable($table){

@@ -227,7 +227,7 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 							
 							for(Field field: query_subjects.get(alias + "Ref").getFields()){
 								
-								FactorySVC.createQueryItemInFolder("[DATA].[" + gTableAlias + "]", gDirName, gDirName + "." + field.getField_name(), "[REF].["+ qs +"].[" + field.getField_name() + "]");
+								FactorySVC.createQueryItemInFolder("[DATA].[" + gTableAlias + "]", gDirName, gFieldName + "." + field.getField_name(), "[REF].["+ qs +"].[" + field.getField_name() + "]");
 //							
 //							FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.baseDepartment");
 //							
@@ -364,11 +364,24 @@ public class SendQuerySubjectsServlet extends HttpServlet {
 					String rep = dir.split(";")[1];
 					System.out.println("dir=" + dir + ";qsFinal=" + qsFinal + ";rep=" + rep);
 					System.out.println("rel.getSeqs().get(0).getColumn_name()=" + rel.getSeqs().get(0).getColumn_name());
-					FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", ".SUBMITTERID", ".SUBMITTERID.DEFAULTDEPARTMENT_Blabla");
-//					FactorySVC.createSubFolderInSubFolder(qsFinal, rep, rep + "." + rel.getSeqs().get(0).getColumn_name());
+//					FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", ".SUBMITTERID", ".SUBMITTERID.DEFAULTDEPARTMENT_Blabla");
+					FactorySVC.createSubFolderInSubFolder(qsFinal, rep, rep + "." + rel.getSeqs().get(0).getColumn_name());
 					System.out.println("rep créé :" + rep + "." + rel.getSeqs().get(0).getColumn_name());
+					FactorySVC.ReorderSubFolderBefore(qsFinal + ".[" + rep + "." + rel.getSeqs().get(0).getColumn_name() + "]", 
+							qsFinal + ".[" + rep.substring(1) + "." + rel.getSeqs().get(0).getColumn_name() + "]");
 					refMap.addDir(alias + refMap.getCount(), qsFinal + ";" + rep + "." + rel.getSeqs().get(0).getColumn_name());
+					
+					for(Field field: query_subjects.get(alias + "Ref").getFields()){
+						
+						FactorySVC.createQueryItemInFolder(qsFinal, rep + "." + rel.getSeqs().get(0).getColumn_name(), rep.substring(1) + "." + rel.getSeqs().get(0).getColumn_name() + "." + field.getField_name(), "[REF].["+ alias + refMap.getCount() +"].[" + field.getField_name() + "]");
+//					
+//					FactorySVC.createSubFolderInSubFolder("[DATA].[S_SAMPLE]", "createBy", "createBy.baseDepartment");
+//					
 //					FactorySVC.createQueryItemInFolder("[DATA].[S_SAMPLE]", "createBy.baseDepartment", "createBy.baseDepartment.DEPARTMENTID", "[REF].[DEPARTMENT4].[DEPARTMENTID]");
+						
+					}
+
+					
 				}
 
 				

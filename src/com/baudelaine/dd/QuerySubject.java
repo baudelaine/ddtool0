@@ -22,6 +22,7 @@ public class QuerySubject {
 	List<Field> fields = new ArrayList<Field>();
 	List<Relation> relations = new ArrayList<Relation>();
 	Map<String, Integer> relationCount = new HashMap<String, Integer>(); 
+	int recurseCount = 1;
 	
 	public void incRelationCount(String qs_id){
 		if(relationCount.get(qs_id) == null){
